@@ -1,14 +1,15 @@
+.formLogo {
+  font-size: 40px;
+  font-weight: 900;
+  text-align: center;
+  padding: 0 0 30px;
+}
+
 .login {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-}
-.login .formLogo {
-  font-size: 40px;
-  font-weight: 900;
-  text-align: center;
-  padding: 0 0 30px;
 }
 .login .loginForm {
   width: 300px;
@@ -60,8 +61,11 @@
      object-fit: cover;
 }
 
-.signup .formLogo {
-  padding-top: 5%;
+.signup {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .signForm {

@@ -9,15 +9,12 @@ export default function Login() {
   const navigate = useNavigate();
   const [loginForm, setLoginForm] = useState({ uid: "", pw: "" });
 
-  const KAKAO_REST_API_KEY  = process.env.REACT_APP_KAKAO_REST_API_KEY 
-  const KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI 
-  const NAVER_CLIENT_ID = process.env.REACT_APP_NAVER_CLIENT_ID
-  const NAVER_REDIRECT_URI = process.env.REACT_APP_NAVER_REDIRECT_URI
   
   console.log();
   // oauth 요청 URL
-  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY }&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`
-  const naverURL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&redirect_uri=${NAVER_REDIRECT_URI}&state=STATE_STRING`
+  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_API_KEY }&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}&response_type=code`
+  const naverURL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${process.env.REACT_APP_NAVER_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_NAVER_REDIRECT_URI}&state=STATE_STRING`
+  const googleURL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_GOOGLE_REDIRECT_URI}&response_type=code&scope=email profile`;
 
   const inputUid = useRef(null);
   const inputPw = useRef(null);
@@ -101,8 +98,8 @@ export default function Login() {
         <button type="button" className='connectBtn' onClick={() => handleClickLogin(naverURL)}>
           <img src="/img/naverBtn.png" alt="" />
         </button>
-        <button type="button" className='connectBtn' >
-          <img src="/img/kakao_login_medium_wide.png" alt="" />
+        <button type="button" className='connectBtn' onClick={() => handleClickLogin(googleURL)} >
+          구글로그인
         </button>
       </form>
     </div>
