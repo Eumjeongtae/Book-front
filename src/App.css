@@ -1,0 +1,75 @@
+@font-face {
+  font-family: "SOGANGUNIVERSITYTTF";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/SOGANGUNIVERSITYTTF.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+* {
+  margin: 0;
+  padding: 0;
+  font-family: inherit;
+  color:inherit;
+  font-size: inherit;
+  font-style: inherit;
+  text-decoration: inherit;
+  font-weight: inherit;
+  word-break:keep-all ;
+  /* font-family: 'Noto Sans KR', sans-serif; */
+  font-family: "SOGANGUNIVERSITYTTF";
+}
+
+li {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+input,
+select,
+textarea {
+  box-sizing: border-box;
+}
+
+button{
+  border:none;
+  background: none;
+  outline: none;
+  cursor: pointer;
+}
+
+img, iframe, video, svg, canvas{
+  display: block;
+}
+
+iframe{
+  border: none;
+}
+
+.hidden{
+  position: fixed;
+  left:-10000px;
+}
+fieldset{
+  border: none;
+}
+
+.inner{
+  width: 80%;
+  margin: 0 auto;
+}
+.logo{
+  display: block;
+  margin: 100px auto 50px;
+  width: 100px;
+}
+
+input[type='date'] {
+  width: 28px !important;
+  margin-left: 10px;
+}
+
+
+
+
