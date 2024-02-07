@@ -75,7 +75,7 @@ export default function Login() {
 
   return (
     <div className='login'>
-      <h1 className="formLogo">Book-Booking</h1>
+      <h1 className="formLogo"><img src="/img/txtLogo.png" alt="" /></h1>
       <form className="loginForm" onSubmit={handleSubmit}>
         <p>
           <FiUser />
@@ -93,13 +93,13 @@ export default function Login() {
           <button type="button" className="signBtn">회원가입</button>
         </div>
         <button type="button" className='connectBtn' onClick={() => handleClickLogin(kakaoURL)}>
-          <img src="/img/kakao_login_medium_wide.png" alt="" />
+          <img src="/img/kakao.jpg" alt="" />
         </button>
         <button type="button" className='connectBtn' onClick={() => handleClickLogin(naverURL)}>
-          <img src="/img/naverBtn.png" alt="" />
+          <img src="/img/naver.jpg" alt="" />
         </button>
         <button type="button" className='connectBtn' onClick={() => handleClickLogin(googleURL)} >
-          구글로그인
+        <img src="/img/google.jpg" alt="" />
         </button>
       </form>
     </div>

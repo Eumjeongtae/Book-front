@@ -9,15 +9,18 @@ export default function SignUp() {
   const navigate = useNavigate();
   const [signInfo, setSignInfo] = useState({ uid: "", pw: "", pwcheck: "", name: "", email: "", mail2: '@naver.com' })
   const [idCheck, setIdcheck] = useState(false);
+  const [mailCheck, setMailcheck] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setSignInfo({ ...signInfo, [name]: value })
+
+    
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(signInfo);
+    // console.log(signInfo);
 
     // if(signInfo.uid === ''){
     //   alert('아이디를 입력해주세요.')
@@ -27,12 +30,23 @@ export default function SignUp() {
     //   return
     // }
 
-    axios
-      .post(`http://localhost:8000/signup`, signInfo)
-      .then(result => {
-        // console.log(result.data);
-      })
-      .catch(err => console.log(err))
+    if(signInfo.pw === '' || signInfo.pwcheck === ''){
+      alert('비밀번호를 입력해주세요.')
+      return
+    }else if(signInfo.pw !== signInfo.pwcheck){
+      alert('비밀번호가 일치하지 않습니다.')
+      return
+    }
+
+
+    
+
+    // axios
+    //   .post(`http://localhost:8000/signup`, signInfo)
+    //   .then(result => {
+    //     // console.log(result.data);
+    //   })
+    //   .catch(err => console.log(err))
 
 
 
@@ -44,7 +58,7 @@ export default function SignUp() {
 
   return (
     <div className="signup">
-      <h1 className="formLogo">Book-Booking</h1>
+      <h1 className="formLogo"><img src="/img/txtLogo.png" alt="" /></h1>
       <form className="signForm" onSubmit={handleSubmit}>
         <div className="signId">
           <input type="text" name="uid" value={signInfo.uid} placeholder="아이디를 입력해주세요." onChange={handleChange} />
@@ -52,15 +66,15 @@ export default function SignUp() {
         </div>
 
         <div >
-          <input name="pw" value={signInfo.pw} placeholder="비밀번호를 입력해주세요." onChange={handleChange} />
+          <input name="pw" type="password" value={signInfo.pw} placeholder="비밀번호를 입력해주세요." onChange={handleChange} />
         </div>
 
         <div>
-          <input name="pwcheck" value={signInfo.pwcheck} placeholder="비밀번호를 확인해주세요." onChange={handleChange} />
+          <input name="pwcheck" type="password" value={signInfo.pwcheck} placeholder="비밀번호를 확인해주세요." onChange={handleChange} />
         </div>
 
         <div >
-          <input type="text" name="name" value={signInfo.name} placeholder="닉네임을 입력해주세요." onChange={handleChange} />
+          <input type="text" name="name" value={signInfo.name} placeholder="이름을 입력해주세요." onChange={handleChange} />
         </div>
 
         <div className="signemail">

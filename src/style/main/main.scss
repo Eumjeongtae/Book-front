@@ -62,7 +62,7 @@
     font-size: 40px;
     font-weight: 900;
     text-align: center;
-    padding: 0 0 30px;
+    padding: 0 0 35px;
 }
 .login {
     position: absolute;
@@ -94,7 +94,7 @@
         }
         .loginSignBtns {
             width: 100%;
-            margin-top: 25px;
+            margin: 25px 0 20px;
             display: flex;
             justify-content: space-between;
             button {
@@ -114,8 +114,8 @@
             height: 45px;
             img {
                 width: 100%;
-                height: 100%;
-                object-fit: cover;
+                object-fit: contain;
+                border-radius: 10px;
             }
         }
     }
