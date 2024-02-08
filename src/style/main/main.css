@@ -1,3 +1,13 @@
+header {
+  height: 150px;
+  line-height: 80px;
+}
+header .logo {
+  margin: 0 auto;
+  height: 100%;
+  cursor: pointer;
+}
+
 .formLogo {
   font-size: 40px;
   font-weight: 900;
@@ -130,4 +140,16 @@
 }
 .signForm .signcheckBtn button.signcancel {
   background-color: #aaa;
+}
+
+.mainSLide {
+  height: 340px;
+}
+
+.listSlide {
+  width: 100%;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: rgb(121, 207, 207) !important;
 }/*# sourceMappingURL=main.css.map */

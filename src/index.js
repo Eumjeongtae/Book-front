@@ -13,17 +13,19 @@ import store from './Store';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Oauth from './pages/Oauth';
-
+import { QueryClient, QueryClientProvider } from 'react-query';
 // const store = createStore(reducer);
+const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
     children: [
-      { index: '/', element: <Login /> },
-      { path: '/toDo', element: <Todo /> },
-      { path: '/login', element: <Login /> },
+      { index: '/', element: <Home /> },
+      // { path: '/toDo', element: <Todo /> },
+      { path: '/list', element: <Home /> },
+      // { path: '/login', element: <Login /> },
       { path: '/oauth/:site', element: <Oauth /> },
       { path: '/sign', element: <SignUp /> },
     ]
@@ -32,9 +34,11 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
+    <QueryClientProvider client={queryClient}> {/* QueryClientProvider 추가 */}
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 

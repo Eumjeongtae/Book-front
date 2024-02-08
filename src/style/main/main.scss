@@ -1,63 +1,13 @@
-// .pockectList {
-//     display: flex;
-//     justify-content: space-between;
-//     li {
-//         cursor: pointer;
-//         transition: all 0.3s ease;
-//         &:hover {
-//             transform: scale(1.5);
-//         }
-//     }
-// }
-// .txtBox {
-//     position: relative;
-//     .text {
-//         margin: 50px auto;
-//         width: 100%;
-//     }
-//     button {
-//         position: absolute;
-//         bottom: 25px;
-//         left: 50%;
-//         transform: translateX(-50%);
-//         padding: 3px 5px;
-//         // border: 2px solid #000;
-//         background-color: #3f3f3f;
-//         color: #fff;
-//         &:hover {
-//             background-color: #000;
-//         }
-//     }
-//     p {
-//         position: absolute;
-//         top: 25px;
-//         left: 7%;
-//         width: 90%;
-//         font-weight: 900;
-//         input {
-//             border: 1px solid #969696;
-//             position: relative;
-//             top: 2px;
-//             padding: 3px;
-//             box-sizing: border-box;
-//             width: 50%;
-//             &::placeholder {
-//                 color: #555555;
-//             }
-//         }
-//     }
-// }
+header {
+    height: 150px;
+    line-height: 80px;
+    .logo {
+        margin: 0 auto;
+        height: 100%;
+        cursor: pointer;
+    }
+}
 
-// .status {
-//     outline: 1px solid red;
-//     img {
-//         margin: 0 auto;
-//     }
-//     .name {
-//         text-align: center;
-//         font-weight: bold;
-//     }
-// }
 .formLogo {
     font-size: 40px;
     font-weight: 900;
@@ -189,4 +139,13 @@
             }
         }
     }
+}
+.mainSLide{
+    height: 340px;
+}
+.listSlide{
+    width: 100%;
+}
+.swiper-pagination-bullet-active{
+    background-color: rgb(121, 207, 207) !important;
 }

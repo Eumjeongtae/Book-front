@@ -1,7 +1,8 @@
-export default function Image({ url,text }) {
+export default function Image(props) {
     return (
         <>
-            <img src={url} alt="" className={text && text}/>
+            <img src={`http://localhost:8000/imgupload/${props.img}`} alt="" className={props.class && props.class}/>
+
         </>
     );
 }

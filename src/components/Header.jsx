@@ -1,7 +1,13 @@
+import { Link } from "react-router-dom";
+
 export default function Header(params) {
-    return(
+
+
+    return (
         <header>
-            {/* <img className="logo" src="./img/logo.png" alt="" /> */}
+
+            <Link to='/'><img className="logo" src="./img/mainLogo.png" alt="" /></Link>
+
         </header>
     );
 }

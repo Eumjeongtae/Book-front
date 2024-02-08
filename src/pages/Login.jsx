@@ -9,10 +9,10 @@ export default function Login() {
   const navigate = useNavigate();
   const [loginForm, setLoginForm] = useState({ uid: "", pw: "" });
 
-  
+
   console.log();
   // oauth 요청 URL
-  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_API_KEY }&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}&response_type=code`
+  const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}&response_type=code`
   const naverURL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${process.env.REACT_APP_NAVER_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_NAVER_REDIRECT_URI}&state=STATE_STRING`
   const googleURL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_GOOGLE_REDIRECT_URI}&response_type=code&scope=email profile`;
 
@@ -74,35 +74,36 @@ export default function Login() {
   const handleClickLogin = (url) => window.location.href = url;
 
   return (
-    <div className='login'>
-      <h1 className="formLogo"><img src="/img/txtLogo.png" alt="" /></h1>
-      <form className="loginForm" onSubmit={handleSubmit}>
-        <p>
-          <FiUser />
-          <input type="text" placeholder="아이디" ref={inputUid} name="uid" value={loginForm.uid} onChange={handleChange}></input>
-        </p>
-        <p>
-          <HiLockClosed />
-          <input type="password" placeholder="비밀번호" ref={inputPw} name="pw" value={loginForm.pw} onChange={handleChange}></input>
-        </p>
+      <div className='login'>
+        <h1 className="formLogo"><img src="/img/txtLogo.png" alt="" /></h1>
+        <form className="loginForm" onSubmit={handleSubmit}>
+          <p>
+            <FiUser />
+            <input type="text" placeholder="아이디" ref={inputUid} name="uid" value={loginForm.uid} onChange={handleChange}></input>
+          </p>
+          <p>
+            <HiLockClosed />
+            <input type="password" placeholder="비밀번호" ref={inputPw} name="pw" value={loginForm.pw} onChange={handleChange}></input>
+          </p>
 
 
 
-        <div className="loginSignBtns">
-          <button className="loginBtn">로그인</button>
-          <button type="button" className="signBtn">회원가입</button>
-        </div>
-        <button type="button" className='connectBtn' onClick={() => handleClickLogin(kakaoURL)}>
-          <img src="/img/kakao.jpg" alt="" />
-        </button>
-        <button type="button" className='connectBtn' onClick={() => handleClickLogin(naverURL)}>
-          <img src="/img/naver.jpg" alt="" />
-        </button>
-        <button type="button" className='connectBtn' onClick={() => handleClickLogin(googleURL)} >
-        <img src="/img/google.jpg" alt="" />
-        </button>
-      </form>
-    </div>
+          <div className="loginSignBtns">
+            <button className="loginBtn">로그인</button>
+            <button type="button" className="signBtn">회원가입</button>
+          </div>
+          <button type="button" className='connectBtn' onClick={() => handleClickLogin(kakaoURL)}>
+            <img src="/img/kakao.jpg" alt="" />
+          </button>
+          <button type="button" className='connectBtn' onClick={() => handleClickLogin(naverURL)}>
+            <img src="/img/naver.jpg" alt="" />
+          </button>
+          <button type="button" className='connectBtn' onClick={() => handleClickLogin(googleURL)} >
+            <img src="/img/google.jpg" alt="" />
+          </button>
+        </form>
+      </div>
+
 
   )
 }

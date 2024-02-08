@@ -59,16 +59,6 @@ fieldset{
   width: 80%;
   margin: 0 auto;
 }
-.logo{
-  display: block;
-  margin: 100px auto 50px;
-  width: 100px;
-}
-
-input[type='date'] {
-  width: 28px !important;
-  margin-left: 10px;
-}
 
 
 
