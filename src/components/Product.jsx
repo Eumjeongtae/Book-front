@@ -5,8 +5,8 @@ export default function Product({ data }) {
     return (
         <div>
             <Image img={data.image} class='listSlide'/>
-            <p>{data.title}</p>
-            <p>{data.Author}</p>
+            <p className='title'>{data.title}</p>
+            <p className='author'>{data.Author}</p>
         </div>
     );
 }

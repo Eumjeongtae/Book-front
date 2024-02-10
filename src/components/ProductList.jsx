@@ -10,6 +10,7 @@ import { useFetchData } from "../api/apiUtils";
 export default function ProductList() {
     const url = "http://localhost:8000/product";
     const { data, isLoading, error } = useFetchData(url);
+    console.log(data);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -19,13 +20,17 @@ export default function ProductList() {
 
     return (
         <>
-            <MySwiper class='mainSLide'>
+        <div className='mainSLide'>
+            
+        <MySwiper >
                 {data.map((book, i) =>
                     <SwiperSlide>
                         <Product data={book} />
                     </SwiperSlide>)}
 
             </MySwiper>
+        </div>
+            
         </>
     );
 }
