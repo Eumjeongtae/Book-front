@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
-import '../style/main/main.css';
+import '../style/sign/sign.css';
 
 
 export default function SignUp() {
@@ -57,7 +57,8 @@ export default function SignUp() {
 
 
   return (
-      <div className="signup">
+    <div className="inner">
+           <div className="signup">
         <h1 className="formLogo"><img src="/img/txtLogo.png" alt="" /></h1>
         <form className="signForm" onSubmit={handleSubmit}>
           <div className="signId">
@@ -100,6 +101,8 @@ export default function SignUp() {
           </div>
         </form>
       </div>
+    </div>
+ 
 
   );
 }

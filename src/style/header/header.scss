@@ -1,0 +1,44 @@
+header {
+    height: 180px;
+    line-height: 80px;
+    margin-bottom: 2%;
+    position: relative;
+    h1 {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        height: inherit;
+
+        .logo {
+            height: 100%;
+            cursor: pointer;
+        }
+    }
+    nav {
+        display: flex;
+        height: 100%;
+        align-items: center;
+        justify-content: end;
+
+        p {
+            padding: 0 20px;
+            line-height: 40px;
+            text-align: center;
+            font-size: 18px;
+        }
+    }
+    div{
+        display: flex;
+        position: absolute;
+        top: 5px;
+        right: 13px;
+        p{
+            font-size: 11px;
+            padding: 0 8px;
+            color: #686767;
+            text-transform: capitalize;
+            margin-left: 5px
+
+        }
+    }
+}

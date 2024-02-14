@@ -7,13 +7,14 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Home from './pages/Home';
 // import { legacy_createStore as createStore } from 'redux'; //스토어 라이브러리
 import { Provider } from 'react-redux';
-import reducer from './modules/reducer';
-import Todo from './pages/Todo';
+// import reducer from './modules/reducer';
 import store from './Store';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
 import Oauth from './pages/Oauth';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import Book from './pages/Book';
+import Mypage from './pages/Mypage';
 // const store = createStore(reducer);
 const queryClient = new QueryClient();
 
@@ -24,9 +25,11 @@ const router = createBrowserRouter([
     children: [
       { index: '/', element: <Home /> },
       { path: '/list/:category', element: <Home /> },
+      { path: '/detail/:bid', element: <Book /> },
       { path: '/login', element: <Login /> },
       { path: '/oauth/:site', element: <Oauth /> },
       { path: '/sign', element: <SignUp /> },
+      { path: '/mypage/:id', element: <Mypage /> },
     ]
   },
 ])

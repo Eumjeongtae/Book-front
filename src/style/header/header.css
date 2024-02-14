@@ -1,0 +1,41 @@
+header {
+  height: 180px;
+  line-height: 80px;
+  margin-bottom: 2%;
+  position: relative;
+}
+header h1 {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  height: inherit;
+}
+header h1 .logo {
+  height: 100%;
+  cursor: pointer;
+}
+header nav {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: end;
+}
+header nav p {
+  padding: 0 20px;
+  line-height: 40px;
+  text-align: center;
+  font-size: 18px;
+}
+header div {
+  display: flex;
+  position: absolute;
+  top: 5px;
+  right: 13px;
+}
+header div p {
+  font-size: 11px;
+  padding: 0 8px;
+  color: #686767;
+  text-transform: capitalize;
+  margin-left: 5px;
+}/*# sourceMappingURL=header.css.map */

@@ -1,0 +1,77 @@
+.signup {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.signForm {
+  width: 300px;
+  margin: 0 auto;
+}
+.signForm div {
+  margin-bottom: 35px;
+  width: 100%;
+  text-align: left;
+}
+.signForm div input {
+  margin-bottom: 10px;
+  padding: 6px;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #888;
+  outline: none;
+}
+.signForm .signId {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 50px;
+}
+.signForm .signId button {
+  width: 35%;
+  text-align: center;
+  padding: 8px 0px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 14px;
+  display: block;
+  background-color: rgb(58, 58, 58);
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+.signForm .signId input {
+  width: 56%;
+}
+.signForm .signemail {
+  display: flex;
+}
+.signForm .signemail input {
+  width: 55%;
+}
+.signForm .signemail .signemailselect {
+  margin-left: 20px;
+  padding: 3px 5px;
+  width: 40%;
+  height: 33px;
+}
+.signForm .signcheckBtn {
+  margin-bottom: 0;
+  display: flex;
+  justify-content: space-evenly;
+}
+.signForm .signcheckBtn button {
+  display: block;
+  background-color: rgb(58, 58, 58);
+  color: white;
+  border: none;
+  cursor: pointer;
+  width: 40%;
+  font-size: 14px;
+  padding: 10px 0px;
+  border-radius: 5px;
+}
+.signForm .signcheckBtn button.signcancel {
+  background-color: #a8a8a8;
+}/*# sourceMappingURL=sign.css.map */

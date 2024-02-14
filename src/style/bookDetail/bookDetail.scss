@@ -1,0 +1,202 @@
+@use "../mixin" as m;
+main {
+    position: relative;
+    padding-bottom: 200px;
+    width: 60%;
+    min-width: 800px;
+    margin: 50px auto 0;
+
+    .detailItem {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 50px;
+        border-bottom: 1px solid #232323;
+        .detailItemImage {
+            width: 30%;
+            img {
+                width: 100%;
+            }
+        }
+        .detailItemInfo {
+            width: 63%;
+            li {
+                display: flex;
+                align-items: center;
+                line-height: 1.5em;
+                padding: 5px 0;
+                color: #555555;
+
+                &:nth-child(2) {
+                    margin-top: 5px;
+                }
+                &.bookTitle {
+                    padding: 10px 0;
+                    font-size: 30px;
+                    color: #333;
+                    font-weight: bold;
+                    line-height: 2em;
+                    border-bottom: 1px solid #979797;
+                }
+                b {
+                    display: block;
+                    color: #333;
+                    font-size: 16px;
+                    width: 15%;
+                }
+                span {
+                    font-size: 14px;
+                    flex: 1;
+                }
+
+                &.infoBtn {
+                    margin-top: 5px;
+                    button {
+                        @include m.button;
+                        display: flex;
+                        border-radius: 5px;
+                        align-items: center;
+                        padding: 8px 16px;
+                        &:nth-child(2) {
+                            margin-left: 15px;
+                        }
+                        span {
+                            display: block;
+                            margin-left: 4px;
+                            font-size: 12px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .reviewList {
+        .container1 {
+            margin-top: 23px;
+            text-align: center;
+            padding: 16px;
+            display: flex;
+            -webkit-box-pack: center;
+            justify-content: center;
+            box-sizing: border-box;
+            border: 1px solid rgb(229, 229, 229);
+
+            & > div {
+                border-radius: 6px;
+                margin-top: 13px;
+                text-align: center;
+                padding: 16px;
+                display: flex;
+                -webkit-box-pack: center;
+                justify-content: center;
+                box-sizing: border-box;
+
+                .starBox {
+                    display: flex;
+                    flex-direction: column;
+                    -webkit-box-align: center;
+                    align-items: center;
+
+                    .starNum {
+                        margin-bottom: 5px;
+                        font-size: 20px;
+                        font-weight: 700;
+                    }
+                }
+
+                .middle {
+                    width: 1px;
+                    height: 40px;
+                    background-color: rgb(229, 229, 229);
+                    margin: 0px 120px;
+                }
+
+                .percentBox {
+                    display: flex;
+                    flex-direction: column;
+
+                    p {
+                        margin-bottom: 5px;
+                        font-size: 20px;
+                        font-weight: 700;
+                    }
+
+                    span {
+                        font-size: 12px;
+                        font-weight: 500;
+                        color: rgb(127, 127, 127);
+                    }
+                }
+            }
+        }
+
+        .review {
+            margin-top: 20px;
+
+            li {
+                padding: 30px 10px;
+                display: flex;
+                border-bottom: 1px solid rgb(238, 238, 238);
+
+                .reviewContent {
+                    flex: 1 1 0%;
+
+                    .buyerName {
+                        display: flex;
+                        margin-bottom: 10px;
+                        -webkit-box-pack: justify;
+                        justify-content: space-between;
+                        -webkit-box-align: center;
+                        align-items: center;
+
+                        .buyer {
+                            display: flex;
+                            -webkit-box-align: center;
+                            align-items: center;
+                            cursor: pointer;
+                        }
+
+                        .buyerDate {
+                            font-size: 13px;
+                            color: rgb(204, 204, 204);
+                        }
+                    }
+
+                    .reviewTxt {
+                        margin: 20px 0px;
+                        white-space: pre-wrap;
+                        line-height: 1.5;
+                        font-size: 12px;
+                        color: rgb(136, 136, 136);
+                    }
+                }
+            }
+        }
+    }
+}
+.detailItemBtn {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    height: 80px;
+    background-color: #ebebeb;
+    box-sizing: border-box;
+    li {
+        button {
+            @include m.button;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            padding: 14px 20px;
+        }
+        &:last-child {
+            margin-right: 50px;
+            margin-left: 10px;
+            button{
+                background-color: #ababab;
+            }
+        }
+    }
+}

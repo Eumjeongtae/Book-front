@@ -1,0 +1,73 @@
+/* ReviewPopup.scss */
+$primary-color: #777;
+$hover-color: darken($primary-color, 10%);
+$border-color: #ccc;
+$rating-active-color: #ffd700;
+
+.review-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  
+  .review-popup-inner {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    h2{
+        text-align: center;
+        margin: 15px 0 5px;
+    }
+    .scoreBox{
+        justify-content: center;
+    }
+
+
+    form {
+      display: flex;
+      flex-direction: column;
+
+      label {
+        margin-bottom: 0.5rem;
+        color: $primary-color;
+      }
+
+      
+      textarea {
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+        border: 1px solid $border-color;
+        border-radius: 4px;
+        &:focus {
+          border-color: $primary-color;
+          outline: none;
+        }
+      }
+
+
+      button {
+        background-color: $primary-color;
+        color: white;
+        padding: 8px 20px;
+        font-size: 14px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin: 0 auto;
+        &:hover {
+          background-color: $hover-color;
+        }
+      }
+    }
+  }
+}

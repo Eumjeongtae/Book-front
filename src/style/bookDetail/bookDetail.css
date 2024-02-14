@@ -1,0 +1,182 @@
+main {
+  position: relative;
+  padding-bottom: 200px;
+  width: 60%;
+  min-width: 800px;
+  margin: 50px auto 0;
+}
+main .detailItem {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 50px;
+  border-bottom: 1px solid #232323;
+}
+main .detailItem .detailItemImage {
+  width: 30%;
+}
+main .detailItem .detailItemImage img {
+  width: 100%;
+}
+main .detailItem .detailItemInfo {
+  width: 63%;
+}
+main .detailItem .detailItemInfo li {
+  display: flex;
+  align-items: center;
+  line-height: 1.5em;
+  padding: 5px 0;
+  color: #555555;
+}
+main .detailItem .detailItemInfo li:nth-child(2) {
+  margin-top: 5px;
+}
+main .detailItem .detailItemInfo li.bookTitle {
+  padding: 10px 0;
+  font-size: 30px;
+  color: #333;
+  font-weight: bold;
+  line-height: 2em;
+  border-bottom: 1px solid #979797;
+}
+main .detailItem .detailItemInfo li b {
+  display: block;
+  color: #333;
+  font-size: 16px;
+  width: 15%;
+}
+main .detailItem .detailItemInfo li span {
+  font-size: 14px;
+  flex: 1;
+}
+main .detailItem .detailItemInfo li.infoBtn {
+  margin-top: 5px;
+}
+main .detailItem .detailItemInfo li.infoBtn button {
+  display: block;
+  background-color: rgb(58, 58, 58);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  border-radius: 5px;
+  align-items: center;
+  padding: 8px 16px;
+}
+main .detailItem .detailItemInfo li.infoBtn button:nth-child(2) {
+  margin-left: 15px;
+}
+main .detailItem .detailItemInfo li.infoBtn button span {
+  display: block;
+  margin-left: 4px;
+  font-size: 12px;
+}
+main .reviewList .container1 {
+  margin-top: 23px;
+  text-align: center;
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  border: 1px solid rgb(229, 229, 229);
+}
+main .reviewList .container1 > div {
+  border-radius: 6px;
+  margin-top: 13px;
+  text-align: center;
+  padding: 16px;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+}
+main .reviewList .container1 > div .starBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+main .reviewList .container1 > div .starBox .starNum {
+  margin-bottom: 5px;
+  font-size: 20px;
+  font-weight: 700;
+}
+main .reviewList .container1 > div .middle {
+  width: 1px;
+  height: 40px;
+  background-color: rgb(229, 229, 229);
+  margin: 0px 120px;
+}
+main .reviewList .container1 > div .percentBox {
+  display: flex;
+  flex-direction: column;
+}
+main .reviewList .container1 > div .percentBox p {
+  margin-bottom: 5px;
+  font-size: 20px;
+  font-weight: 700;
+}
+main .reviewList .container1 > div .percentBox span {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgb(127, 127, 127);
+}
+main .reviewList .review {
+  margin-top: 20px;
+}
+main .reviewList .review li {
+  padding: 30px 10px;
+  display: flex;
+  border-bottom: 1px solid rgb(238, 238, 238);
+}
+main .reviewList .review li .reviewContent {
+  flex: 1 1 0%;
+}
+main .reviewList .review li .reviewContent .buyerName {
+  display: flex;
+  margin-bottom: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+main .reviewList .review li .reviewContent .buyerName .buyer {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+main .reviewList .review li .reviewContent .buyerName .buyerDate {
+  font-size: 13px;
+  color: rgb(204, 204, 204);
+}
+main .reviewList .review li .reviewContent .reviewTxt {
+  margin: 20px 0px;
+  white-space: pre-wrap;
+  line-height: 1.5;
+  font-size: 12px;
+  color: rgb(136, 136, 136);
+}
+
+.detailItemBtn {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  height: 80px;
+  background-color: #ebebeb;
+  box-sizing: border-box;
+}
+.detailItemBtn li button {
+  display: block;
+  background-color: rgb(58, 58, 58);
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  padding: 14px 20px;
+}
+.detailItemBtn li:last-child {
+  margin-right: 50px;
+  margin-left: 10px;
+}
+.detailItemBtn li:last-child button {
+  background-color: #ababab;
+}/*# sourceMappingURL=bookDetail.css.map */

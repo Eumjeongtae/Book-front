@@ -63,5 +63,18 @@ fieldset{
   background-color: rgb(0, 255, 242);
 }
 
-
-
+.scoreBox{display: flex; }
+.star{
+  display: block;
+  width: 15px;
+  height: 15px;
+  background: url(http://localhost:8000/imgupload/star.png) 50% 50% no-repeat;
+  background-size: contain;
+}
+.emptyStar{
+  display: block;
+  width: 15px;
+  height: 15px;
+  background: url(http://localhost:8000/imgupload/emptyStar.png) 50% 50% no-repeat;
+  background-size: contain;
+}

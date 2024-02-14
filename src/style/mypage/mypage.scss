@@ -1,0 +1,99 @@
+@use "../mixin" as m;
+
+.mypageTabBtn {
+    height: 50px;
+    border-bottom: 1px solid rgb(244, 244, 250);
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    align-items: center;
+
+    width: 80%;
+    margin: 0 auto;
+    font-size: 13px;
+    li {
+        height: 100%;
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+        text-align: center;
+        color: #8d8d8d;
+        font-weight: bold;
+        cursor: pointer;
+        &:hover {
+            color: black;
+        }
+        &.on {
+            color: black;
+        }
+        &::after {
+            content: "";
+            width: 1px;
+            height: 14px;
+            border-right: 1px solid rgb(210, 210, 210);
+            margin: 0 20px;
+        }
+        &:last-child::after {
+            display: none;
+        }
+    }
+}
+
+.category {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 50px;
+    & > div {
+        width: 49.5%;
+        padding: 20px 0 20px;
+        height: 140px;
+        border: 1px solid rgb(238, 238, 238);
+        margin-bottom: 1%;
+        display: flex;
+        img {
+            display: block;
+            width: 23%;
+            height: 100%;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+        .info {
+            width: 77%;
+            box-sizing: border-box;
+            padding: 15px 23px 0 0;
+        }
+        p {
+            margin-bottom: 5px;
+            font-size: 14px;
+            &.title {
+                font-size: 18px;
+                font-weight: bold;
+            }
+            span {
+                color: #777;
+                margin-left: 5px;
+                font-weight: 400;
+            }
+            &.rentDate {
+                &::before {
+                    content: "";
+                    display: block;
+                    width: 100%;
+                    height: 1px;
+                    background-color: rgb(238, 238, 238);
+                    margin: 10px 0 15px;
+                }
+            }
+            button {
+                display: block;
+                @include m.button;
+                margin-top: 10px;
+                padding: 5px 10px;
+                border-radius: 3px;
+                font-size: 11px;
+                background-color: #969696;
+            }
+        }
+    }
+}

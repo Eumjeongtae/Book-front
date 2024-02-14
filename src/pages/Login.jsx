@@ -1,6 +1,7 @@
 
 import { useNavigate } from 'react-router-dom';
-import '../style/main/main.css';
+import '../style/login/login.css';
+
 import { useRef, useState } from 'react';
 import { HiLockClosed } from "react-icons/hi";
 import { FiUser } from "react-icons/fi";
@@ -74,6 +75,7 @@ export default function Login() {
   const handleClickLogin = (url) => window.location.href = url;
 
   return (
+    <div className='inner'>
       <div className='login'>
         <h1 className="formLogo"><img src="/img/txtLogo.png" alt="" /></h1>
         <form className="loginForm" onSubmit={handleSubmit}>
@@ -89,8 +91,8 @@ export default function Login() {
 
 
           <div className="loginSignBtns">
-            <button className="loginBtn">로그인</button>
-            <button type="button" className="signBtn">회원가입</button>
+            <button >로그인</button>
+            <button type="button" onClick={() => navigate('/sign')}>회원가입</button>
           </div>
           <button type="button" className='connectBtn' onClick={() => handleClickLogin(kakaoURL)}>
             <img src="/img/kakao.jpg" alt="" />
@@ -103,6 +105,8 @@ export default function Login() {
           </button>
         </form>
       </div>
+    </div>
+
 
 
   )
