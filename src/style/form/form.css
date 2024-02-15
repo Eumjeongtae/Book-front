@@ -1,0 +1,123 @@
+.formDesign {
+  padding: 10px 0 50px;
+}
+.formDesign .inputContainer {
+  width: 70%;
+  margin: 0 auto;
+  display: flex;
+  padding: 2rem 0px;
+  border-bottom: 1px solid rgb(246, 246, 246);
+}
+.formDesign .inputContainer:last-child {
+  border-bottom: none;
+}
+.formDesign .inputContainer .inputTitle {
+  width: 15%;
+  padding-top: 9px;
+  font-size: 16px;
+  font-weight: 400;
+  color: rgb(25, 25, 25);
+}
+.formDesign .inputContainer > div {
+  position: relative;
+  width: 80%;
+}
+.formDesign .inputContainer > div input {
+  display: block;
+  padding: 10px 15px;
+}
+.formDesign .inputContainer > div input:focus-visible {
+  outline: 1px solid rgb(111, 111, 111);
+}
+.formDesign .inputContainer > div input[type=text] {
+  width: 60%;
+}
+.formDesign .inputContainer > div textarea {
+  width: 100%;
+  height: 200px;
+  padding: 10px 15px;
+  display: block;
+}
+.formDesign .inputContainer > div textarea:focus-visible {
+  outline: 1px solid rgb(111, 111, 111);
+}
+.formDesign .inputContainer > div .radioBtn {
+  height: 39px;
+  display: flex;
+}
+.formDesign .inputContainer > div .radioBtn li {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+.formDesign .inputContainer > div .radioBtn li label {
+  margin: 0 5px;
+  padding: 10px 0px;
+}
+.formDesign .inputContainer > div select {
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+}
+.formDesign .inputContainer > div select:focus-visible {
+  outline: 1px solid rgb(111, 111, 111);
+}
+.formDesign .submitBtn {
+  display: block;
+  background-color: rgb(58, 58, 58);
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: block;
+  margin: 50px auto;
+  padding: 15px 50px;
+  border-radius: 5px;
+}
+
+.imageInputBox {
+  display: flex;
+  flex-wrap: wrap;
+  overflow-x: hidden;
+  padding-top: 5px;
+}
+.imageInputBox > span {
+  width: 202px;
+  height: 202px;
+  position: relative;
+  border-radius: 2px;
+  border: 1px solid rgb(204, 204, 204);
+  background: rgb(250, 250, 250);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: rgb(102, 102, 102);
+  font-size: 1rem;
+  font-weight: 400;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+}
+.imageInputBox > span input {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  opacity: 0;
+  cursor: pointer;
+  font-size: 0px;
+}
+.imageInputBox > span i svg {
+  width: 25px;
+  height: 25px;
+  margin: 5px auto;
+}
+.imageInputBox > span img {
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.imageInputBox > span.thumnail {
+  background: none;
+  border: none;
+}/*# sourceMappingURL=form.css.map */

@@ -4,6 +4,7 @@ import MySwiper from './MySwiper';
 import { SwiperSlide } from 'swiper/react';
 // import { useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 // import { useDispatch } from "react-redux";
 import { useFetchData } from "../api/apiUtils";
 
@@ -23,7 +24,9 @@ export default function ProductList() {
                 <MySwiper >
                     {data.map((book, i) =>
                         <SwiperSlide key={i}>
-                            <Product data={book} class='listSlide' />
+                            <Link to={`/detail/${i + 1}`}>
+                                <Product data={book} class='listSlide' />
+                            </Link>
                         </SwiperSlide>)}
 
                 </MySwiper>

@@ -15,6 +15,7 @@ import Oauth from './pages/Oauth';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import Book from './pages/Book';
 import Mypage from './pages/Mypage';
+import Manager from './pages/Manager';
 // const store = createStore(reducer);
 const queryClient = new QueryClient();
 
@@ -23,12 +24,13 @@ const router = createBrowserRouter([
     path: '/',
     element: <App />,
     children: [
-      { index: '/', element: <Home /> },
+      { index: '/', element: <Login /> },
       { path: '/list/:category', element: <Home /> },
       { path: '/detail/:bid', element: <Book /> },
       { path: '/login', element: <Login /> },
       { path: '/oauth/:site', element: <Oauth /> },
       { path: '/sign', element: <SignUp /> },
+      { path: '/manager', element: <Manager /> },
       { path: '/mypage/:id', element: <Mypage /> },
     ]
   },

@@ -10,7 +10,7 @@ function App() {
   const {pathname} = useLocation();
 
   useEffect(()=>{
-    pathname === '/sign' || pathname === '/login' ? setLocation(false) : setLocation(true)
+    pathname === '/sign' || pathname === '/' ? setLocation(false) : setLocation(true)
   },[pathname])
 
   return (

@@ -1,0 +1,56 @@
+@use "../mixin" as m;
+.adminPageTabBtn{
+  @include m.tabBtn;
+  margin: 10px auto 20px;
+}
+.customTable {
+  width: 100%;
+  border-collapse: collapse; // 테두리 겹침 방지
+  margin-bottom: 50px;
+  thead {
+    
+    tr {
+      background-color: #f2f2f2; // 헤더 배경색
+    }
+    
+    th {
+      text-align: center;
+      padding: 10px 15px;
+      border-bottom: 2px solid #dee2e6; // 헤더 아래 테두리
+    }
+  }
+
+  tbody {
+    tr {
+      &:nth-child(odd) {
+        // 홀수 번째 행에 대한 스타일 (스트라이프 패턴)
+        background-color: #f9f9f9;
+      }
+    }
+
+    td {
+      padding: 8px 15px;
+      border-bottom: 1px solid #ddd; // 셀 아래 테두리
+    }
+  }
+
+  // 테두리 스타일
+  th,
+  td {
+    border-right: 1px solid #ddd; // 셀 오른쪽 테두리
+    width: 20%;
+    text-align: center;
+    &:last-child {
+      border-right: none; // 마지막 셀의 오른쪽 테두리 제거
+      width: 10%;
+    }
+    button {
+      @include m.button;
+      margin: 3px auto;
+      padding: 5px 10px;
+      border-radius: 3px;
+      font-size: 11px;
+      background-color: #969696;
+    }
+  }
+}

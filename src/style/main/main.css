@@ -6,6 +6,9 @@
   padding: 0 0 35px;
 }
 
+.mainSLide {
+  margin-top: 50px;
+}
 .mainSLide .swiper {
   height: 26vw;
 }

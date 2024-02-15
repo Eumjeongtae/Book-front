@@ -17,6 +17,9 @@
   /* font-family: 'Noto Sans KR', sans-serif; */
   font-family: "SOGANGUNIVERSITYTTF";
 }
+textarea{
+  resize: none;
+}
 
 li {
   list-style: none;
@@ -70,6 +73,7 @@ fieldset{
   height: 15px;
   background: url(http://localhost:8000/imgupload/star.png) 50% 50% no-repeat;
   background-size: contain;
+  cursor:default;
 }
 .emptyStar{
   display: block;
@@ -77,4 +81,6 @@ fieldset{
   height: 15px;
   background: url(http://localhost:8000/imgupload/emptyStar.png) 50% 50% no-repeat;
   background-size: contain;
+  cursor:default;
+
 }

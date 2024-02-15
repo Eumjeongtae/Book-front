@@ -1,0 +1,81 @@
+.adminPageTabBtn {
+  height: 50px;
+  border-bottom: 1px solid rgb(244, 244, 250);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto;
+  font-size: 13px;
+  margin: 10px auto 20px;
+}
+.adminPageTabBtn li {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #8d8d8d;
+  font-weight: bold;
+  cursor: pointer;
+}
+.adminPageTabBtn li:hover {
+  color: black;
+}
+.adminPageTabBtn li.on {
+  color: black;
+}
+.adminPageTabBtn li::after {
+  content: "";
+  width: 1px;
+  height: 14px;
+  border-right: 1px solid rgb(210, 210, 210);
+  margin: 0 20px;
+}
+.adminPageTabBtn li:last-child::after {
+  display: none;
+}
+
+.customTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 50px;
+}
+.customTable thead tr {
+  background-color: #f2f2f2;
+}
+.customTable thead th {
+  text-align: center;
+  padding: 10px 15px;
+  border-bottom: 2px solid #dee2e6;
+}
+.customTable tbody tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+.customTable tbody td {
+  padding: 8px 15px;
+  border-bottom: 1px solid #ddd;
+}
+.customTable th,
+.customTable td {
+  border-right: 1px solid #ddd;
+  width: 20%;
+  text-align: center;
+}
+.customTable th:last-child,
+.customTable td:last-child {
+  border-right: none;
+  width: 10%;
+}
+.customTable th button,
+.customTable td button {
+  display: block;
+  background-color: rgb(58, 58, 58);
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin: 3px auto;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-size: 11px;
+  background-color: #969696;
+}/*# sourceMappingURL=manager.css.map */

@@ -21,24 +21,35 @@ header {
         justify-content: end;
 
         p {
-            padding: 0 20px;
-            line-height: 40px;
-            text-align: center;
-            font-size: 18px;
+            a{
+                display: block;
+                font-size: 15px;
+                text-align: center;
+                line-height: 40px;
+                padding: 0 20px;
+                color: #7e7e7e;
+            }
+            &.on a {
+                color: #000;
+                font-weight: bold;
+            }
+            &:hover a {
+                color: #000;
+                font-weight: bold;
+            }
         }
     }
-    div{
+    div {
         display: flex;
         position: absolute;
         top: 5px;
         right: 13px;
-        p{
+        p {
             font-size: 11px;
             padding: 0 8px;
-            color: #686767;
+            color: #7e7e7e;
             text-transform: capitalize;
-            margin-left: 5px
-
+            margin-left: 5px;
         }
     }
 }

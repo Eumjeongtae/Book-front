@@ -2,7 +2,6 @@
 import Image from './Image';
 
 export default function Product(props) {
-    console.log(props);
     return (
         <div >
             <Image img={props.data.image} className={props.class} />

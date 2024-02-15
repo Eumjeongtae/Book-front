@@ -11,8 +11,6 @@ export default function Review(props) {
 
     const submitReview = (e) => {
         e.preventDefault();
-        // 여기에 리뷰 제출 로직을 추가하세요.
-        console.log({ title, reviewText, rating });
     };
 
     return (
@@ -20,21 +18,21 @@ export default function Review(props) {
             <div className="review-popup">
                 <div className="review-popup-inner">
                     <h2>재미있게 읽으셨나요?</h2>
-                    <Score score={0} type='writeReview'/>
-                    <form onSubmit={submitReview}>
-                        <div>
-                            <label htmlFor="reviewText">제목</label>
-                            <textarea
-                                id="reviewText"
-                                value={reviewText}
-                                onChange={(e) => setReviewText(e.target.value)}
-                                required
-                            ></textarea>
-                        </div>
-                        
+                    <Score score={0} type='writeReview' />
+                    <div>
+                        <textarea
+                            id="reviewText"
+                            value={reviewText}
+                            onChange={(e) => setReviewText(e.target.value)}
+                            required
+                        ></textarea>
+                    </div>
 
-                        <button type="submit">작성 완료</button>
-                    </form>
+                    <div className='reviewBtn' >
+                        <button type="button" >작성 완료</button>
+                        <button type='button' onClick={()=>props.closeReviewPopup(false)}>닫기</button>
+                    </div>
+
                 </div>
             </div>
         </>

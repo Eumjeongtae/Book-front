@@ -20,11 +20,21 @@ header nav {
   align-items: center;
   justify-content: end;
 }
-header nav p {
-  padding: 0 20px;
-  line-height: 40px;
+header nav p a {
+  display: block;
+  font-size: 15px;
   text-align: center;
-  font-size: 18px;
+  line-height: 40px;
+  padding: 0 20px;
+  color: #7e7e7e;
+}
+header nav p.on a {
+  color: #000;
+  font-weight: bold;
+}
+header nav p:hover a {
+  color: #000;
+  font-weight: bold;
 }
 header div {
   display: flex;
@@ -35,7 +45,7 @@ header div {
 header div p {
   font-size: 11px;
   padding: 0 8px;
-  color: #686767;
+  color: #7e7e7e;
   text-transform: capitalize;
   margin-left: 5px;
 }/*# sourceMappingURL=header.css.map */

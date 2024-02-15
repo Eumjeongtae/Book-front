@@ -9,14 +9,19 @@ import { PiShoppingBag } from "react-icons/pi";
 import { PiShoppingBagFill } from "react-icons/pi";
 import Score from "../components/Score";
 import Review from '../components/Review';
+import { useState } from "react";
 
 export default function Book() {
     const { bid } = useParams();
     const url = `http://localhost:8000/product/${bid}`;
     const { data, isLoading, error } = useFetchData(url);
+    const [reviewBtn,setReviewBtn] = useState(false);
+
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
     if (!data || data.length === 0) return <div>No data found</div>;
+
+    const closeReviewPopup = (e)=>setReviewBtn(e)
     return (
 
         <>
@@ -101,10 +106,10 @@ export default function Book() {
 
             </div>
             <ul className="detailItemBtn">
-                <li><button type="button">리뷰쓰기</button></li>
+                <li><button type="button" onClick={()=>setReviewBtn(true)}>리뷰쓰기</button></li>
                 <li><button type="button">대여하기</button></li>
             </ul>
-            <Review />
+            {reviewBtn && <Review closeReviewPopup={closeReviewPopup}/>}
         </>
 
 
