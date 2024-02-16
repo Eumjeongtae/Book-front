@@ -6,7 +6,7 @@
 }
 
 .signForm {
-  width: 300px;
+  width: 400px;
   margin: 0 auto;
 }
 .signForm div {
@@ -29,32 +29,43 @@
   margin-top: 50px;
 }
 .signForm .signId button {
-  width: 35%;
-  text-align: center;
-  padding: 8px 0px;
-  border-radius: 5px;
-  box-sizing: border-box;
-  font-size: 14px;
   display: block;
   background-color: rgb(58, 58, 58);
   color: white;
   border: none;
   cursor: pointer;
+  width: 35%;
+  text-align: center;
+  padding: 8px 0px;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 13px;
 }
 .signForm .signId input {
   width: 56%;
 }
 .signForm .signemail {
   display: flex;
+  justify-content: space-around;
 }
 .signForm .signemail input {
-  width: 55%;
+  width: 170px;
 }
 .signForm .signemail .signemailselect {
-  margin-left: 20px;
   padding: 3px 5px;
-  width: 40%;
+  width: 127px;
   height: 33px;
+}
+.signForm .signemail button {
+  display: block;
+  background-color: rgb(58, 58, 58);
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  border-radius: 5px;
+  height: 33px;
+  padding: 0px 14px;
 }
 .signForm .signcheckBtn {
   margin-bottom: 0;

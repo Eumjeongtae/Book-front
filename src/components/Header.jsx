@@ -19,7 +19,7 @@ export default function Header(params) {
                     <p className={category ==='general' ? 'on' : ''}><Link to='list/general'>General</Link></p>
                     <p className={category ==='development' ? 'on' : ''}><Link to='list/development'>Development</Link></p>
                     <p className={category ==='marketing' ? 'on' : ''}><Link to='list/marketing'>Marketing</Link></p>
-                    <p className={category ==='all' ? 'on' : ''}><Link to='list/all'>Landing</Link></p>
+                    <p ><Link to='list/all'>Landing</Link></p>
             </nav>
 
         </header>

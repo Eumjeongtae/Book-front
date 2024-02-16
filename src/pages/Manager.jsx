@@ -4,8 +4,10 @@ import { useFetchData } from '../api/apiUtils';
 import '../style/manager/manager.css';
 import { useState } from 'react';
 import Form from '../components/Form';
+import { useNavigate } from 'react-router-dom';
 
 export default function Manager() {
+    const navigate = useNavigate();
     const url = `http://localhost:8000/product`;
     const { data, isLoading, error } = useFetchData(url);
     const [tab, setTab] = useState('check');
@@ -40,14 +42,14 @@ export default function Manager() {
                             <td>{item.Category}</td>
                             <td>{item.PurchaseDate}</td>
                             <td>{item.Status} {item.Status === 'overdue' && <button>메일 보내기</button>} {item.Status === 'Stock' && <button>상태보기</button>}</td>
-                            <td><button>수정하기</button></td>
+                            <td><button onClick={() =>navigate(`/modify/${i}`)}>수정하기</button></td>
 
                         </tr>
                     ))}
                 </tbody>
             </table>
                 :
-                <Form/>
+                <Form type='bookRegister' />
             }
 
         </section>

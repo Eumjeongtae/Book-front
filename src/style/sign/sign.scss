@@ -7,7 +7,7 @@
     transform: translate(-50%, -50%);
 }
 .signForm {
-    width: 300px;
+    width: 400px;
     margin: 0 auto;
     div {
         margin-bottom: 35px;
@@ -28,13 +28,13 @@
         align-items: flex-start;
         margin-top: 50px;
         button {
+            @include m.button;
             width: 35%;
             text-align: center;
             padding: 8px 0px;
             border-radius: 5px;
             box-sizing: border-box;
-            font-size: 14px;
-            @include m.button;
+            font-size: 13px;
 
         }
         input {
@@ -43,14 +43,21 @@
     }
     .signemail {
         display: flex;
+        justify-content: space-around;
         input {
-            width: 55%;
+            width: 170px;
         }
         .signemailselect {
-            margin-left: 20px;
             padding: 3px 5px;
-            width: 40%;
+            width: 127px;
             height: 33px;
+        }
+        button{
+            @include m.button;
+            font-size: 13px;
+            border-radius: 5px;
+            height: 33px;
+            padding: 0px 14px;
         }
     }
     .signcheckBtn {

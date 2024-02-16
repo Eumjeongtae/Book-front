@@ -5,33 +5,28 @@ import { FaCamera } from "react-icons/fa";
 import axios from 'axios';
 import Image from './Image';
 import { dateCheck } from '../util/dateCheck';
+// import { imageUpload } from '../util/imageUpload';
+import { useImageUpload } from '../hooks/useImageUpload';
 // import { usePostData } from '../api/apiPost';
 
 
 export default function Form(props) {
-
-    let [form, setForm] = useState({ 'img': '', 'title': '', 'Publisher': '', 'Author': '', 'PublishDate': '', 'PurchaseDate': '', 'BookInfo': '', 'Category': 'General' });
+    const initialState = {
+        'image': '', 'title': '', 'Publisher': '', 'Author': '', 'PublishDate': '', 'PurchaseDate': '', 'BookInfo': '', 'Category': 'General', 'Status': 'Stock'
+    };
+    const [form, setForm] = useState(() => props.type === 'bookModify' ? props.info : initialState);
     const [donaition, setDonaition] = useState(false);
+    const { imageUpload } = useImageUpload();
     // const { mutate: sendPostData} = usePostData();
     // sendPostData({ url: '', data: '' })
 
-
-    console.log(form);
-    const handleChange = (e) => {
+    const handleChange = async(e) => {
         const { name, value } = e.target;
         setForm({ ...form, [name]: value }); //input 값 onChange시 value값 재 할당
 
-        if (name === 'img') {
-            const formData = new FormData();
-
-            formData.append("file", e.target.files[0])
-            // for (const key of formData) console.log(`key---->>> ${key}`);
-
-            axios.post('http://localhost:8000/imgupload', formData)
-                .then((result) => {
-                    setForm({ ...form, img: result.data })
-                });
-
+        if (name === 'image' && e.target.files.length) {
+            let imgPath = await imageUpload(e.target.files[0]);
+            setForm({ ...form, image: imgPath });
         }
 
         if (name === 'PublishDate') {
@@ -60,14 +55,14 @@ export default function Form(props) {
                     <p className="inputTitle imgTitle">책 이미지</p>
                     <div className="imageInputBox">
                         <span className="imageInput">
-                            <input type="file" name='img' accept="image/jpg, image/jpeg, image/png" onChange={(e) => handleChange(e)} />
+                            <input type="file" name='image' accept="image/jpg, image/jpeg, image/png" onChange={(e) => handleChange(e)} />
                             <i>
                                 <FaCamera />
                                 <span>이미지 등록</span></i>
                         </span>
-                        {form.img === '' ? null :
+                        {form.image === '' ? null :
                             <span className='thumnail'>
-                                <Image img={form.img} />
+                                <Image img={form.image} />
                             </span>}
                     </div>
                 </div>
@@ -114,16 +109,19 @@ export default function Form(props) {
                     </div>
                 </div>
 
-                <div className="inputContainer">
-                    <p className="inputTitle">구매경로</p>
-                    <div>
-                        <ul className='radioBtn'>
-                            <li><input type="radio" name="radioBtn" id='companyBuy' onChange={() => setDonaition(false)} /><label htmlFor='companyBuy'>회사구매</label></li>
-                            <li><input type="radio" name="radioBtn" id='present' onChange={() => setDonaition(true)} /><label htmlFor='present'>기부</label></li>
-                            {donaition && <li><input type="text" placeholder='이름' /></li>}
-                        </ul>
+
+                {props.type === 'bookRegister' &&
+                    <div className="inputContainer">
+                        <p className="inputTitle">구매경로</p>
+                        <div>
+                            <ul className='radioBtn'>
+                                <li><input type="radio" name="radioBtn" id='companyBuy' onChange={() => setDonaition(false)} /><label htmlFor='companyBuy'>회사구매</label></li>
+                                <li><input type="radio" name="radioBtn" id='present' onChange={() => setDonaition(true)} /><label htmlFor='present'>기부</label></li>
+                                {donaition && <li><input type="text" placeholder='이름' /></li>}
+                            </ul>
+                        </div>
                     </div>
-                </div>
+                }
                 <div className="inputContainer">
                     <p className="inputTitle">카테고리</p>
                     <div>
@@ -134,8 +132,25 @@ export default function Form(props) {
                         </select>
                     </div>
                 </div>
+                {props.type === 'bookModify' &&
+                    <div className="inputContainer">
+                        <p className="inputTitle">상태(선택)</p>
+                        <div>
+                            <select className="signemailselect" name="Status" onChange={(e) => handleChange(e)} value={form.Category}>
+                                <option value='Stock'>재고</option>
+                                <option value='Rented'>대여</option>
+                            </select>
+                        </div>
+                    </div>
+                }
 
-                <button className='submitBtn'>등록하기</button>
+                {props.type === 'bookModify' ?
+                    <button className='submitBtn'>수정하기</button>
+                    :
+                    <button className='submitBtn'>등록하기</button>
+                }
+
+
             </form >
         </>
     )

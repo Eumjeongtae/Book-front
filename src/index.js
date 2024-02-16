@@ -16,6 +16,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import Book from './pages/Book';
 import Mypage from './pages/Mypage';
 import Manager from './pages/Manager';
+import Modify from './pages/Modify';
 // const store = createStore(reducer);
 const queryClient = new QueryClient();
 
@@ -32,6 +33,7 @@ const router = createBrowserRouter([
       { path: '/sign', element: <SignUp /> },
       { path: '/manager', element: <Manager /> },
       { path: '/mypage/:id', element: <Mypage /> },
+      { path: '/modify/:bid', element: <Modify /> },
     ]
   },
 ])
