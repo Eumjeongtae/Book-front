@@ -1,17 +1,20 @@
 import { Link, useParams } from "react-router-dom";
 import Image from "./Image";
 import '../style/header/header.css'
+import { getUser } from "../util/localStorage";
+
 export default function Header(params) {
     const {category}  = useParams();
-    console.log(category);
-
+    const userInfo = getUser() ? getUser().userInfo : '';
+    
+    console.log(userInfo);
     return (
         <header className="inner">
             <h1>
                 <Link to='/list/all'><Image  img='imgupload/mainLogo.png' class='logo' /></Link>
             </h1>
             <div>
-                <p>ADMIN</p>
+                <p>{userInfo ? userInfo.email : <></>}</p>
                 <p><Link to='mypage/test'>MYPAGE</Link> </p>
             </div>
             <nav >

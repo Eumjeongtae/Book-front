@@ -4,6 +4,14 @@
   top: 50%;
   transform: translate(-50%, -50%);
 }
+.signup .noticeTxt {
+  display: block;
+  width: 100%;
+  text-indent: 10px;
+  font-size: 12px;
+  color: rgb(193, 3, 3);
+  text-align: left;
+}
 
 .signForm {
   width: 400px;
@@ -26,6 +34,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  flex-wrap: wrap;
   margin-top: 50px;
 }
 .signForm .signId button {
@@ -46,6 +55,7 @@
 }
 .signForm .signemail {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
 }
 .signForm .signemail input {
@@ -66,6 +76,10 @@
   border-radius: 5px;
   height: 33px;
   padding: 0px 14px;
+}
+.signForm .signemail .mailCheckNum {
+  margin-top: 10px;
+  width: 95%;
 }
 .signForm .signcheckBtn {
   margin-bottom: 0;

@@ -2,11 +2,14 @@ import axios from "axios";
 import Home from "./Home";
 import { useEffect } from "react";
 import Login from './Login';
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+import * as Cookie from '../util/cookie.js';
 
 export default function Oauth() {
     let { site } = useParams()
-    
+  const navigate = useNavigate();
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -14,7 +17,12 @@ export default function Oauth() {
                 axios
                     .post(`http://localhost:8000/auth/${site}`, { code })
                     .then(result => {
-                        console.log(result.data);
+                        if (result.data.login) {
+                            Cookie.setCookie('x-auth_token', result.data.token, { path: '/' });
+                            const userInfo = jwtDecode(result.data.token)
+                            localStorage.setItem('userInfo', JSON.stringify({userInfo,name:result.data.name}));
+                            navigate('/list/all')
+                        }
                     })
                     .catch(err => console.log(err))
             } catch (error) {
@@ -24,5 +32,7 @@ export default function Oauth() {
 
         fetchData();
     }, []);
-    return <Login />
+
+    return <Home/>
+    
 }
