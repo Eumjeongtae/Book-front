@@ -7,7 +7,10 @@
         display: flex;
         padding: 2rem 0px;
         border-bottom: 1px solid rgb(246, 246, 246);
-
+        .noticeTxt{
+            @include m.noticeTxt;
+            padding-top: 8px;
+        }
         &:last-child{
             border-bottom: none;
         }
@@ -44,6 +47,7 @@
             .radioBtn {
                 height: 39px;
                 display: flex;
+                flex-wrap: wrap;
                 li {
                     display: flex;
                     align-items: center;

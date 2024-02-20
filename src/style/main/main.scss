@@ -45,3 +45,32 @@
 .swiper-pagination-bullet-active {
     background-color: rgb(121, 207, 207) !important;
 }
+
+.landingSection{
+    padding-bottom: 80px;
+    h2{
+        font-size: 23px;
+        font-weight: bold;
+        text-transform: uppercase;
+        color : #888;
+        display: flex;
+        align-items: center;
+        &::before{
+            content: '';
+            display: block;
+            width: 35px;
+            height: 1px;
+            background-color: #888;
+            margin-right: 5px;
+        }
+    }
+    &.landingChart{
+        display: flex;
+        justify-content: space-between;
+        margin-top: 150px;
+        div{
+            width: 49%;
+        }
+    }
+    
+}

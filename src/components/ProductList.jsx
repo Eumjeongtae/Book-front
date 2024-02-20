@@ -6,17 +6,11 @@ import { SwiperSlide } from 'swiper/react';
 // import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 // import { useDispatch } from "react-redux";
-import { useFetchData } from "../api/apiUtils";
 
-export default function ProductList() {
-    const url = "http://localhost:8000/product";
-    const { data, isLoading, error } = useFetchData(url);
+export default function ProductList({data}) {
     // const navigate = useNavigate();
     // const dispatch = useDispatch();
 
-    if (isLoading) return <div>Loading...</div>;
-    if (error) return <div>Error: {error.message}</div>;
-    if (!data || data.length === 0) return <div>No data found</div>;
 
     return (
         <>

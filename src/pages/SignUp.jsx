@@ -13,7 +13,6 @@ export default function SignUp() {
   const { mutate: sendPostData } = usePostData();
   // sendPostData({ url: '', data: '' })
 
-  console.log(authNum);
   const valiArrChange = (num, value) => {
     let copy = [...vali]
     copy[num] = value
@@ -188,7 +187,7 @@ export default function SignUp() {
 
         <div className="signcheckbar">
           <div className="signcheckBtn">
-            <button type="button" className="signcancel">취소</button>
+            <button type="button" onClick={()=>navigate('/')} className="signcancel">취소</button>
             <button className="signcheck">확인</button>
           </div>
         </div>

@@ -6,14 +6,12 @@ import { getUser } from "../util/localStorage";
 function useRedirect() {
     const navigate = useNavigate();
     const userInfo = getUser() ? getUser().userInfo : null;
-  const {pathname} = useLocation();
-    console.log(pathname);
+    const { pathname } = useLocation();
     useEffect(() => {
-        if (!userInfo) {
+        if (!userInfo && pathname !== '/sign') {
             navigate('/');
-        }else if(userInfo && pathname==='/'){
+        } else if (userInfo && pathname === '/') {
             navigate('/list/all');
-
         }
     }, [userInfo, navigate]);
 }

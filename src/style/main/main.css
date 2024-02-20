@@ -39,4 +39,32 @@
 
 .swiper-pagination-bullet-active {
   background-color: rgb(121, 207, 207) !important;
+}
+
+.landingSection {
+  padding-bottom: 80px;
+}
+.landingSection h2 {
+  font-size: 23px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #888;
+  display: flex;
+  align-items: center;
+}
+.landingSection h2::before {
+  content: "";
+  display: block;
+  width: 35px;
+  height: 1px;
+  background-color: #888;
+  margin-right: 5px;
+}
+.landingSection.landingChart {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 150px;
+}
+.landingSection.landingChart div {
+  width: 49%;
 }/*# sourceMappingURL=main.css.map */

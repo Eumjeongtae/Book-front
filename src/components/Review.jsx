@@ -1,24 +1,49 @@
 import { useState } from 'react';
 import '../style/review/review.css'
 import Score from './Score';
-
+import { getUser } from "../util/localStorage";
+import { usePostData } from '../api/apiPost';
 
 export default function Review(props) {
 
-    const [rating, setRating] = useState(0);
-    const [title, setTitle] = useState('');
-    const [reviewText, setReviewText] = useState('');
 
-    const submitReview = (e) => {
-        e.preventDefault();
-    };
+    const [reviewText, setReviewText] = useState('');
+    const [score, setScore] = useState(0);
+    const userInfo = getUser() ? getUser().userInfo : '';
+    const { mutate: sendPostData } = usePostData();
+
+    const handleSubmut = () => {
+        if (score === 0) {
+            alert('별점을 주세요!')
+            return
+        }
+        if (reviewText === '') {
+            alert('리뷰를 작성해주세요!')
+            return
+        }
+
+        sendPostData(
+            { url: `http://localhost:8000/review`, data: { reviewText, score, email: userInfo.email } },
+            {
+              onSuccess: (data) => console.log(data)
+              ,
+              onError: (error) => {
+                // 요청이 실패했을 때 실행될 로직
+                console.error("에러 발생:", error);
+              },
+            }
+          );
+    }
+
+    const getScore = (e) => setScore(e);
+
 
     return (
         <>
             <div className="review-popup">
                 <div className="review-popup-inner">
                     <h2>재미있게 읽으셨나요?</h2>
-                    <Score score={0} type='writeReview' />
+                    <Score score={0} type='writeReview' getScore={getScore} />
                     <div>
                         <textarea
                             id="reviewText"
@@ -29,8 +54,8 @@ export default function Review(props) {
                     </div>
 
                     <div className='reviewBtn' >
-                        <button type="button" >작성 완료</button>
-                        <button type='button' onClick={()=>props.closeReviewPopup(false)}>닫기</button>
+                        <button onClick={handleSubmut} >작성 완료</button>
+                        <button type='button' onClick={() => props.closeReviewPopup(false)}>닫기</button>
                     </div>
 
                 </div>

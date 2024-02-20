@@ -21,7 +21,7 @@ header {
         justify-content: end;
 
         p {
-            a{
+            a {
                 display: block;
                 font-size: 15px;
                 text-align: center;
@@ -49,6 +49,10 @@ header {
             padding: 0 8px;
             color: #7e7e7e;
             margin-left: 5px;
+
+            &.logout {
+                cursor: pointer;
+            }
         }
     }
 }

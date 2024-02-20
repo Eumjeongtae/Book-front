@@ -29,7 +29,7 @@
 }
 .login .loginForm .loginSignBtns {
   width: 100%;
-  margin: 25px 0 20px;
+  margin: 12px 0 20px;
   display: flex;
   justify-content: space-between;
 }
@@ -44,6 +44,25 @@
   width: 46%;
   padding: 14px 0;
   font-weight: bold;
+}
+.login .loginForm .saveid {
+  padding-top: 15px;
+}
+.login .loginForm .saveid input {
+  position: relative;
+  top: 2.5px;
+}
+.login .loginForm .saveid input:checked {
+  background-color: #666;
+}
+.login .loginForm .saveid label {
+  position: relative;
+  display: inline-block;
+  font-size: 12px;
+  padding-left: 5px;
+  color: #666;
+  letter-spacing: -0.6px;
+  cursor: pointer;
 }
 .login .loginForm .connectBtn {
   margin-top: 10px;

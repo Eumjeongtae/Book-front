@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="650" viewBox="0 0 50 650">
+  <g>
+    <path d="M0 0h18v18H0z" fill="none" stroke="#e5e8eb" stroke-width="1"/>
+  </g>
+  <g transform="translate(0 50)">
+    <path d="M0 0h18v18H0z" fill="#17191d"/>
+    <path d="M0 0h1.707v6H0z" fill="#fff" transform="rotate(-45 12.041 .155)"/>
+    <path d="M0 0h1.707v10H0z" fill="#fff" transform="rotate(45 .946 19.441)"/>
+  </g>
+  <g transform="translate(-38 84)">
+    <path d="M0 0h2v28H0z" fill="#17191d" transform="rotate(-45 57.092 -44.234)"/>
+    <path d="M0 0h28v2H0z" fill="#17191d" transform="rotate(-45 79.284 -35.042)"/>
+  </g>
+  <g transform="translate(-38 134)">
+    <path d="M0 0h2v28H0z" fill="#07f" transform="rotate(-45 57.092 -44.234)"/>
+    <path d="M0 0h28v2H0z" fill="#07f" transform="rotate(-45 79.284 -35.042)"/>
+  </g>
+  <g transform="translate(0 200)">
+    <path d="M5 6L0 1.2 1.25 0 5 3.6 8.749 0 10 1.2z" fill="#737881"/>
+  </g>
+  <g transform="translate(0 250)">
+    <path d="M5 0L0 4.8 1.25 6 5 2.4 8.749 6 10 4.8z" fill="#737881"/>
+  </g>
+  <g transform="translate(-38 284)">
+    <path d="M0 0h2v28H0z" fill="#17191d" transform="rotate(-45 57.092 -44.234)"/>
+    <path d="M0 0h28v2H0z" fill="#17191d" transform="rotate(-45 79.284 -35.042)"/>
+  </g>
+  <g transform="translate(8.417 391.5)">
+    <path d="M77.759 79.149a6.339 6.339 0 1 1-.565-2.621" fill="none" stroke="#9fa1a7" stroke-miterlimit="10" stroke-width="1.5px" transform="translate(-65.069 -72.493)"/>
+    <path d="M80.338 72.42v4.025h-4.025" fill="none" stroke="#9fa1a7" stroke-miterlimit="10" stroke-width="1.5px" transform="translate(-68.123 -72.42)"/>
+  </g>
+  <g transform="translate(8.417 441.5)">
+    <path d="M77.759 79.149a6.339 6.339 0 1 1-.565-2.621" fill="none" stroke="#07f" stroke-miterlimit="10" stroke-width="1.5px" transform="translate(-65.069 -72.493)"/>
+    <path d="M80.338 72.42v4.025h-4.025" fill="none" stroke="#07f" stroke-miterlimit="10" stroke-width="1.5px" transform="translate(-68.123 -72.42)"/>
+  </g>
+  <g transform="translate(0 500)">
+    <g fill="none">
+      <path d="M0 0h4v6H0z" stroke="none" transform="translate(6.353 12)"/>
+      <path d="M1.3 1.3v3.4h1.4V1.3H1.3M0 0h4v6H0V0z" stroke="none" fill="#9fa1a7" transform="translate(6.353 12)"/>
+    </g>
+    <g fill="none">
+      <path d="M-3 5.267L5 0v16l-8-5.267z" stroke="none" transform="translate(12.087 7)"/>
+      <path d="M3.7 2.412l-5.4 3.555v4.066l5.4 3.555V2.412M5 0v16l-8-5.267V5.267L5 0z" stroke="none" fill="#9fa1a7" transform="translate(12.087 7)"/>
+    </g>
+    <path fill="none" stroke="#9fa1a7" stroke-width="1.3px" d="M2.5 0a2 2 0 0 1 0 4" transform="translate(16 13)"/>
+    <path fill="none" stroke="#9fa1a7" stroke-width="1.3px" d="M4.5 0a4.5 4.5 0 0 1 0 9" transform="translate(14 10.5)"/>
+  </g>
+  <g transform="translate(0 550)">
+    <g fill="none">
+      <path d="M0 0h4v6H0z" stroke="none" transform="translate(6.353 12)"/>
+      <path d="M1.3 1.3v3.4h1.4V1.3H1.3M0 0h4v6H0V0z" stroke="none" fill="#07f" transform="translate(6.353 12)"/>
+    </g>
+    <g fill="none">
+      <path d="M-3 5.267L5 0v16l-8-5.267z" stroke="none" transform="translate(12.087 7)"/>
+      <path d="M3.7 2.412l-5.4 3.555v4.066l5.4 3.555V2.412M5 0v16l-8-5.267V5.267L5 0z" stroke="none" fill="#07f" transform="translate(12.087 7)"/>
+    </g>
+    <path fill="none" stroke="#07f" stroke-width="1.3px" d="M2.5 0a2 2 0 0 1 0 4" transform="translate(16 13)"/>
+    <path fill="none" stroke="#07f" stroke-width="1.3px" d="M4.5 0a4.5 4.5 0 0 1 0 9" transform="translate(14 10.5)"/>
+  </g>
+  <g transform="translate(0 600)">
+    <g transform="translate(2.094 1.641)">
+      <path fill="#2f77ff" d="M12.874 2.975L6.757.044a.443.443 0 0 0-.386 0L.253 2.975a.446.446 0 0 0-.253.4v5.537c0 4.624 6.143 7.017 6.4 7.117a.443.443 0 0 0 .318 0c.261-.1 6.405-2.493 6.405-7.117V3.377a.446.446 0 0 0-.253-.4" transform="translate(-.985 -1.771)"/>
+      <path fill="#fff" d="M13.36 18.306l3.479 3.317h1.108v-5.49h-1.468v3.322L13 16.133h-1.107v5.489h1.467z" transform="translate(-9.341 -13.107)"/>
+    </g>
+  </g>
+</svg>

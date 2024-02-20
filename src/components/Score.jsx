@@ -1,9 +1,15 @@
 import { useState } from "react";
 
-export default function Score({ score ,type}) {
+export default function Score({ score ,type,getScore}) {
     const [scoreLength,setScoreLength] = useState(score);
 
-    const handleStar = (num)=> type === 'writeReview' ? setScoreLength(num) : scoreLength
+
+    const handleStar = (num)=> {
+        if(type === 'writeReview'){
+            setScoreLength(num)
+            getScore(num)
+        }
+    }
         
     
     const renderSpans = () => {

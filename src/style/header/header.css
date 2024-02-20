@@ -47,4 +47,7 @@ header div p {
   padding: 0 8px;
   color: #7e7e7e;
   margin-left: 5px;
+}
+header div p.logout {
+  cursor: pointer;
 }/*# sourceMappingURL=header.css.map */

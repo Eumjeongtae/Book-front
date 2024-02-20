@@ -2,16 +2,15 @@
 import { useNavigate } from 'react-router-dom';
 import '../style/login/login.css';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { HiLockClosed } from "react-icons/hi";
 import { FiUser } from "react-icons/fi";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [loginForm, setLoginForm] = useState({ uid: "", pw: "" });
+  const [loginForm, setLoginForm] = useState({ uid: "", pw: ""  });
 
 
-  console.log();
   // oauth 요청 URL
   const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}&response_type=code`
   const naverURL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${process.env.REACT_APP_NAVER_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_NAVER_REDIRECT_URI}&state=STATE_STRING`
@@ -20,9 +19,14 @@ export default function Login() {
   const inputUid = useRef(null);
   const inputPw = useRef(null);
 
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoginForm({ ...loginForm, [name]: value })
+
+    if(name === 'keepLoginCheck'){      
+      localStorage.setItem('keepLogin', e.target.checked? 'true' : 'false');
+    }
   }
 
   const handleSubmit = (e) => {
@@ -89,8 +93,13 @@ export default function Login() {
           </p>
 
 
+          <div className="saveid" >
+            <input type="checkbox" id="chkKeepLogin" name='keepLoginCheck'  onChange={handleChange}/>
+            <label htmlFor="chkKeepLogin">로그인 상태 유지</label>
+          </div>
 
           <div className="loginSignBtns">
+
             <button >로그인</button>
             <button type="button" onClick={() => navigate('/sign')}>회원가입</button>
           </div>
