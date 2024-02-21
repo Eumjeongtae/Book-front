@@ -6,8 +6,8 @@ export default function Product(props) {
         <div >
             <Image img={props.data.image} className={props.class} />
             <div className='info'>
-                <p className='title'>{props.data.title}</p>
-                <p className='author'>{props.data.Author}</p>
+                <p className='title'>{props.data.book_name}</p>
+                <p className='author'>{props.data.author}</p>
                 {props.type === 'myPageHistory' &&
                     <>
                         <p className='rentDate'>대여일자  <span>2020-02-01</span>   </p>

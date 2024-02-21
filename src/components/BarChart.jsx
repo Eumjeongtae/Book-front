@@ -3,7 +3,7 @@ import { Bar } from 'react-chartjs-2';
 import 'chart.js/auto';
 
 const BarChart = ({list,type}) => {
-    let [nameList,setNameList] = useState(list ? list.map(v=>v.title) : null);
+    let [nameList,setNameList] = useState(list ? list.map(v=>v.book_name) : null);
     
     const data = {
         labels: nameList,

@@ -33,12 +33,12 @@ export default function Book() {
                         </div>
                         <div className="detailItemInfo">
                             <ul>
-                                <li className="bookTitle">{data.title}</li>
-                                <li><b>카테고리</b> <span>{data.Category}</span> </li>
-                                <li><b>배급사</b> <span>{data.Publisher}</span> </li>
-                                <li><b>작가</b>  <span>{data.Author}</span></li>
-                                <li><b>출판일</b>  <span>{data.PurchaseDate}</span></li>
-                                <li><b>정보</b>  <span>{data.BookInfo}</span></li>
+                                <li className="bookTitle">{data.book_name}</li>
+                                <li><b>카테고리</b> <span>{data.genre}</span> </li>
+                                <li><b>배급사</b> <span>{data.publisher}</span> </li>
+                                <li><b>작가</b>  <span>{data.author}</span></li>
+                                <li><b>출판일</b>  <span>{data.income_date}</span></li>
+                                <li><b>정보</b>  <span>{data.memo}</span></li>
                                 <li className="infoBtn">
                                     <button type="button"><IoIosHeartEmpty /><span>16</span></button>
                                     <button type="button"><PiShoppingBag /><span>찜하기</span></button>

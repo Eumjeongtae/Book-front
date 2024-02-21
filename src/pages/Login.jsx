@@ -2,13 +2,18 @@
 import { useNavigate } from 'react-router-dom';
 import '../style/login/login.css';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { HiLockClosed } from "react-icons/hi";
 import { FiUser } from "react-icons/fi";
+import { usePostData } from '../api/apiPost';
+import { jwtDecode } from "jwt-decode";
+import * as Cookie from '../util/cookie.js';
+import { setAuthToken } from '../util/auth';
 
 export default function Login() {
   const navigate = useNavigate();
-  const [loginForm, setLoginForm] = useState({ uid: "", pw: ""  });
+  const [loginForm, setLoginForm] = useState({ id: "", password: "" });
+  const { mutate: sendPostData } = usePostData();
 
 
   // oauth 요청 URL
@@ -16,64 +21,49 @@ export default function Login() {
   const naverURL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${process.env.REACT_APP_NAVER_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_NAVER_REDIRECT_URI}&state=STATE_STRING`
   const googleURL = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${process.env.REACT_APP_GOOGLE_CLIENT_ID}&redirect_uri=${process.env.REACT_APP_GOOGLE_REDIRECT_URI}&response_type=code&scope=email profile`;
 
-  const inputUid = useRef(null);
-  const inputPw = useRef(null);
+  const inputid = useRef(null);
+  const inputPassword = useRef(null);
 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setLoginForm({ ...loginForm, [name]: value })
 
-    if(name === 'keepLoginCheck'){      
-      localStorage.setItem('keepLogin', e.target.checked? 'true' : 'false');
+    if (name === 'keepLoginCheck') {
+      localStorage.setItem('keepLogin', e.target.checked ? 'true' : 'false');
     }
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // 밸류 체크
-    if (loginForm.uid === '') {
+    if (loginForm.id === '') {
       alert('아이디를 입력해주세요.')
-      return inputUid.current.focus();
+      return inputid.current.focus();
     }
-    if (loginForm.pw === '') {
+    if (loginForm.password === '') {
       alert('비밀번호를 입력해주세요.')
-      return inputPw.current.focus();
+      return inputPassword.current.focus();
     }
+    sendPostData(
+      { url: `http://localhost:8000/login`, data: loginForm },
+      {
+        onSuccess: async (result) => {
+          if (result.data.login) {
+            await setAuthToken(result);
+            navigate('/list/all')
+          }
 
-    // 서버 연동
-    /*axios
-    .post('', loginForm)
-    .then(data => {
-      if(data.data.login){
-        alert('로그인 성공')
-
-        Cookie.setCookie('x-auth_token', data.data.token)
-        const userInfo = jwtDecode(data.data.token)
-        localStorage.setItem('userInfo', JSON.stringify(userInfo));
-
-        // 상품구매쿠키 보유 시 해당페이지로 이동
-        const sellProductCookie = Cookie.getCookie('sellproductcookie')
-        if(sellProductCookie === undefined){
-          prop.handleLoginToggle()
-          navigate('/')
-        } else {
-          prop.handleLoginToggle()
-          navigate(sellProductCookie)
         }
-
-      } else if(data.data.cnt === 1){
-        alert('비밀번호가 다릅니다. 다시 확인해주세요.')
-        setLoginForm({...loginForm, pw : ''})
-        return inputPw.current.focus()
-      } else {
-        alert('존재하지 않은 아이디 입니다. 다시 확인해주세요.')
-        setLoginForm({...loginForm, uid : '', pw : ''})
-        return inputUid.current.focus()
+        ,
+        onError: (error) => {
+          // 요청이 실패했을 때 실행될 로직
+          console.error("에러 발생:", error);
+        },
       }
-    })
-    .catch(err => console.log(err))*/
+    );
+
 
   }
   const handleClickLogin = (url) => window.location.href = url;
@@ -85,16 +75,16 @@ export default function Login() {
         <form className="loginForm" onSubmit={handleSubmit}>
           <p>
             <FiUser />
-            <input type="text" placeholder="아이디" ref={inputUid} name="uid" value={loginForm.uid} onChange={handleChange}></input>
+            <input type="text" placeholder="아이디" ref={inputid} name="id" value={loginForm.id} onChange={handleChange}></input>
           </p>
           <p>
             <HiLockClosed />
-            <input type="password" placeholder="비밀번호" ref={inputPw} name="pw" value={loginForm.pw} onChange={handleChange}></input>
+            <input type="password" placeholder="비밀번호" ref={inputPassword} name="password" value={loginForm.password} onChange={handleChange}></input>
           </p>
 
 
           <div className="saveid" >
-            <input type="checkbox" id="chkKeepLogin" name='keepLoginCheck'  onChange={handleChange}/>
+            <input type="checkbox" id="chkKeepLogin" name='keepLoginCheck' onChange={handleChange} />
             <label htmlFor="chkKeepLogin">로그인 상태 유지</label>
           </div>
 

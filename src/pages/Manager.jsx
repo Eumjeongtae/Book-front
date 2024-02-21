@@ -38,10 +38,10 @@ export default function Manager() {
                 <tbody>
                     {data.map((item, i) => (
                         <tr key={i}>
-                            <td>{item.title}</td>
-                            <td>{item.Category}</td>
-                            <td>{item.PurchaseDate}</td>
-                            <td>{item.Status} {item.Status === 'overdue' && <button>메일 보내기</button>} {item.Status === 'Stock' && <button>상태보기</button>}</td>
+                            <td>{item.book_name}</td>
+                            <td>{item.genre}</td>
+                            <td>{item.income_date}</td>
+                            <td>{item.status} {item.status === 'overdue' && <button>메일 보내기</button>} {item.status === 'Stock' && <button>상태보기</button>}</td>
                             <td><button onClick={() =>navigate(`/modify/${i}`)}>수정하기</button></td>
 
                         </tr>

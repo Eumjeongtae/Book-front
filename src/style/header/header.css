@@ -1,3 +1,4 @@
+@charset "UTF-8";
 header {
   height: 180px;
   line-height: 80px;
@@ -43,10 +44,17 @@ header div {
   right: 13px;
 }
 header div p {
+  width: 57px;
+  text-align: center;
   font-size: 11px;
-  padding: 0 8px;
   color: #7e7e7e;
   margin-left: 5px;
+}
+header div p.userId {
+  /* 너비를 제한합니다. 실제로는 이 너비가 글자 수에 따라 달라질 수 있으므로 조정이 필요합니다. */
+  white-space: nowrap; /* 텍스트가 한 줄로 표시되도록 합니다. */
+  overflow: hidden; /* 넘치는 텍스트를 숨깁니다. */
+  text-overflow: ellipsis; /* 넘치는 텍스트가 있을 때 "..."을 표시합니다. */
 }
 header div p.logout {
   cursor: pointer;

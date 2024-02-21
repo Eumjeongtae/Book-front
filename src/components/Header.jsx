@@ -20,7 +20,7 @@ export default function Header(params) {
                 <Link to='/list/all'><Image img='imgupload/mainLogo.png' class='logo' /></Link>
             </h1>
             <div>
-                <p>{userInfo ? userInfo.email : <></>}</p>
+                <p className="userId">{userInfo ? userInfo.id : <></>}</p>
                 <p><Link to='mypage/test'>Mypage</Link> </p>
                 <p onClick={handleLogout} className="logout">Logout</p>
             </div>

@@ -1,23 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import '../style/sign/sign.css';
 import { usePostData } from '../api/apiPost';
+import { signValidation } from "../util/signValidation";
 
 
 export default function SignUp() {
   const navigate = useNavigate();
-  const [signInfo, setSignInfo] = useState({ uid: "", pw: "", pwcheck: "",email: "", mailAddr: '@naver.com', mailAuthNum: '' })
-  const [vali, setVali] = useState([true, true, true, true])
+  const [signInfo, setSignInfo] = useState({ id: "", name: "", password: "", pwcheck: "", email: "", mailAddr: '@naver.com', mailAuthNum: '' })
+  const [vali, setVali] = useState({ id: true, name: true, password: true, pwcheck: true, mailAuthNum: true })
   const [mailCheck, setMailCheck] = useState(false);
   const [authNum, setAuthNum] = useState();
   const { mutate: sendPostData } = usePostData();
-  // sendPostData({ url: '', data: '' })
 
-  const valiArrChange = (num, value) => {
-    let copy = [...vali]
-    copy[num] = value
-    setVali(copy)
-  }
+
 
   const validatePassword = (password) => {
     const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
@@ -29,18 +25,21 @@ export default function SignUp() {
     const { name, value } = e.target;
     setSignInfo({ ...signInfo, [name]: value });
 
-    if (name === 'uid') {
-      valiArrChange(0, false)
+    if (name === 'id') {
+      setVali({ ...vali, id: false })
+    }
+    if (name === 'name') {
+      setVali({ ...vali, name: true })
     }
 
     if (name === 'mailAuthNum') {
-      e.target.value === authNum ? valiArrChange(3, true) : valiArrChange(3, false);
+      e.target.value === authNum ? setVali({ ...vali, mailAuthNum: true }) : setVali({ ...vali, mailAuthNum: false });
     }
-    if (name === 'pw') {
-      valiArrChange(1, validatePassword(e.target.value))
+    if (name === 'password') {
+      setVali({ ...vali, password: validatePassword(e.target.value) })
     }
     if (name === 'pwcheck') {
-      valiArrChange(2, e.target.value === signInfo.pw)
+      setVali({ ...vali, pwcheck: e.target.value === signInfo.password })
     }
   }
 
@@ -63,14 +62,18 @@ export default function SignUp() {
     } else {
       alert('이메일을 입력해주세요.')
     }
-
   }
+
   const handleIdCheck = () => {
-    if (signInfo.uid) {
+    if (signInfo.id) {
       sendPostData(
-        { url: `http://localhost:8000/signup/idCheck`, data: signInfo.uid },
+        { url: `http://localhost:8000/signup/idCheck`, data: signInfo.id },
         {
-          onSuccess: (data) => valiArrChange(0, data)
+          onSuccess: (data) => {
+            console.log(data);
+            setVali({ ...vali, id: data })
+            !data ? alert('이미 있는 아이디 입니다.') : alert('아이디 인증이 완료되었습니다!')
+          }
           ,
           onError: (error) => {
             // 요청이 실패했을 때 실행될 로직
@@ -81,61 +84,29 @@ export default function SignUp() {
     } else {
       alert('아이디를 입력해주세요.')
     }
-
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    let signKey = signValidation(signInfo, vali)
 
-
-    // console.log(signInfo);
-    if (signInfo.uid === '') {
-      valiArrChange(0, false)
-      return
-    }
-
-    if (signInfo.pw === '') {
-      valiArrChange(1, false)
-      return
-    }
-    if (signInfo.pwcheck !== signInfo.pw) {
-      valiArrChange(2, false)
-      return
-    }
-
-    if (signInfo.mailAuthNum === '') {
-      valiArrChange(3, false)
-      return
-    }
-
-    for (let i = 0; i < vali.length; i++) {
-      if (!vali[i]) return
-    }
-
-
-
-    // axios
-    //   .post(`http://localhost:8000/signup`, signInfo)
-    //   .then(result => {
-    //     // console.log(result.data);
-    //   })
-    //   .catch(err => console.log(err))
-
-
-    sendPostData(
-      { url: `http://localhost:8000/signup`, data: signInfo },
-      {
-        onSuccess: (data) => {
-          console.log(data);
+    if (signKey) {
+      setVali({ ...vali, [signKey]: false })
+    } else {
+      sendPostData(
+        { url: `http://localhost:8000/signup`, data: signInfo },
+        {
+          onSuccess: (data) => {
+            navigate('/')
+          }
+          ,
+          onError: (error) => console.error("에러 발생:", error)
         }
-        ,
-        onError: (error) => {
-          // 요청이 실패했을 때 실행될 로직
-          console.error("에러 발생:", error);
-        },
-      }
-    );
+      );
+    }
+
+
 
 
 
@@ -147,25 +118,27 @@ export default function SignUp() {
       <h1 className="formLogo"><img src="/img/txtLogo.png" alt="" /></h1>
       <form className="signForm" onSubmit={handleSubmit}>
         <div className="signId">
-          <input type="text" name="uid" value={signInfo.uid} placeholder="아이디를 입력해주세요." onChange={handleChange} />
+          <input type="text" name="id" value={signInfo.id} placeholder="아이디를 입력해주세요." onChange={handleChange} maxLength='20' />
           <button type="button" onClick={handleIdCheck}> 중복 확인</button>
-          {!vali[0] && <span className="noticeTxt">&#8251;아이디 중복확인을 해주세요.</span>}
+          {!vali.id && <span className="noticeTxt">&#8251;아이디 중복확인을 해주세요.</span>}
         </div>
-
         <div >
-          <input name="pw" type="password" value={signInfo.pw} placeholder="비밀번호를 입력해주세요." onChange={handleChange} />
-          {!vali[1] && <span className="noticeTxt">&#8251;비밀번호는 영문, 숫자, 특수문자를 포함해야 합니다.</span>}
+          <input name="name" type="text" value={signInfo.name} placeholder="이름을 입력해주세요." onChange={handleChange} maxLength='20' />
+          {!vali.name && <span className="noticeTxt">&#8251;이름을 입력해주세요.</span>}
         </div>
-
+        <div >
+          <input name="password" type="password" value={signInfo.password} placeholder="비밀번호를 입력해주세요." onChange={handleChange} maxLength='30' />
+          {!vali.password && <span className="noticeTxt">&#8251;비밀번호는 영문, 숫자, 특수문자를 포함해야 합니다.</span>}
+        </div>
         <div>
-          <input name="pwcheck" type="password" value={signInfo.pwcheck} placeholder="비밀번호를 확인해주세요." onChange={handleChange} />
-          {!vali[2] && <span className="noticeTxt">&#8251;비밀번호가 일치하지 않습니다.</span>}
+          <input name="pwcheck" type="password" value={signInfo.pwcheck} placeholder="비밀번호를 확인해주세요." onChange={handleChange} maxLength='30' />
+          {!vali.pwcheck && <span className="noticeTxt">&#8251;비밀번호가 일치하지 않습니다.</span>}
 
         </div>
 
 
         <div className="signemail">
-          <input type="text" name="email" value={signInfo.email} placeholder="이메일을 입력해주세요." onChange={handleChange} />
+          <input type="text" name="email" value={signInfo.email} placeholder="이메일을 입력해주세요." onChange={handleChange} maxLength='40' />
           <select className="signemailselect" name="mailAddr" onChange={handleChange} value={signInfo.mailAddr}>
             <option value='@naver.com'>@naver.com</option>
             <option value='@daum.net'>@daum.net</option>
@@ -175,19 +148,13 @@ export default function SignUp() {
 
           <button type="button" onClick={() => handleMailCheck()}> 인증</button>
           {mailCheck && <input type="number" name="mailAuthNum" value={signInfo.mailAuthNum} onChange={handleChange} className="mailCheckNum" placeholder="인증번호를 입력해주세요." />}
-          {!vali[3] && <span className="noticeTxt">&#8251;인증번호가 잘못되었습니다.</span>}
+          {!vali.mailAuthNum && <span className="noticeTxt">&#8251;이메일 인증을 해주세요.</span>}
 
         </div>
 
-        {/* <div className="signphone">
-          <input type="tel" name="tel" placeholder="폰번호를 입력해주세요."/> 
-        </div> */}
-
-
-
         <div className="signcheckbar">
           <div className="signcheckBtn">
-            <button type="button" onClick={()=>navigate('/')} className="signcancel">취소</button>
+            <button type="button" onClick={() => navigate('/')} className="signcancel">취소</button>
             <button className="signcheck">확인</button>
           </div>
         </div>
