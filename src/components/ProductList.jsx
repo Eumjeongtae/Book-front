@@ -11,7 +11,6 @@ export default function ProductList({data}) {
     // const navigate = useNavigate();
     // const dispatch = useDispatch();
 
-
     return (
         <>
             <div className='mainSLide'>

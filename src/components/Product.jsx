@@ -4,7 +4,7 @@ import Image from './Image';
 export default function Product(props) {
     return (
         <div >
-            <Image img={props.data.image} className={props.class} />
+            <Image img={props.data.image} class={props.class} />
             <div className='info'>
                 <p className='title'>{props.data.book_name}</p>
                 <p className='author'>{props.data.author}</p>

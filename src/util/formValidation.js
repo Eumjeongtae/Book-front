@@ -16,8 +16,8 @@ export const formValidation = (form) => {
         return 'publisher'
 
     }
-    if (form.publicationdate === '') {
-        return 'publicationdate'
+    if (form.publicatio_ndate === '') {
+        return 'publicatio_ndate'
     }
     if (form.income_date === '') {
         return 'income_date'

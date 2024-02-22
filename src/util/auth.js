@@ -1,4 +1,3 @@
-// auth.js
 import {jwtDecode} from 'jwt-decode';
 import * as Cookie from '../util/cookie.js';
 

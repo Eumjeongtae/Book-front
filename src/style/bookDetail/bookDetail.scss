@@ -30,11 +30,10 @@ main {
                     margin-top: 5px;
                 }
                 &.bookTitle {
-                    padding: 10px 0;
+                    padding: 00px 0 15px;
                     font-size: 30px;
                     color: #333;
                     font-weight: bold;
-                    line-height: 2em;
                     border-bottom: 1px solid #979797;
                 }
                 b {
@@ -194,9 +193,12 @@ main {
         &:last-child {
             margin-right: 50px;
             margin-left: 10px;
-            button{
+            button {
                 background-color: #ababab;
             }
         }
     }
+}
+.canNotRent{
+    pointer-events: none;
 }

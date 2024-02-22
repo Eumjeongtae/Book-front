@@ -31,11 +31,10 @@ main .detailItem .detailItemInfo li:nth-child(2) {
   margin-top: 5px;
 }
 main .detailItem .detailItemInfo li.bookTitle {
-  padding: 10px 0;
+  padding: 0px 0 15px;
   font-size: 30px;
   color: #333;
   font-weight: bold;
-  line-height: 2em;
   border-bottom: 1px solid #979797;
 }
 main .detailItem .detailItemInfo li b {
@@ -179,4 +178,8 @@ main .reviewList .review li .reviewContent .reviewTxt {
 }
 .detailItemBtn li:last-child button {
   background-color: #ababab;
+}
+
+.canNotRent {
+  pointer-events: none;
 }/*# sourceMappingURL=bookDetail.css.map */
