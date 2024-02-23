@@ -162,7 +162,7 @@ main .reviewList .review li .reviewContent .reviewTxt {
   background-color: #ebebeb;
   box-sizing: border-box;
 }
-.detailItemBtn li button {
+.detailItemBtn li > button {
   display: block;
   background-color: rgb(58, 58, 58);
   color: white;
@@ -178,6 +178,11 @@ main .reviewList .review li .reviewContent .reviewTxt {
 }
 .detailItemBtn li:last-child button {
   background-color: #ababab;
+}
+.detailItemBtn li.reserveCalendar {
+  position: absolute;
+  right: 25px;
+  bottom: 75px;
 }
 
 .canNotRent {

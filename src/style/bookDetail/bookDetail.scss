@@ -184,7 +184,7 @@ main {
     background-color: #ebebeb;
     box-sizing: border-box;
     li {
-        button {
+        &>button {
             @include m.button;
             border-radius: 5px;
             font-size: 0.9rem;
@@ -196,6 +196,11 @@ main {
             button {
                 background-color: #ababab;
             }
+        }
+        &.reserveCalendar{
+            position: absolute; 
+            right: 25px;
+            bottom: 75px;
         }
     }
 }

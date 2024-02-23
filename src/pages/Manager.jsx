@@ -29,7 +29,7 @@ export default function Manager() {
                 <thead>
                     <tr>
                         <th>제목</th>
-                        <th>카테고리</th>
+                        <th>장르</th>
                         <th>구입일자</th>
                         <th>상태</th>
                         <th>수정</th>

@@ -260,7 +260,7 @@ export default function Form(props) {
                     </div>
                 )}
                 <div className="inputContainer">
-                    <p className="inputTitle">카테고리</p>
+                    <p className="inputTitle">장르</p>
                     <div>
                         <select
                             className="signemailselect"
