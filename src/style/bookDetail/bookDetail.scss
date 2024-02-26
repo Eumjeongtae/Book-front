@@ -172,6 +172,11 @@ main {
             }
         }
     }
+    .noList {
+        color: #555555;
+        font-size: 14px;
+        padding: 50px 0;
+    }
 }
 .detailItemBtn {
     width: 100%;
@@ -184,7 +189,7 @@ main {
     background-color: #ebebeb;
     box-sizing: border-box;
     li {
-        &>button {
+        & > button {
             @include m.button;
             border-radius: 5px;
             font-size: 0.9rem;
@@ -197,13 +202,13 @@ main {
                 background-color: #ababab;
             }
         }
-        &.reserveCalendar{
-            position: absolute; 
+        &.reserveCalendar {
+            position: absolute;
             right: 25px;
             bottom: 75px;
         }
     }
 }
-.canNotRent{
+.canNotRent {
     pointer-events: none;
 }

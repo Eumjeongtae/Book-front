@@ -150,6 +150,11 @@ main .reviewList .review li .reviewContent .reviewTxt {
   font-size: 12px;
   color: rgb(136, 136, 136);
 }
+main .noList {
+  color: #555555;
+  font-size: 14px;
+  padding: 50px 0;
+}
 
 .detailItemBtn {
   width: 100%;

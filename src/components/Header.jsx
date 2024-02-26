@@ -24,7 +24,7 @@ export default function Header(params) {
             <div>
                 <p className="userId">{userInfo ? userInfo.id : <></>}</p>
                 <p>
-                    <Link to="mypage/test">Mypage</Link>{' '}
+                    <Link to="mypage">Mypage</Link>{' '}
                 </p>
                 <p onClick={handleLogout} className="logout">
                     Logout

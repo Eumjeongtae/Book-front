@@ -8,12 +8,11 @@ import { PiShoppingBag } from 'react-icons/pi';
 import { PiShoppingBagFill } from 'react-icons/pi';
 import Score from '../components/Score';
 import Review from '../components/Review';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getUser } from '../util/localStorage';
 import { usePostData } from '../api/apiPost';
 import { useQueryClient } from 'react-query';
 import useBookActions from '../hooks/useBookActions';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css'; // 기본 스타일링
 import Calendar from '../components/Calendar';
 import { genre } from '../util/genre';
@@ -27,13 +26,22 @@ export default function Book() {
     const { mutate: sendPostData } = usePostData();
     const [reviewBtn, setReviewBtn] = useState(false);
     const [viewCalendar, setViewCalendar] = useState(false);
-    const { returnBook } = useBookActions();
+    const { returnBook, reservationBook, reservationCancelBook } = useBookActions();
+    const [averageScore, setAverageScore] = useState(0); // 평균 점수 상태
+    useEffect(() => {
+        if (data?.reviewList && data.reviewList.length > 0) {
+            const totalScore = data.reviewList.reduce((acc, curr) => acc + curr.score, 0);
+            const avgScore = totalScore / data.reviewList.length;
+            setAverageScore(avgScore.toFixed(1)); // 소수점 첫째 자리까지 반올림
+        } else {
+            setAverageScore(0); // 리뷰가 없을 경우 평균 점수를 0으로 설정
+        }
+    }, [data?.reviewList]); // data.reviewList가 변경될 때마다 useEffect 실행
 
     // console.log(data);
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
     if (!data || data.length === 0) return <div>No data found</div>;
-    console.log(data);
 
     const closeReviewPopup = (e) => setReviewBtn(e);
 
@@ -55,14 +63,14 @@ export default function Book() {
 
     const rentBtn = () => {
         //책이 예약중인데 대여자와 로그인 아이디가 같음
-        if (data.rentData && data.rentData.user_id === userInfo.id_idx) {
+        if (data.rentData?.user_id === userInfo.id_idx) {
             return (
                 <button type="button" onClick={() => returnBook(data.bookData.id, url)}>
                     반납하기
                 </button>
             );
             //책이 예약중인데 대여자와 로그인 아이디가 다름
-        } else if (data.rentData && data.rentData.user_id !== userInfo.id_idx) {
+        } else if (data.rentData) {
             return (
                 <button type="button" className="canNotRent">
                     대여불가
@@ -79,13 +87,18 @@ export default function Book() {
     };
 
     const handleReserve = () => {
-        if (data.rentData && data.rentData.user_id === userInfo.id_idx) {
+        if (data.rentData?.user_id === userInfo.id_idx) {
             alert('현재 대여하고 계신 책 입니다.');
             return;
-        } else if (data.rentData && data.rentData.user_id !== userInfo.id_idx) {
+        } else if (data.reservationData) {
+            let userResponse = window.confirm(`예약중이신 책 입니다 예약 취소 하시겠습니까?`);
+            if (userResponse) {
+                reservationCancelBook(data.bookData.id, url);
+            }
+        } else if (data.rentData && data.reservationData === false) {
             let userResponse = window.confirm(`책을 예약 하시겠습니까?`);
             if (userResponse) {
-                console.log(1111);
+                reservationBook(data.bookData.id, url);
             }
         } else {
             alert('현재 책 대여가 가능합니다.');
@@ -124,54 +137,50 @@ export default function Book() {
                                         {data.bookData.user_liked ? <IoIosHeart /> : <IoIosHeartEmpty />}
                                         <span>{data.bookData.like_count}</span>
                                     </button>
-                                    <button type="button" onClick={() => handleReserve()}>
-                                        <PiShoppingBag />
-                                        <span>예약하기</span>
-                                    </button>
+                                    {data.reservationData ? (
+                                        <button type="button" onClick={() => handleReserve()}>
+                                            <PiShoppingBagFill />
+                                            <span>예약 취소하기</span>
+                                        </button>
+                                    ) : (
+                                        <button type="button" onClick={() => handleReserve()}>
+                                            <PiShoppingBag />
+                                            <span>예약 하기</span>
+                                        </button>
+                                    )}
                                 </li>
                             </ul>
                         </div>
                     </section>
 
                     <section className="wishList reviewList">
-                        {true ? (
+                        {data.reviewList ? (
                             <>
                                 <div className="container1">
                                     <div>
                                         <div className="starBox">
-                                            <p className="starNum">4</p>
-                                            <Score score={4} />
+                                            <p className="starNum">{averageScore}</p>
+                                            <Score score={averageScore} />
                                         </div>
                                         <div className="middle"></div>
                                         <div className="percentBox">
-                                            <p>100%</p>
+                                            <p>{averageScore/5 *100}%</p>
                                             <span>만족후기</span>
                                         </div>
                                     </div>
                                 </div>
                                 <ul className="review">
-                                    <li>
-                                        <div className="reviewContent">
-                                            <div className="buyerName">
-                                                <div className="buyer">user123</div>
-                                                <p className="buyerDate">10분전</p>
+                                    {data?.reviewList.map((v, i) => (
+                                        <li key={i}>
+                                            <div className="reviewContent">
+                                                <div className="buyerName">
+                                                    <div className="buyer">{v.id}</div>
+                                                </div>
+                                                <Score score={v.score} />
+                                                <div className="reviewTxt">{v.title}</div>
                                             </div>
-                                            <Score score={4} />
-                                            <div className="reviewTxt">
-                                                하느님이 보우하사 우리 나라만세 무궁화 삼천리...
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className="reviewContent">
-                                            <div className="buyerName">
-                                                <div className="buyer">test123</div>
-                                                <p className="buyerDate">10분전</p>
-                                            </div>
-                                            <Score score={3} />
-                                            <div className="reviewTxt">동해물과 백두산이 마르고 닳도록...</div>
-                                        </div>
-                                    </li>
+                                        </li>
+                                    ))}
                                 </ul>
                             </>
                         ) : (
@@ -194,7 +203,7 @@ export default function Book() {
                 </li>
                 <li>{rentBtn()}</li>
             </ul>
-            {reviewBtn && <Review closeReviewPopup={closeReviewPopup} />}
+            {reviewBtn && <Review closeReviewPopup={closeReviewPopup} book_id={data.bookData.id} />}
         </>
     );
 }

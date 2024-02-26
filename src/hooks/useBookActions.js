@@ -9,12 +9,12 @@ function useBookActions() {
     const queryClient = useQueryClient();
     const { mutate: sendPostData } = usePostData();
     const userInfo = getUser() ? getUser().userInfo : '';
+    let now = new Date();
+    const now_date = formatDateToMySQL(now); //db형식
 
     const rentBook = (date, book_id) => {
-        let now = new Date();
         let returnDate = new Date(date);
         returnDate.setHours(0, 0, 0, 0); // 시, 분, 초, 밀리초를 0으로 설정
-        const rent_date = formatDateToMySQL(now); //db형식
         const expected_return_date = formatDateToMySQL(returnDate); //db형식
         const dateOnly = expected_return_date.split(' ')[0]; // 년 월 일만 나옴
         let userResponse = window.confirm(`${dateOnly}까지 반납 하시겠습니까?`);
@@ -25,7 +25,7 @@ function useBookActions() {
                     data: {
                         user_id: userInfo.id_idx,
                         book_id,
-                        rent_date,
+                        rent_date: now_date,
                         expected_return_date,
                     },
                 },
@@ -65,7 +65,46 @@ function useBookActions() {
         }
     };
 
-    return { rentBook, returnBook };
+    const reservationBook = (book_id, url) => {
+        sendPostData(
+            {
+                url: `http://localhost:8000/product/reservation`,
+                data: {
+                    user_id: userInfo.id_idx,
+                    book_id,
+                    created_at: now_date,
+                },
+            },
+            {
+                onSuccess: (result) => queryClient.invalidateQueries([url]),
+                onError: (error) => {
+                    // 요청이 실패했을 때 실행될 로직
+                    console.error('에러 발생:', error);
+                },
+            }
+        );
+    };
+    const reservationCancelBook = (book_id, url) => {
+        sendPostData(
+            {
+                url: `http://localhost:8000/product/reservationCancel`,
+                data: {
+                    user_id: userInfo.id_idx,
+                    book_id,
+                    cancel_at: now_date,
+                },
+            },
+            {
+                onSuccess: (result) => queryClient.invalidateQueries([url]),
+                onError: (error) => {
+                    // 요청이 실패했을 때 실행될 로직
+                    console.error('에러 발생:', error);
+                },
+            }
+        );
+    };
+
+    return { rentBook, returnBook, reservationBook ,reservationCancelBook};
 }
 
 export default useBookActions;

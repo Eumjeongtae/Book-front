@@ -17,9 +17,7 @@ export default function ProductList({data}) {
                 <MySwiper >
                     {data.map((book, i) =>
                         <SwiperSlide key={i}>
-                            <Link to={`/detail/${i + 1}`}>
                                 <Product data={book} class='listSlide' />
-                            </Link>
                         </SwiperSlide>)}
 
                 </MySwiper>

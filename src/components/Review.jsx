@@ -5,8 +5,8 @@ import { getUser } from "../util/localStorage";
 import { usePostData } from '../api/apiPost';
 
 export default function Review(props) {
-
-
+    console.log(props);
+    
     const [reviewText, setReviewText] = useState('');
     const [score, setScore] = useState(0);
     const userInfo = getUser() ? getUser().userInfo : '';
@@ -23,9 +23,9 @@ export default function Review(props) {
         }
 
         sendPostData(
-            { url: `http://localhost:8000/review`, data: { reviewText, score, email: userInfo.email } },
+            { url: `http://localhost:8000/review`, data: { title : reviewText, score, user_id: userInfo.id_idx ,book_id : props.book_id} },
             {
-              onSuccess: (data) => console.log(data)
+              onSuccess: (data) => window.location.reload()
               ,
               onError: (error) => {
                 // 요청이 실패했을 때 실행될 로직
