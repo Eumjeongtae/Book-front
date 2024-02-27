@@ -27,14 +27,13 @@ export default function Mypage() {
                     현재 대여한 책
                 </li>
                 <li className={tab === 'decision' ? 'on' : ''} onClick={() => setTab('decision')}>
-                    {' '}
                     찜한 책 리스트
                 </li>
             </ul>
             <section>
                 {tab === 'history' && <History data={data} />}
                 {tab === 'rent' && <RentBook data={data} url={url} />}
-                {/* {tab === 'decision' && <Decision data={data} />} */}
+                {tab === 'decision' && <Decision data={data} />}
             </section>
         </main>
     );

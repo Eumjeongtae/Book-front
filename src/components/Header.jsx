@@ -3,6 +3,7 @@ import Image from './Image';
 import '../style/header/header.css';
 import { getUser, removeUser } from '../util/localStorage';
 import { useNavigate } from 'react-router-dom';
+
 export default function Header(params) {
     const navigate = useNavigate();
     const { genre } = useParams();
@@ -14,6 +15,8 @@ export default function Header(params) {
         navigate('/');
     };
 
+
+
     return (
         <header className="inner">
             <h1>
@@ -22,9 +25,15 @@ export default function Header(params) {
                 </Link>
             </h1>
             <div>
-                <p className="userId">{userInfo ? userInfo.id : <></>}</p>
+                {userInfo?.authority === 1 && (
+                    <p>
+                        <Link to="manager">Manager</Link>
+                    </p>
+                )}
+
+                <p className="userId">{userInfo?.id}</p>
                 <p>
-                    <Link to="mypage">Mypage</Link>{' '}
+                    <Link to="mypage">Mypage</Link>
                 </p>
                 <p onClick={handleLogout} className="logout">
                     Logout

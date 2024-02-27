@@ -16,6 +16,7 @@ import useBookActions from '../hooks/useBookActions';
 import 'react-datepicker/dist/react-datepicker.css'; // 기본 스타일링
 import Calendar from '../components/Calendar';
 import { genre } from '../util/genre';
+import { formatDate } from '../util/formatDate';
 
 export default function Book() {
     const queryClient = useQueryClient(); // QueryClient 인스턴스를 얻음
@@ -42,7 +43,7 @@ export default function Book() {
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
     if (!data || data.length === 0) return <div>No data found</div>;
-
+    console.log(data);
     const closeReviewPopup = (e) => setReviewBtn(e);
 
     const handleLike = () => {
@@ -69,15 +70,15 @@ export default function Book() {
                     반납하기
                 </button>
             );
-            //책이 예약중인데 대여자와 로그인 아이디가 다름
-        } else if (data.rentData) {
+            //책이 예약중
+        } else if (data.bookData.status === 1) {
             return (
                 <button type="button" className="canNotRent">
                     대여불가
                 </button>
             );
             //책 대여가능
-        } else {
+        } else if (data.bookData.status === 0) {
             return (
                 <button type="button" onClick={() => setViewCalendar(!viewCalendar)}>
                     대여하기
@@ -95,12 +96,12 @@ export default function Book() {
             if (userResponse) {
                 reservationCancelBook(data.bookData.id, url);
             }
-        } else if (data.rentData && data.reservationData === false) {
+        } else if (data.rentData && data.reservationData === false && data.bookData.status === 1) {
             let userResponse = window.confirm(`책을 예약 하시겠습니까?`);
             if (userResponse) {
                 reservationBook(data.bookData.id, url);
             }
-        } else {
+        } else if (data.bookData.status === 0) {
             alert('현재 책 대여가 가능합니다.');
             return;
         }
@@ -118,7 +119,7 @@ export default function Book() {
                             <ul>
                                 <li className="bookTitle">{data.bookData.book_name}</li>
                                 <li>
-                                    <b>장르</b> <span>{genre(data?.bookData.genre)}</span>{' '}
+                                    <b>장르</b> <span>{genre(data.bookData.genre)}</span>{' '}
                                 </li>
                                 <li>
                                     <b>배급사</b> <span>{data.bookData.publisher}</span>{' '}
@@ -127,7 +128,7 @@ export default function Book() {
                                     <b>작가</b> <span>{data.bookData.author}</span>
                                 </li>
                                 <li>
-                                    <b>출판일</b> <span>{data.bookData.publication_date}</span>
+                                    <b>출판일</b> <span>{formatDate(data.bookData.publication_date)}</span>
                                 </li>
                                 <li>
                                     <b>메모</b> <span>{data.bookData.memo ? data.bookData.memo : '메모 없음'}</span>
@@ -164,7 +165,7 @@ export default function Book() {
                                         </div>
                                         <div className="middle"></div>
                                         <div className="percentBox">
-                                            <p>{averageScore/5 *100}%</p>
+                                            <p>{((averageScore / 5) * 100).toFixed()}%</p>
                                             <span>만족후기</span>
                                         </div>
                                     </div>

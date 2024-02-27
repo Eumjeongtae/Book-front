@@ -69,6 +69,7 @@
   padding: 15px 23px 0 25px;
 }
 .category > div p {
+  position: relative;
   margin-bottom: 5px;
   font-size: 14px;
 }
@@ -89,7 +90,7 @@
   background-color: rgb(238, 238, 238);
   margin: 10px 0 15px;
 }
-.category > div p button {
+.category > div p > button {
   display: block;
   display: block;
   background-color: rgb(58, 58, 58);
@@ -101,4 +102,12 @@
   border-radius: 3px;
   font-size: 11px;
   background-color: #969696;
+}
+.category > div p > button.cantRent {
+  pointer-events: none;
+}
+.category > div p .calendar {
+  position: absolute;
+  left: 65px;
+  top: 0;
 }/*# sourceMappingURL=mypage.css.map */

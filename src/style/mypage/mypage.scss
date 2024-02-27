@@ -38,8 +38,10 @@
             padding: 15px 23px 0 25px;
         }
         p {
+            position: relative;
             margin-bottom: 5px;
             font-size: 14px;
+
             &.title {
                 font-size: 18px;
                 font-weight: bold;
@@ -59,7 +61,7 @@
                     margin: 10px 0 15px;
                 }
             }
-            button {
+            &>button {
                 display: block;
                 @include m.button;
                 margin-top: 10px;
@@ -67,6 +69,15 @@
                 border-radius: 3px;
                 font-size: 11px;
                 background-color: #969696;
+                &.cantRent{
+                    pointer-events: none;
+                }
+
+            }
+            .calendar{
+                position: absolute;
+                left: 65px;
+                top: 0;
             }
         }
     }

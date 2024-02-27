@@ -1,10 +1,16 @@
-import useBookActions from '../hooks/useBookActions';
 import Image from './Image';
 import { Link } from 'react-router-dom';
+import Calendar from '../components/Calendar';
+import { useState } from 'react';
+import { formatDate } from '../util/formatDate';
+import Review from './Review';
 
 export default function Product(props) {
-    console.log(props);
-    const { returnBook } = useBookActions();
+    console.log(props.data);
+    const [viewCalendar, setViewCalendar] = useState(false);
+    const [reviewBtn, setReviewBtn] = useState(false);
+
+    const closeReviewPopup = (e) => setReviewBtn(e);
 
     return (
         <div>
@@ -20,29 +26,55 @@ export default function Product(props) {
                 {props.type === 'myPageHistory' && (
                     <>
                         <p className="rentDate">
-                            대여일자 <span>{props.data.rent_date}</span>{' '}
+                            대여일자 <span>{formatDate(props.data.rent_date)}</span>{' '}
                         </p>
                         <p className="returnDate">
-                            반납일자 <span>{props.data.return_date}</span>{' '}
+                            반납일자 <span>{formatDate(props.data.return_date)}</span>{' '}
                         </p>
                     </>
                 )}
                 {props.type === 'myPageRentBook' && (
                     <>
                         <p className="rentDate">
-                            반납 예정일 <span>{props.data.expected_return_date}</span>
+                            반납 예정일 <span>{formatDate(props.data.expected_return_date)}</span>
                         </p>
                         <p>
-                            <button onClick={() => returnBook(props.data.book_id, props.url)}>반납하기</button>
+                            <button onClick={() => setReviewBtn(true)}>반납하기</button>
+                            {reviewBtn && (
+                                <Review
+                                    closeReviewPopup={closeReviewPopup}
+                                    book_id={props.data.book_id}
+                                    url={props.url}
+                                />
+                            )}
+
+                            {/* <button onClick={() => returnBook(props.data.book_id, props.url)}>반납하기</button> */}
                         </p>
                     </>
                 )}
                 {props.type === 'myPageDecision' && (
                     <>
-                        <p className="rentDate">재고 있음 </p>
-                        {/* <p className='rentDate'>반납 예정일  <span>2020-02-01</span> </p> */}
+                        {props.data.book_status === 0 ? (
+                            <p className="rentDate">재고 있음 </p>
+                        ) : (
+                            <p className="rentDate">
+                                반납 예정일 <span>{formatDate(props.data.expected_return_date)}</span>
+                            </p>
+                        )}
+
                         <p>
-                            <button>대여하기</button>
+                            {props.data.book_status === 0 ? (
+                                <>
+                                    <button onClick={() => setViewCalendar(!viewCalendar)}>대여하기</button>
+                                    {viewCalendar && (
+                                        <div className="calendar">
+                                            <Calendar book_id={props.data.book_id} />
+                                        </div>
+                                    )}
+                                </>
+                            ) : (
+                                <button className="cantRent">대여불가</button>
+                            )}
                         </p>
                     </>
                 )}

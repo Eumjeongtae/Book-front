@@ -16,6 +16,7 @@ function useBookActions() {
         let returnDate = new Date(date);
         returnDate.setHours(0, 0, 0, 0); // 시, 분, 초, 밀리초를 0으로 설정
         const expected_return_date = formatDateToMySQL(returnDate); //db형식
+        console.log(expected_return_date);
         const dateOnly = expected_return_date.split(' ')[0]; // 년 월 일만 나옴
         let userResponse = window.confirm(`${dateOnly}까지 반납 하시겠습니까?`);
         if (userResponse) {
@@ -104,7 +105,7 @@ function useBookActions() {
         );
     };
 
-    return { rentBook, returnBook, reservationBook ,reservationCancelBook};
+    return { rentBook, returnBook, reservationBook, reservationCancelBook };
 }
 
 export default useBookActions;
