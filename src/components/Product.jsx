@@ -6,7 +6,6 @@ import { formatDate } from '../util/formatDate';
 import Review from './Review';
 
 export default function Product(props) {
-    console.log(props.data);
     const [viewCalendar, setViewCalendar] = useState(false);
     const [reviewBtn, setReviewBtn] = useState(false);
 

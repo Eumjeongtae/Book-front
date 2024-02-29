@@ -2,37 +2,36 @@ import { useRef, useState } from 'react';
 import '../style/form/form.css';
 import { FaCamera } from 'react-icons/fa';
 import Image from './Image';
-import { dateCheck } from '../util/dateCheck';
 import { useImageUpload } from '../hooks/useImageUpload';
 import { usePostData } from '../api/apiPost';
-import { getUser } from '../util/localStorage';
 import { formValidation } from '../util/formValidation';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { formatDateToMySQL } from '../util/formatDateToMySQL';
+import { useNavigate } from 'react-router-dom';
+import { formatDate } from '../util/formatDate';
 
 export default function Form(props) {
-    const userInfo = getUser() ? getUser().userInfo : '';
+    const navigate = useNavigate();
+    console.log(props);
     const initialState = {
-        email: userInfo.email,
-        image: '',
+        image: null,
         book_name: '',
         publisher: '',
         author: '',
-        publication_date: '',
-        income_date: '',
-        memo: '',
-        income_type: 'companyBuy',
-        income_method: '',
-        genre: 'General',
-        status: 'Stock',
+        publication_date: formatDateToMySQL(new Date()),
+        income_date: formatDateToMySQL(new Date()),
+        memo: null,
+        income_type: 0,
+        income_method: null,
+        genre: 3,
+        status: 0,
     };
     const [form, setForm] = useState(() => (props.type === 'bookModify' ? props.info : initialState));
     const [vali, setVali] = useState({
-        image: true,
         book_name: true,
         publisher: true,
-        income_date: true,
         author: true,
-        publication_date: true,
-        memo: true,
         income_method: true,
     });
 
@@ -40,39 +39,20 @@ export default function Form(props) {
     const { mutate: sendPostData } = usePostData();
 
     const inputRefs = {
-        image: useRef(null),
         book_name: useRef(null),
         author: useRef(null),
         publisher: useRef(null),
-        publication_date: useRef(null),
-        income_date: useRef(null),
-        memo: useRef(null),
         income_method: useRef(null),
-    };
-
-    const dateVali = (date, name) => {
-        if (dateCheck(date)) {
-            setForm({ ...form, [name]: date });
-        } else {
-            setForm({ ...form, [name]: '' });
-            setVali({ ...vali, [name]: false });
-            alert('오늘 날짜 까지만 선택 가능합니다!');
-        }
     };
 
     const handleChange = async (e) => {
         const { name, value } = e.target;
-        setForm({ ...form, [name]: value }); //input 값 onChange시 value값 재 할당
+        setForm({ ...form, [name]: value });
         setVali({ ...vali, [name]: true });
 
         if (name === 'image' && e.target.files.length) {
             let imgPath = await imageUpload(e.target.files[0]);
             setForm({ ...form, image: imgPath });
-        }
-
-        if (name === 'publication_date' || name === 'income_date') {
-            let date = e.target.value;
-            dateVali(date, name);
         }
     };
 
@@ -84,9 +64,16 @@ export default function Form(props) {
             inputRefs[formKey].current.focus();
         } else {
             sendPostData(
-                { url: `http://localhost:8000/newBook`, data: form },
                 {
-                    onSuccess: (data) => console.log(data),
+                    url: `${
+                        props.type === 'bookModify'
+                            ? 'http://localhost:8000/manager/edit'
+                            : 'http://localhost:8000/manager'
+                    }`,
+                    data: form,
+                },
+                {
+                    onSuccess: (data) => navigate('/list/0'),
                     onError: (error) => {
                         // 요청이 실패했을 때 실행될 로직
                         console.error('에러 발생:', error);
@@ -105,7 +92,6 @@ export default function Form(props) {
                             <input
                                 type="file"
                                 name="image"
-                                ref={inputRefs.image}
                                 accept="image/jpg, image/jpeg, image/png"
                                 onChange={(e) => handleChange(e)}
                             />
@@ -114,12 +100,11 @@ export default function Form(props) {
                                 <span>이미지 등록</span>
                             </i>
                         </span>
-                        {form.image === '' ? null : (
+                        {!form.image ? null : (
                             <span className="thumnail">
                                 <Image img={form.image} />
                             </span>
                         )}
-                        {!vali.image && <p className="noticeTxt">&#8251;이미지를 등록 해주세요.</p>}
                     </div>
                 </div>
 
@@ -171,42 +156,34 @@ export default function Form(props) {
                 <div className="inputContainer">
                     <p className="inputTitle">출판일</p>
                     <div>
-                        <input
-                            type="date"
-                            name="publication_date"
-                            ref={inputRefs.publication_date}
-                            value={form.publication_date}
-                            onChange={(e) => handleChange(e)}
+                        <DatePicker
+                            selected={form.publication_date}
+                            onChange={(date) => setForm({ ...form, publication_date: formatDateToMySQL(date) })}
+                            maxDate={new Date()}
                         />
-                        {!vali.publication_date && <p className="noticeTxt">&#8251;출판일 등록 해주세요.</p>}
                     </div>
                 </div>
 
                 <div className="inputContainer">
                     <p className="inputTitle">구입일</p>
                     <div>
-                        <input
-                            type="date"
-                            name="income_date"
-                            ref={inputRefs.income_date}
-                            value={form.income_date}
-                            onChange={(e) => handleChange(e)}
+                        <DatePicker
+                            selected={form.income_date}
+                            onChange={(date) => setForm({ ...form, income_date: formatDateToMySQL(date) })}
+                            maxDate={new Date()}
                         />
-                        {!vali.income_date && <p className="noticeTxt">&#8251;구입일 등록 해주세요.</p>}
                     </div>
                 </div>
 
                 <div className="inputContainer">
-                    <p className="inputTitle">내용</p>
+                    <p className="inputTitle">메모</p>
                     <div>
                         <textarea
                             name="memo"
                             placeholder="책에 관한 정보를 입력해 주세요."
-                            ref={inputRefs.memo}
                             value={form.memo}
                             onChange={(e) => handleChange(e)}
                         />
-                        {!vali.memo && <p className="noticeTxt">&#8251;책에 관한 정보를 등록 해주세요.</p>}
                     </div>
                 </div>
 
@@ -218,22 +195,35 @@ export default function Form(props) {
                                 <li>
                                     <input
                                         type="radio"
-                                        checked={form.income_type === 'companyBuy'}
+                                        checked={form.income_type === 0}
                                         name="income_type"
-                                        value="companyBuy"
+                                        value={0}
                                         id="companyBuy"
                                         onChange={(e) => {
                                             handleChange(e);
                                         }}
                                     />
-                                    <label htmlFor="companyBuy">회사구매</label>
+                                    <label htmlFor="companyBuy">회사구매 온러안</label>
                                 </li>
                                 <li>
                                     <input
                                         type="radio"
-                                        checked={form.income_type === 'present'}
+                                        checked={form.income_type === 1}
                                         name="income_type"
-                                        value="present"
+                                        value={0}
+                                        id="companyBuy"
+                                        onChange={(e) => {
+                                            handleChange(e);
+                                        }}
+                                    />
+                                    <label htmlFor="companyBuy">회사구매 오프라인</label>
+                                </li>
+                                <li>
+                                    <input
+                                        type="radio"
+                                        checked={form.income_type === 2}
+                                        name="income_type"
+                                        value={2}
                                         id="present"
                                         onChange={(e) => {
                                             handleChange(e);
@@ -242,7 +232,7 @@ export default function Form(props) {
                                     <label htmlFor="present">기부</label>
                                 </li>
 
-                                {form.income_type === 'present' && (
+                                {form.income_type === 2 && (
                                     <li>
                                         <input
                                             type="text"
@@ -268,27 +258,49 @@ export default function Form(props) {
                             onChange={(e) => handleChange(e)}
                             value={form.genre}
                         >
-                            <option value="General">일반</option>
-                            <option value="Development">개발</option>
-                            <option value="Marketing">마케팅</option>
+                            <option value="3">일반</option>
+                            <option value="1">개발</option>
+                            <option value="2">마케팅</option>
                         </select>
                     </div>
                 </div>
                 {props.type === 'bookModify' && (
-                    <div className="inputContainer">
-                        <p className="inputTitle">상태(선택)</p>
-                        <div>
-                            <select
-                                className="signemailselect"
-                                name="status"
-                                onChange={(e) => handleChange(e)}
-                                value={form.genre}
-                            >
-                                <option value="Stock">재고</option>
-                                <option value="Rented">대여</option>
-                            </select>
+                    <>
+                        <div className="inputContainer">
+                            <p className="inputTitle">상태(선택)</p>
+                            <div>
+                                <select
+                                    className="signemailselect"
+                                    name="status"
+                                    onChange={(e) => handleChange(e)}
+                                    value={form.genre}
+                                >
+                                    <option value="0">재고</option>
+                                    <option value="1">대여</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
+
+                        <table striped bordered className="customTable">
+                            <thead>
+                                <tr>
+                                    <th>대여자 이름</th>
+                                    <th>대여일자</th>
+                                    <th>반납일자</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {props.rentalHistory.length &&
+                                    props.rentalHistory.map((data, i) => (
+                                        <tr key={i}>
+                                            <td>{data.borrower_name}</td>
+                                            <td>{formatDate(data.rent_date)}</td>
+                                            <td>{data.return_date ? formatDate(data.return_date) : '대여중'}</td>
+                                        </tr>
+                                    ))}
+                            </tbody>
+                        </table>
+                    </>
                 )}
 
                 {props.type === 'bookModify' ? (

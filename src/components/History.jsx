@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import Product from './Product';
 
 export default function History({ data }) {
-    console.log(data[0]?.book_id);
     return (
         <>
             {data.length ? (

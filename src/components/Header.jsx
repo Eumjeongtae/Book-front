@@ -21,7 +21,7 @@ export default function Header(params) {
         <header className="inner">
             <h1>
                 <Link to="/list/0">
-                    <Image img="mainLogo.png" class="logo" />
+                    <Image img="imgupload/mainLogo.png" class="logo" />
                 </Link>
             </h1>
             <div>

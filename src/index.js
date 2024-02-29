@@ -35,7 +35,7 @@ const router = createBrowserRouter([
             { path: '/sign', element: <SignUp /> },
             { path: '/manager', element: <Manager /> },
             { path: '/mypage', element: <Mypage /> },
-            { path: '/modify/:bid', element: <Modify /> },
+            { path: '/modify/:book_id', element: <Modify /> },
         ],
     },
 ]);

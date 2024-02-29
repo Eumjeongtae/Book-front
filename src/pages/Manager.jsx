@@ -15,7 +15,7 @@ export default function Manager() {
     const { data, isLoading, error } = useFetchData(urlInfo);
     const [tab, setTab] = useState('check');
 
-    console.log(data);
+    // console.log(data);
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
     if (!data || data.length === 0) return <div>No data found</div>;
@@ -24,6 +24,9 @@ export default function Manager() {
     const checkDay = (date) => {
         const currentDate = new Date();
         const expectedDate = new Date(date);
+
+        // currentDate.setDate(currentDate.getDate() + 1); 
+        // console.log('내일 날짜:', currentDate);
         return currentDate.toDateString() > expectedDate.toDateString() ? (
             <>
                 연체<button>메일 보내기</button>
@@ -71,10 +74,9 @@ export default function Manager() {
                                     ) : (
                                         checkDay(item.expected_return_date)
                                     )}
-                                    {/* {item.status === 1 && <button>메일 보내기</button>}{' '} */}
                                 </td>
                                 <td>
-                                    <button onClick={() => navigate(`/modify/${i}`)}>수정하기</button>
+                                    <button onClick={() => navigate(`/modify/${item.book_id}`)}>수정하기</button>
                                 </td>
                             </tr>
                         ))}
