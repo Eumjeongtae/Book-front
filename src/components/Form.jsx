@@ -13,7 +13,6 @@ import { formatDate } from '../util/formatDate';
 
 export default function Form(props) {
     const navigate = useNavigate();
-    console.log(props);
     const initialState = {
         image: null,
         book_name: '',

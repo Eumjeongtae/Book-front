@@ -39,11 +39,10 @@ export default function Book() {
         }
     }, [data?.reviewList]); // data.reviewList가 변경될 때마다 useEffect 실행
 
-    // console.log(data);
+    console.log(data);
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
     if (!data || data.length === 0) return <div>No data found</div>;
-    console.log(data);
     const closeReviewPopup = (e) => setReviewBtn(e);
 
     const handleLike = () => {
@@ -204,7 +203,7 @@ export default function Book() {
                 </li>
                 <li>{rentBtn()}</li>
             </ul>
-            {reviewBtn && <Review closeReviewPopup={closeReviewPopup} book_id={data.bookData.id} />}
+            {reviewBtn && <Review type='bookDetail' closeReviewPopup={closeReviewPopup} book_id={data.bookData.id} />}
         </>
     );
 }

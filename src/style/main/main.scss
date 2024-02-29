@@ -1,4 +1,3 @@
-
 .formLogo {
     font-size: 40px;
     font-weight: 900;
@@ -6,30 +5,49 @@
     padding: 0 0 35px;
 }
 
-
+.mainBookList {
+    display: flex;
+    height: 335px;
+    justify-content: center;
+    & > div {
+        width: 22%;
+        margin: 0 1.5%;
+        transition: transform 0.3s;
+        &:hover {
+            transform: scale(0.9);
+        }
+        img {
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* X축 Y축 그림자 크기, 색상 */
+            transition: box-shadow 0.3s ease-in-out; /* 그림자 효과에 애니메이션을 적용 */
+            transition: transform 0.3s;
+            width: 100%;
+            height: 216px;
+            object-fit: contain;
+        }
+    }
+}
 .mainSLide {
     margin-top: 50px;
-    .swiper{
-        height: 26vw;
-        .swiper-slide{
+    .swiper {
+        height: 335px;
+        .swiper-slide {
             height: 100%;
-            div{
-            height: 100%;
+            div {
+                height: 100%;
 
-            .listSlide {
-                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* X축 Y축 그림자 크기, 색상 */
-                transition: box-shadow 0.3s ease-in-out; /* 그림자 효과에 애니메이션을 적용 */
-                transition: transform 0.3s;
-                width: 100%;
-                &:hover {
-                    transform: scale(.9);
+                .listSlide {
+                    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* X축 Y축 그림자 크기, 색상 */
+                    transition: box-shadow 0.3s ease-in-out; /* 그림자 효과에 애니메이션을 적용 */
+                    transition: transform 0.3s;
+                    width: 100%;
+                    height: 216px;
+                    object-fit: contain;
+                    &:hover {
+                        transform: scale(0.9);
+                    }
                 }
             }
-
-            }
-            
         }
-   
     }
 
     .title {
@@ -51,17 +69,17 @@
     background-color: rgb(121, 207, 207) !important;
 }
 
-.landingSection{
+.landingSection {
     padding-bottom: 80px;
-    h2{
+    h2 {
         font-size: 23px;
         font-weight: bold;
         text-transform: uppercase;
-        color : #888;
+        color: #888;
         display: flex;
         align-items: center;
-        &::before{
-            content: '';
+        &::before {
+            content: "";
             display: block;
             width: 35px;
             height: 1px;
@@ -69,19 +87,23 @@
             margin-right: 5px;
         }
     }
-    &.landingChart{
+    &.landingChart {
         display: flex;
         justify-content: space-between;
         margin-top: 150px;
-        div{
+        div {
             width: 49%;
         }
     }
-    
 }
 
-.noBook{
+.noBook {
     padding: 20px;
     margin-top: 50px;
     font-size: 20px;
+}
+
+.rc-pagination {
+    text-align: center;
+    margin-top: 30px !important;
 }

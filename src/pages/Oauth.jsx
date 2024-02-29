@@ -16,7 +16,7 @@ export default function Oauth() {
                 console.log(result);
                 if (result.data.login) {
                     setAuthToken(result);
-                    navigate('/list/all');
+                    navigate('/list/0');
                 }
             } catch (error) {
                 console.error('Error fetching auth token:', error);

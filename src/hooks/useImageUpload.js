@@ -4,7 +4,6 @@ export const useImageUpload = () => {
     const imageUpload = async (file) => {
         const formData = new FormData();
         formData.append("file", file);
-
         try {
             const result = await axios.post('http://localhost:8000/imgupload', formData);
             return result.data; 

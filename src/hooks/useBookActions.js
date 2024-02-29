@@ -16,6 +16,7 @@ function useBookActions() {
         let returnDate = new Date(date);
         returnDate.setHours(0, 0, 0, 0); // 시, 분, 초, 밀리초를 0으로 설정
         const expected_return_date = formatDateToMySQL(returnDate); //db형식
+        console.log(now_date);
         const dateOnly = expected_return_date.split(' ')[0]; // 년 월 일만 나옴
         let userResponse = window.confirm(`${dateOnly}까지 반납 하시겠습니까?`);
         if (userResponse) {
@@ -30,7 +31,10 @@ function useBookActions() {
                     },
                 },
                 {
-                    onSuccess: (result) => window.location.reload(),
+                    onSuccess: (result) => {
+                        alert('책 대여가 완료되었습니다.');
+                        window.location.reload();
+                    },
                     onError: (error) => {
                         // 요청이 실패했을 때 실행될 로직
                         console.error('에러 발생:', error);
@@ -76,7 +80,10 @@ function useBookActions() {
                 },
             },
             {
-                onSuccess: (result) => queryClient.invalidateQueries([url]),
+                onSuccess: (result) => {
+                    queryClient.invalidateQueries([url]);
+                    alert('책 예약이 완료되었습니다');
+                },
                 onError: (error) => {
                     // 요청이 실패했을 때 실행될 로직
                     console.error('에러 발생:', error);
@@ -95,7 +102,10 @@ function useBookActions() {
                 },
             },
             {
-                onSuccess: (result) => queryClient.invalidateQueries([url]),
+                onSuccess: (result) => {
+                    queryClient.invalidateQueries([url]);
+                    alert('책 예약이 취소되었습니다');
+                },
                 onError: (error) => {
                     // 요청이 실패했을 때 실행될 로직
                     console.error('에러 발생:', error);
