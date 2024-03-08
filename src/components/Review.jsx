@@ -6,7 +6,6 @@ import { usePostData } from '../api/apiPost';
 import useBookActions from '../hooks/useBookActions';
 
 export default function Review(props) {
-    console.log(props);
     const { returnBook } = useBookActions();
 
     const [reviewText, setReviewText] = useState('');
@@ -23,22 +22,25 @@ export default function Review(props) {
             alert('리뷰를 작성해주세요!');
             return;
         }
-
-        sendPostData(
-            {
-                url: `http://localhost:8000/review`,
-                data: { title: reviewText, score, user_id: userInfo.id_idx, book_id: props.book_id },
-            },
-            {
-                onSuccess: (data) => {
-                    props.type!=='bookDetail' && returnBook(props.book_id, props.url)
+        try {
+            sendPostData(
+                {
+                    url: `http://localhost:8000/review`,
+                    data: { title: reviewText, score, user_id: userInfo.id_idx, book_id: props.book_id },
                 },
-                onError: (error) => {
-                    // 요청이 실패했을 때 실행될 로직
-                    console.error('에러 발생:', error);
-                },
-            }
-        );
+                {
+                    onSuccess: (data) => {
+                        props.type !== 'bookDetail' && returnBook(props.book_id, props.url);
+                    },
+                    onError: (error) => {
+                        // 요청이 실패했을 때 실행될 로직
+                        console.error('에러 발생:', error);
+                    },
+                }
+            );
+        } catch (error) {
+            console.log('리뷰 등록중 오류' + error);
+        }
     };
 
     const getScore = (e) => setScore(e);

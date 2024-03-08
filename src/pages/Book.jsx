@@ -39,26 +39,29 @@ export default function Book() {
         }
     }, [data?.reviewList]); // data.reviewList가 변경될 때마다 useEffect 실행
 
-    console.log(data);
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
     if (!data || data.length === 0) return <div>No data found</div>;
     const closeReviewPopup = (e) => setReviewBtn(e);
 
     const handleLike = () => {
-        sendPostData(
-            {
-                url: `http://localhost:8000/product/like`,
-                data: { user_id: userInfo.id_idx, book_id: data.bookData.id, user_liked: data.bookData.user_liked },
-            },
-            {
-                onSuccess: (result) => queryClient.invalidateQueries([url]),
-                onError: (error) => {
-                    // 요청이 실패했을 때 실행될 로직
-                    console.error('에러 발생:', error);
+        try {
+            sendPostData(
+                {
+                    url: `http://localhost:8000/product/like`,
+                    data: { user_id: userInfo.id_idx, book_id: data.bookData.id, user_liked: data.bookData.user_liked },
                 },
-            }
-        );
+                {
+                    onSuccess: (result) => queryClient.invalidateQueries([url]),
+                    onError: (error) => {
+                        // 요청이 실패했을 때 실행될 로직
+                        console.error('에러 발생:', error);
+                    },
+                }
+            );
+        } catch (error) {
+            console.log('좋아요버튼 에러' + error);
+        }
     };
 
     const rentBtn = () => {
@@ -203,7 +206,7 @@ export default function Book() {
                 </li>
                 <li>{rentBtn()}</li>
             </ul>
-            {reviewBtn && <Review type='bookDetail' closeReviewPopup={closeReviewPopup} book_id={data.bookData.id} />}
+            {reviewBtn && <Review type="bookDetail" closeReviewPopup={closeReviewPopup} book_id={data.bookData.id} />}
         </>
     );
 }

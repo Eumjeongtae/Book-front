@@ -41,21 +41,25 @@ export default function Login() {
             alert('비밀번호를 입력해주세요.');
             return inputPassword.current.focus();
         }
-        sendPostData(
-            { url: `http://localhost:8000/login`, data: loginForm },
-            {
-                onSuccess: (result) => {
-                    if (result.data.login) {
-                        setAuthToken(result);
-                        navigate('/list/0');
-                    }
-                },
-                onError: (error) => {
-                    // 요청이 실패했을 때 실행될 로직
-                    console.error('에러 발생:', error);
-                },
-            }
-        );
+        try {
+            sendPostData(
+                { url: `http://localhost:8000/login`, data: loginForm },
+                {
+                    onSuccess: (result) => {
+                        if (result.data.login) {
+                            setAuthToken(result);
+                            navigate('/list/0');
+                        }
+                    },
+                    onError: (error) => {
+                        // 요청이 실패했을 때 실행될 로직
+                        console.error('에러 발생:', error);
+                    },
+                }
+            );
+        } catch (error) {
+            console.log('일반로그인중 에러' + error);
+        }
     };
     const handleClickLogin = (url) => (window.location.href = url);
 

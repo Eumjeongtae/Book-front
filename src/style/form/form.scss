@@ -70,13 +70,24 @@
             }
         }
     }
-
+    .btnContainer{
+        display: flex    ;
+        justify-content: center;
+        width: 400px;
+        margin: 0 auto;
+        button{
+            margin: 50px 2%
+        }
+    }
     .submitBtn{
         @include m.button;
         display: block;
         margin: 50px auto;
         padding: 15px 50px;
         border-radius: 5px;
+    }
+    .deleteBtn{
+        background-color: #ababab;
     }
     .customTable{
         width: 70%;

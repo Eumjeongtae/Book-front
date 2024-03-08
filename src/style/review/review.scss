@@ -14,7 +14,7 @@ $rating-active-color: #ffd700;
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
-
+  z-index: 1000;
   .review-popup-inner {
     background-color: white;
     padding: 2rem;

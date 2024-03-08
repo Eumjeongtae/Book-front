@@ -62,23 +62,27 @@ export default function Form(props) {
             setVali({ ...vali, [formKey]: false });
             inputRefs[formKey].current.focus();
         } else {
-            sendPostData(
-                {
-                    url: `${
-                        props.type === 'bookModify'
-                            ? 'http://localhost:8000/manager/edit'
-                            : 'http://localhost:8000/manager'
-                    }`,
-                    data: form,
-                },
-                {
-                    onSuccess: (data) => navigate('/list/0'),
-                    onError: (error) => {
-                        // 요청이 실패했을 때 실행될 로직
-                        console.error('에러 발생:', error);
+            try {
+                sendPostData(
+                    {
+                        url: `${
+                            props.type === 'bookModify'
+                                ? 'http://localhost:8000/manager/edit'
+                                : 'http://localhost:8000/manager'
+                        }`,
+                        data: form,
                     },
-                }
-            );
+                    {
+                        onSuccess: (data) => navigate('/list/0'),
+                        onError: (error) => {
+                            // 요청이 실패했을 때 실행될 로직
+                            console.error('에러 발생:', error);
+                        },
+                    }
+                );
+            } catch (error) {
+                console.log('책 등록/수정중 오류'+error);
+            }
         }
     };
     return (
@@ -194,7 +198,7 @@ export default function Form(props) {
                                 <li>
                                     <input
                                         type="radio"
-                                        checked={form.income_type === 0}
+                                        checked={parseInt(form.income_type) === 0}
                                         name="income_type"
                                         value={0}
                                         id="companyBuy"
@@ -207,20 +211,18 @@ export default function Form(props) {
                                 <li>
                                     <input
                                         type="radio"
-                                        checked={form.income_type === 1}
                                         name="income_type"
-                                        value={0}
-                                        id="companyBuy"
+                                        value={1}
+                                        id="companyBuyOffline"
                                         onChange={(e) => {
                                             handleChange(e);
                                         }}
                                     />
-                                    <label htmlFor="companyBuy">회사구매 오프라인</label>
+                                    <label htmlFor="companyBuyOffline">회사구매 오프라인</label>
                                 </li>
                                 <li>
                                     <input
                                         type="radio"
-                                        checked={form.income_type === 2}
                                         name="income_type"
                                         value={2}
                                         id="present"
@@ -231,7 +233,7 @@ export default function Form(props) {
                                     <label htmlFor="present">기부</label>
                                 </li>
 
-                                {form.income_type === 2 && (
+                                {parseInt(form.income_type) === 2 && (
                                     <li>
                                         <input
                                             type="text"
@@ -303,7 +305,12 @@ export default function Form(props) {
                 )}
 
                 {props.type === 'bookModify' ? (
-                    <button className="submitBtn">수정하기</button>
+                    <>
+                        <div className="btnContainer">
+                            <button className="submitBtn">수정하기</button>
+                            <button className="submitBtn deleteBtn">삭제하기</button>
+                        </div>
+                    </>
                 ) : (
                     <button className="submitBtn">등록하기</button>
                 )}

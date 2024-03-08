@@ -53,16 +53,20 @@ export default function SignUp() {
         if (signInfo.email) {
             setMailCheck(true);
             let mail = signInfo.email + signInfo.mailAddr;
-            sendPostData(
-                { url: `http://localhost:8000/signup/mailCheck`, data: mail },
-                {
-                    onSuccess: (data) => setAuthNum(data.authNum),
-                    onError: (error) => {
-                        // 요청이 실패했을 때 실행될 로직
-                        console.error('에러 발생:', error);
-                    },
-                }
-            );
+            try {
+                sendPostData(
+                    { url: `http://localhost:8000/signup/mailCheck`, data: mail },
+                    {
+                        onSuccess: (data) => setAuthNum(data.authNum),
+                        onError: (error) => {
+                            // 요청이 실패했을 때 실행될 로직
+                            console.error('에러 발생:', error);
+                        },
+                    }
+                );
+            } catch (error) {
+                console.log('메일확인중 에러' + error);
+            }
         } else {
             alert('이메일을 입력해주세요.');
         }
@@ -70,20 +74,23 @@ export default function SignUp() {
 
     const handleIdCheck = () => {
         if (signInfo.id) {
-            sendPostData(
-                { url: `http://localhost:8000/signup/idCheck`, data: signInfo.id },
-                {
-                    onSuccess: (data) => {
-                        console.log(data);
-                        setVali({ ...vali, id: data });
-                        !data ? alert('이미 있는 아이디 입니다.') : alert('아이디 인증이 완료되었습니다!');
-                    },
-                    onError: (error) => {
-                        // 요청이 실패했을 때 실행될 로직
-                        console.error('에러 발생:', error);
-                    },
-                }
-            );
+            try {
+                sendPostData(
+                    { url: `http://localhost:8000/signup/idCheck`, data: signInfo.id },
+                    {
+                        onSuccess: (data) => {
+                            setVali({ ...vali, id: data });
+                            !data ? alert('이미 있는 아이디 입니다.') : alert('아이디 인증이 완료되었습니다!');
+                        },
+                        onError: (error) => {
+                            // 요청이 실패했을 때 실행될 로직
+                            console.error('에러 발생:', error);
+                        },
+                    }
+                );
+            } catch (error) {
+                console.log('아이디확인중 에러' + error);
+            }
         } else {
             alert('아이디를 입력해주세요.');
         }
@@ -102,15 +109,19 @@ export default function SignUp() {
                 password: signInfo.password,
                 email: signInfo.email + signInfo.mailAddr,
             };
-            sendPostData(
-                { url: `http://localhost:8000/signup`, data: infoData },
-                {
-                    onSuccess: (data) => {
-                        navigate('/');
-                    },
-                    onError: (error) => console.error('에러 발생:', error),
-                }
-            );
+            try {
+                sendPostData(
+                    { url: `http://localhost:8000/signup`, data: infoData },
+                    {
+                        onSuccess: (data) => {
+                            navigate('/');
+                        },
+                        onError: (error) => console.error('에러 발생:', error),
+                    }
+                );
+            } catch (error) {
+                console.log('회원가입중 에러' + error);
+            }
         }
     };
 

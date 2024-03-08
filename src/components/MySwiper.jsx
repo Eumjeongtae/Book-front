@@ -16,7 +16,7 @@ export default function MySwiper(props) {
       <Swiper
         className="mySwiper"
         spaceBetween={50}
-        slidesPerView={5}
+        slidesPerView={4}
         modules={[FreeMode, Scrollbar, Mousewheel]}
         scrollbar={{ draggable: true }}
         mousewheel={true}

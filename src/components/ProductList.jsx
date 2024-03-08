@@ -1,35 +1,38 @@
 import Product from './Product';
 import MySwiper from './MySwiper';
 import { SwiperSlide } from 'swiper/react';
-// import { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
-import { Link } from 'react-router-dom';
-// import { useDispatch } from "react-redux";
 
 export default function ProductList({ data }) {
-    console.log(data.length);
-    // const navigate = useNavigate();
-    // const dispatch = useDispatch();
+    // data 배열의 길이에 따라 className 결정
+    const className = `mainBookList${data.length}`;
 
-    return (
-        <>
-            <div className={`mainSLide ${data.length < 5 ? 'mainBookList' : ''}`}>
-                {data.length < 5 ? (
-                    data.map((book, i) => (
-                        <div>
-                            <Product data={book} class="listSlide" />
+    const renderBooks = () => {
+        // if (data.length === false) {
+        if (data.length >= 1 && data.length <= 4) {
+            return (
+                <div className={className}>
+                    {data.map((book, i) => (
+                        <div key={i} className="imgContainer">
+                            <Product data={book} className="mainSLide" /> {/* class를 className으로 변경 */}
                         </div>
-                    ))
-                ) : (
+                    ))}
+                </div>
+            );
+        } else {
+            // data.length가 4보다 클 때
+            return (
+                <div className="mainSLide">
                     <MySwiper>
                         {data.map((book, i) => (
                             <SwiperSlide key={i}>
-                                <Product data={book} class="listSlide" />
+                                <Product data={book} className="listSlide" />
                             </SwiperSlide>
                         ))}
                     </MySwiper>
-                )}
-            </div>
-        </>
-    );
+                </div>
+            );
+        }
+    };
+
+    return renderBooks();
 }

@@ -19,16 +19,16 @@ export default function Landing() {
     return userInfo ? (
         <div className='inner'>
             <section className='landingSection'>
-                <h2>This month's new book</h2>
+                <h2 className='subTitle'>This month's new book</h2>
                 <ProductList data={data}/>
             </section>
             <section className='landingSection landingChart'>
                 <div >
-                    <h2>like statistics</h2>
+                    <h2 className='subTitle'>like statistics</h2>
                     <BarChart list={data} type='like'/>
                 </div>
                 <div>
-                    <h2>rentals statistics</h2>
+                    <h2 className='subTitle'>rentals statistics</h2>
                     <BarChart list={data} type='rental'/>
                 </div>
             </section>

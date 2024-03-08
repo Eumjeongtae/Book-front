@@ -6,54 +6,175 @@
   padding: 0 0 35px;
 }
 
-.mainBookList {
+.banner {
+  width: 100%;
+  height: 23vw;
+  background: url(../../../public/img/banner.jpg) 50% 50% no-repeat;
+  background-size: cover;
+  margin: 0px 0 100px;
+}
+
+.mainBookList4 {
   display: flex;
   height: 335px;
   justify-content: center;
+  margin: 50px 0 100px;
 }
-.mainBookList > div {
+.mainBookList4 > .imgContainer {
   width: 22%;
   margin: 0 1.5%;
-  transition: transform 0.3s;
 }
-.mainBookList > div:hover {
-  transform: scale(0.9);
+.mainBookList4 > .imgContainer > div:first-child {
+  height: 100%;
 }
-.mainBookList > div img {
+.mainBookList4 > .imgContainer > div:first-child > a {
+  height: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* X축 Y축 그림자 크기, 색상 */
-  transition: box-shadow 0.3s ease-in-out; /* 그림자 효과에 애니메이션을 적용 */
-  transition: transform 0.3s;
-  width: 100%;
-  height: 216px;
+  overflow: hidden;
+}
+.mainBookList4 > .imgContainer > div:first-child > a img {
+  width: 90%;
+  height: 90%;
   -o-object-fit: contain;
      object-fit: contain;
+  transition: transform 0.3s;
+}
+.mainBookList4 > .imgContainer > div:first-child > a img:hover {
+  transform: scale(1.1);
+}
+
+.mainBookList3 {
+  display: flex;
+  height: 335px;
+  justify-content: center;
+  margin: 50px 0 100px;
+}
+.mainBookList3 > .imgContainer {
+  width: 30.3333%;
+  margin: 0 1.5%;
+}
+.mainBookList3 > .imgContainer > div:first-child {
+  height: 100%;
+}
+.mainBookList3 > .imgContainer > div:first-child > a {
+  height: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* X축 Y축 그림자 크기, 색상 */
+  overflow: hidden;
+}
+.mainBookList3 > .imgContainer > div:first-child > a img {
+  width: 90%;
+  height: 90%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  transition: transform 0.3s;
+}
+.mainBookList3 > .imgContainer > div:first-child > a img:hover {
+  transform: scale(1.1);
+}
+
+.mainBookList2 {
+  display: flex;
+  height: 400px;
+  justify-content: center;
+  margin: 50px 0 100px;
+}
+.mainBookList2 > .imgContainer {
+  width: 47%;
+  margin: 0 1.5%;
+}
+.mainBookList2 > .imgContainer > div:first-child {
+  height: 100%;
+}
+.mainBookList2 > .imgContainer > div:first-child > a {
+  height: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* X축 Y축 그림자 크기, 색상 */
+  overflow: hidden;
+}
+.mainBookList2 > .imgContainer > div:first-child > a img {
+  width: 90%;
+  height: 90%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  transition: transform 0.3s;
+}
+.mainBookList2 > .imgContainer > div:first-child > a img:hover {
+  transform: scale(1.1);
+}
+
+.mainBookList1 {
+  display: flex;
+  height: 400px;
+  justify-content: center;
+  margin: 50px 0 100px;
+}
+.mainBookList1 > .imgContainer {
+  width: 52%;
+  margin: 0 1.5%;
+}
+.mainBookList1 > .imgContainer > div:first-child {
+  height: 100%;
+}
+.mainBookList1 > .imgContainer > div:first-child > a {
+  height: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* X축 Y축 그림자 크기, 색상 */
+  overflow: hidden;
+}
+.mainBookList1 > .imgContainer > div:first-child > a img {
+  width: 90%;
+  height: 90%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  transition: transform 0.3s;
+}
+.mainBookList1 > .imgContainer > div:first-child > a img:hover {
+  transform: scale(1.1);
 }
 
 .mainSLide {
-  margin-top: 50px;
+  margin: 50px 0 100px;
 }
 .mainSLide .swiper {
-  height: 335px;
+  height: 23vw;
+  padding: 1%;
 }
 .mainSLide .swiper .swiper-slide {
   height: 100%;
 }
-.mainSLide .swiper .swiper-slide div {
+.mainSLide .swiper .swiper-slide > div {
   height: 100%;
 }
-.mainSLide .swiper .swiper-slide div .listSlide {
+.mainSLide .swiper .swiper-slide > div > .imgList {
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* X축 Y축 그림자 크기, 색상 */
-  transition: box-shadow 0.3s ease-in-out; /* 그림자 효과에 애니메이션을 적용 */
-  transition: transform 0.3s;
-  width: 100%;
-  height: 216px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 70%;
+}
+.mainSLide .swiper .swiper-slide > div > .imgList img {
+  width: 90%;
+  height: 90%;
   -o-object-fit: contain;
      object-fit: contain;
+  transition: transform 0.3s;
 }
-.mainSLide .swiper .swiper-slide div .listSlide:hover {
-  transform: scale(0.9);
+.mainSLide .swiper .swiper-slide > div > .imgList img:hover {
+  transform: scale(1.1);
 }
-.mainSLide .title {
+
+.title {
   font-size: 16px;
   line-height: 30px;
   padding-top: 3%;
@@ -62,7 +183,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.mainSLide .author {
+
+.author {
   color: #888;
   font-size: 13px;
 }
@@ -71,10 +193,7 @@
   background-color: rgb(121, 207, 207) !important;
 }
 
-.landingSection {
-  padding-bottom: 80px;
-}
-.landingSection h2 {
+.subTitle {
   font-size: 23px;
   font-weight: bold;
   text-transform: uppercase;
@@ -82,13 +201,17 @@
   display: flex;
   align-items: center;
 }
-.landingSection h2::before {
+.subTitle::before {
   content: "";
   display: block;
   width: 35px;
   height: 1px;
   background-color: #888;
   margin-right: 5px;
+}
+
+.landingSection {
+  padding-bottom: 80px;
 }
 .landingSection.landingChart {
   display: flex;

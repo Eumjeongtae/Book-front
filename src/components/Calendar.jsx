@@ -4,7 +4,6 @@ import 'react-datepicker/dist/react-datepicker.css';
 import useBookActions from '../hooks/useBookActions';
 
 export default function Calendar({ book_id }) {
-    console.log(book_id);
     const { rentBook } = useBookActions();
     const [startDate, setStartDate] = useState(new Date()); // 오늘 날짜를 시작 날짜로 설정
     // 최소 날짜를 내일로 설정

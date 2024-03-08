@@ -72,6 +72,15 @@
 .formDesign .inputContainer > div select:focus-visible {
   outline: 1px solid rgb(111, 111, 111);
 }
+.formDesign .btnContainer {
+  display: flex;
+  justify-content: center;
+  width: 400px;
+  margin: 0 auto;
+}
+.formDesign .btnContainer button {
+  margin: 50px 2%;
+}
 .formDesign .submitBtn {
   display: block;
   background-color: rgb(58, 58, 58);
@@ -82,6 +91,9 @@
   margin: 50px auto;
   padding: 15px 50px;
   border-radius: 5px;
+}
+.formDesign .deleteBtn {
+  background-color: #ababab;
 }
 .formDesign .customTable {
   width: 70%;

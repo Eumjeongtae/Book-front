@@ -13,7 +13,6 @@ export default function Oauth() {
             try {
                 const code = new URL(window.location.href).searchParams.get('code');
                 const result = await axios.post(`http://localhost:8000/auth/${site}`, { code });
-                console.log(result);
                 if (result.data.login) {
                     setAuthToken(result);
                     navigate('/list/0');
