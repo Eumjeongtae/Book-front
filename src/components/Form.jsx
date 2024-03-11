@@ -81,7 +81,7 @@ export default function Form(props) {
                     }
                 );
             } catch (error) {
-                console.log('책 등록/수정중 오류'+error);
+                console.log('책 등록/수정중 오류' + error);
             }
         }
     };
@@ -154,7 +154,7 @@ export default function Form(props) {
                         />
                         {!vali.publisher && <p className="noticeTxt">&#8251;출판사를 등록 해주세요.</p>}
                     </div>
-                </div>
+                </div>0
 
                 <div className="inputContainer">
                     <p className="inputTitle">출판일</p>

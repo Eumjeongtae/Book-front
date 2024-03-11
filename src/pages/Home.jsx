@@ -1,26 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import '../style/main/main.css';
 import ProductList from '../components/ProductList';
-import { getUser } from '../util/localStorage';
 import { useParams } from 'react-router-dom';
 import { useFetchData } from '../api/apiUtils';
 import Pagination from 'rc-pagination';
 import 'rc-pagination/assets/index.css';
 
 export default function Home() {
-    const userInfo = getUser() ? getUser().userInfo : null;
     const { genre } = useParams();
     const [currentPage, setCurrentPage] = useState(1);
-    const [totalCount, setTotalCount] = useState(1); // 예시로 4를 설정했지만, 서버로부터 받아와야 합니다.
     const [pageSize, setPageSize] = useState(9);
 
     const [url, setUrl] = useState('');
 
-    useEffect(() => { 
+    useEffect(() => {
         const startIndex = (currentPage - 1) * pageSize + 1;
         const endIndex = currentPage * pageSize;
         setUrl(`http://localhost:8000/product/${genre}/${startIndex}/${endIndex}`);
     }, [currentPage, pageSize, genre]);
+
+    const getgenre = () => {
+        if (genre === '0') {
+            return 'Preview';
+        } else if (genre === '1') {
+            return 'Development';
+        } else if (genre === '2') {
+            return 'Marketing';
+        } else {
+            return 'General';
+        }
+    };
 
     const { data, isLoading, error } = useFetchData(url);
 
@@ -30,20 +39,23 @@ export default function Home() {
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
     if (!data || data.length === 0) return <div className="inner noBook">아직 관련 서적이 없습니다.</div>;
+
     return (
         <>
             {genre === '0' && <section className="banner"></section>}
 
             <div className="inner">
-                <ProductList data={data} />
-                {totalCount > pageSize && genre !== '0' && (
+                <h2 className="subTitle">{getgenre()}</h2>
+                <ProductList data={data.books} />
+
+                {genre !== '0' ? (
                     <Pagination
                         current={currentPage}
-                        total={totalCount}
+                        total={data?.total}
                         pageSize={pageSize}
                         onChange={(page) => setCurrentPage(page)}
                     />
-                )}
+                ) : null}
             </div>
         </>
     );

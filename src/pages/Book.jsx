@@ -30,18 +30,19 @@ export default function Book() {
     const { returnBook, reservationBook, reservationCancelBook } = useBookActions();
     const [averageScore, setAverageScore] = useState(0); // 평균 점수 상태
     useEffect(() => {
-        if (data?.reviewList && data.reviewList.length > 0) {
-            const totalScore = data.reviewList.reduce((acc, curr) => acc + curr.score, 0);
-            const avgScore = totalScore / data.reviewList.length;
+        if (data?.bookReviews && data.bookReviews.length > 0) {
+            const totalScore = data.bookReviews.reduce((acc, curr) => acc + curr.score, 0);
+            const avgScore = totalScore / data.bookReviews.length;
             setAverageScore(avgScore.toFixed(1)); // 소수점 첫째 자리까지 반올림
         } else {
             setAverageScore(0); // 리뷰가 없을 경우 평균 점수를 0으로 설정
         }
-    }, [data?.reviewList]); // data.reviewList가 변경될 때마다 useEffect 실행
+    }, [data?.bookReviews]); // data.bookReviews 변경될 때마다 useEffect 실행
 
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
     if (!data || data.length === 0) return <div>No data found</div>;
+    console.log(data);
     const closeReviewPopup = (e) => setReviewBtn(e);
 
     const handleLike = () => {
@@ -49,7 +50,11 @@ export default function Book() {
             sendPostData(
                 {
                     url: `http://localhost:8000/product/like`,
-                    data: { user_id: userInfo.id_idx, book_id: data.bookData.id, user_liked: data.bookData.user_liked },
+                    data: {
+                        user_id: userInfo.id_idx,
+                        book_id: data.bookDetails.id,
+                        user_liked: data.likesDetails.user_likes,
+                    },
                 },
                 {
                     onSuccess: (result) => queryClient.invalidateQueries([url]),
@@ -66,21 +71,21 @@ export default function Book() {
 
     const rentBtn = () => {
         //책이 예약중인데 대여자와 로그인 아이디가 같음
-        if (data.rentData?.user_id === userInfo.id_idx) {
+        if (data.rentalHistory?.user_id === userInfo.id_idx) {
             return (
-                <button type="button" onClick={() => returnBook(data.bookData.id, url)}>
+                <button type="button" onClick={() => returnBook(data.bookDetails.id, url)}>
                     반납하기
                 </button>
             );
             //책이 예약중
-        } else if (data.bookData.status === 1) {
+        } else if (data.bookDetails.status === 1) {
             return (
                 <button type="button" className="canNotRent">
                     대여불가
                 </button>
             );
             //책 대여가능
-        } else if (data.bookData.status === 0) {
+        } else if (data.bookDetails.status === 0) {
             return (
                 <button type="button" onClick={() => setViewCalendar(!viewCalendar)}>
                     대여하기
@@ -90,20 +95,20 @@ export default function Book() {
     };
 
     const handleReserve = () => {
-        if (data.rentData?.user_id === userInfo.id_idx) {
+        if (data.rentalHistory?.user_id === userInfo.id_idx) {
             alert('현재 대여하고 계신 책 입니다.');
             return;
-        } else if (data.reservationData) {
+        } else if (data.bookReservation && data.bookReservation.reservation_status === 0) {
             let userResponse = window.confirm(`예약중이신 책 입니다 예약 취소 하시겠습니까?`);
             if (userResponse) {
-                reservationCancelBook(data.bookData.id, url);
+                reservationCancelBook(data.bookDetails.id, url);
             }
-        } else if (data.rentData && data.reservationData === false && data.bookData.status === 1) {
+        } else if (data.bookDetails.status === 1) {
             let userResponse = window.confirm(`책을 예약 하시겠습니까?`);
             if (userResponse) {
-                reservationBook(data.bookData.id, url);
+                reservationBook(data.bookDetails.id, url);
             }
-        } else if (data.bookData.status === 0) {
+        } else if (data.bookDetails.status === 0) {
             alert('현재 책 대여가 가능합니다.');
             return;
         }
@@ -115,32 +120,33 @@ export default function Book() {
                 <main>
                     <section className="detailItem">
                         <div className="detailItemImage">
-                            <Image img={data.bookData.image} className="detailImage" />
+                            <Image img={data.bookDetails.image} className="detailImage" />
                         </div>
                         <div className="detailItemInfo">
                             <ul>
-                                <li className="bookTitle">{data.bookData.book_name}</li>
+                                <li className="bookTitle">{data.bookDetails.book_name}</li>
                                 <li>
-                                    <b>장르</b> <span>{genre(data.bookData.genre)}</span>{' '}
+                                    <b>장르</b> <span>{genre(data.bookDetails.genre)}</span>{' '}
                                 </li>
                                 <li>
-                                    <b>배급사</b> <span>{data.bookData.publisher}</span>{' '}
+                                    <b>배급사</b> <span>{data.bookDetails.publisher}</span>{' '}
                                 </li>
                                 <li>
-                                    <b>작가</b> <span>{data.bookData.author}</span>
+                                    <b>작가</b> <span>{data.bookDetails.author}</span>
                                 </li>
                                 <li>
-                                    <b>출판일</b> <span>{formatDate(data.bookData.publication_date)}</span>
+                                    <b>출판일</b> <span>{formatDate(data.bookDetails.publication_date)}</span>
                                 </li>
                                 <li>
-                                    <b>메모</b> <span>{data.bookData.memo ? data.bookData.memo : '메모 없음'}</span>
+                                    <b>메모</b>{' '}
+                                    <span>{data.bookDetails.memo ? data.bookDetails.memo : '메모 없음'}</span>
                                 </li>
                                 <li className="infoBtn">
                                     <button type="button" onClick={handleLike}>
-                                        {data.bookData.user_liked ? <IoIosHeart /> : <IoIosHeartEmpty />}
-                                        <span>{data.bookData.like_count}</span>
+                                        {data.likesDetails.user_likes ? <IoIosHeart /> : <IoIosHeartEmpty />}
+                                        <span>{data.likesDetails.total_likes}</span>
                                     </button>
-                                    {data.reservationData ? (
+                                    {data.bookReservation && data.bookReservation.reservation_status === 0 ? (
                                         <button type="button" onClick={() => handleReserve()}>
                                             <PiShoppingBagFill />
                                             <span>예약 취소하기</span>
@@ -157,7 +163,7 @@ export default function Book() {
                     </section>
 
                     <section className="wishList reviewList">
-                        {data.reviewList ? (
+                        {data.bookReviews ? (
                             <>
                                 <div className="container1">
                                     <div>
@@ -173,11 +179,11 @@ export default function Book() {
                                     </div>
                                 </div>
                                 <ul className="review">
-                                    {data?.reviewList.map((v, i) => (
+                                    {data?.bookReviews.map((v, i) => (
                                         <li key={i}>
                                             <div className="reviewContent">
                                                 <div className="buyerName">
-                                                    <div className="buyer">{v.id}</div>
+                                                    <div className="buyer">{v.email}</div>
                                                 </div>
                                                 <Score score={v.score} />
                                                 <div className="reviewTxt">{v.title}</div>
@@ -195,7 +201,7 @@ export default function Book() {
             <ul className="detailItemBtn">
                 {viewCalendar && (
                     <li className="reserveCalendar">
-                        <Calendar book_id={data.bookData.id} />
+                        <Calendar book_id={data.bookDetails.id} />
                     </li>
                 )}
 
@@ -206,7 +212,9 @@ export default function Book() {
                 </li>
                 <li>{rentBtn()}</li>
             </ul>
-            {reviewBtn && <Review type="bookDetail" closeReviewPopup={closeReviewPopup} book_id={data.bookData.id} />}
+            {reviewBtn && (
+                <Review type="bookDetail" closeReviewPopup={closeReviewPopup} book_id={data.bookDetails.id} />
+            )}
         </>
     );
 }
