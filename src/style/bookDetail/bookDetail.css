@@ -181,15 +181,13 @@ main .noList {
   margin-right: 50px;
   margin-left: 10px;
 }
-.detailItemBtn li:last-child button {
-  background-color: #ababab;
-}
 .detailItemBtn li.reserveCalendar {
   position: absolute;
   right: 25px;
   bottom: 75px;
 }
 
-.canNotRent {
+.detailItemBtn li .canNotRent {
+  background-color: #ababab;
   pointer-events: none;
 }/*# sourceMappingURL=bookDetail.css.map */

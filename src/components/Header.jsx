@@ -15,12 +15,12 @@ export default function Header(params) {
         navigate('/');
     };
 
-
+    const handleNavigate = (add) => navigate(add);
 
     return (
         <header className="inner">
             <h1>
-                <Link to="/list/0">
+                <Link to="/list/preview">
                     <Image img="imgupload/mainLogo.png" class="logo" />
                 </Link>
             </h1>
@@ -40,20 +40,20 @@ export default function Header(params) {
                 </p>
             </div>
             <nav>
-                <p className={genre === '0' ? 'on' : ''}>
-                    <Link to="list/0">All</Link>
+                <p className={genre === '0' ? 'on' : ''} onClick={() => handleNavigate('/list/0')}>
+                    All
                 </p>
-                <p className={genre === '1' ? 'on' : ''}>
-                    <Link to="list/1">Development</Link>
+                <p className={genre === '1' ? 'on' : ''} onClick={() => handleNavigate('/list/1')}>
+                    Development
                 </p>
-                <p className={genre === '2' ? 'on' : ''}>
-                    <Link to="list/2">Marketing</Link>
+                <p className={genre === '2' ? 'on' : ''} onClick={() => handleNavigate('/list/2')}>
+                    Marketing
                 </p>
-                <p className={genre === '3' ? 'on' : ''}>
-                    <Link to="list/3">General</Link>
+                <p className={genre === '3' ? 'on' : ''} onClick={() => handleNavigate('/list/3')}>
+                    General
                 </p>
-                <p className={pathname === '/landing' ? 'on' : ''}>
-                    <Link to="landing">Landing</Link>
+                <p className={pathname === '/landing' ? 'on' : ''} onClick={() => handleNavigate('/landing')}>
+                    Landing
                 </p>
             </nav>
         </header>

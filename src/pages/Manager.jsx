@@ -1,6 +1,6 @@
 import { useFetchData } from '../api/apiUtils';
 import '../style/manager/manager.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Form from '../components/Form';
 import { useNavigate } from 'react-router-dom';
 import { getUser } from '../util/localStorage';
@@ -9,13 +9,21 @@ import { formatDate } from '../util/formatDate';
 
 export default function Manager() {
     const userInfo = getUser() ? getUser().userInfo : '';
-
     const navigate = useNavigate();
     const urlInfo = `http://localhost:8000/manager/${userInfo?.id_idx}`;
     const { data, isLoading, error } = useFetchData(urlInfo);
+    const [bookList, setBookList] = useState([]);
     const [tab, setTab] = useState('check');
+    useEffect(() => {
+        if (data && data.allBooks) {
+            const updatedBookList = data.allBooks.map((allBook) => {
+                const rentalInfo = data.bookRows.find((row) => allBook.id === row.book_id);
+                return rentalInfo ? { ...allBook, expected_return_date: rentalInfo.expected_return_date } : allBook;
+            });
+            setBookList(updatedBookList);
+        }
+    }, [data]);
 
-    // console.log(data);
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
     if (!data || data.length === 0) return <div>No data found</div>;
@@ -25,8 +33,6 @@ export default function Manager() {
         const currentDate = new Date();
         const expectedDate = new Date(date);
 
-        // currentDate.setDate(currentDate.getDate() + 1); 
-        // console.log('내일 날짜:', currentDate);
         return currentDate.toDateString() > expectedDate.toDateString() ? (
             <>
                 연체<button>메일 보내기</button>
@@ -58,7 +64,7 @@ export default function Manager() {
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map((item, i) => (
+                        {bookList.map((item, i) => (
                             <tr key={i}>
                                 <td>{item.book_name}</td>
                                 <td>{genre(item.genre)}</td>
@@ -67,9 +73,9 @@ export default function Manager() {
                                     {item.status === 0 ? (
                                         <>
                                             재고있음
-                                            <button onClick={() => navigate(`/detail/${item.book_id}`)}>
+                                            {/* <button onClick={() => navigate(`/detail/${item.book_id}`)}>
                                                 상태보기
-                                            </button>
+                                            </button> */}
                                         </>
                                     ) : (
                                         checkDay(item.expected_return_date)

@@ -21,19 +21,17 @@ header {
         justify-content: flex-end;
 
         p {
-            a {
-                display: block;
-                font-size: 15px;
-                text-align: center;
-                line-height: 40px;
-                padding: 0 20px;
-                color: #7e7e7e;
-            }
-            &.on a {
+            cursor: pointer;
+            font-size: 13px;
+            text-align: center;
+            line-height: 40px;
+            padding: 0 20px;
+            color: #7e7e7e;
+            &.on {
                 color: #000;
                 font-weight: bold;
             }
-            &:hover a {
+            &:hover {
                 color: #000;
                 font-weight: bold;
             }
@@ -50,8 +48,8 @@ header {
             font-size: 11px;
             color: #7e7e7e;
             margin-left: 5px;
-            &.userId{
-                 /* 너비를 제한합니다. 실제로는 이 너비가 글자 수에 따라 달라질 수 있으므로 조정이 필요합니다. */
+            &.userId {
+                /* 너비를 제한합니다. 실제로는 이 너비가 글자 수에 따라 달라질 수 있으므로 조정이 필요합니다. */
                 white-space: nowrap; /* 텍스트가 한 줄로 표시되도록 합니다. */
                 overflow: hidden; /* 넘치는 텍스트를 숨깁니다. */
                 text-overflow: ellipsis; /* 넘치는 텍스트가 있을 때 "..."을 표시합니다. */

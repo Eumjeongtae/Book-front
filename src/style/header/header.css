@@ -21,19 +21,19 @@ header nav {
   align-items: center;
   justify-content: flex-end;
 }
-header nav p a {
-  display: block;
-  font-size: 15px;
+header nav p {
+  cursor: pointer;
+  font-size: 13px;
   text-align: center;
   line-height: 40px;
   padding: 0 20px;
   color: #7e7e7e;
 }
-header nav p.on a {
+header nav p.on {
   color: #000;
   font-weight: bold;
 }
-header nav p:hover a {
+header nav p:hover {
   color: #000;
   font-weight: bold;
 }

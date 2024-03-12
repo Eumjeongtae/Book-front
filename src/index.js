@@ -5,9 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Home from './pages/Home';
-// import { legacy_createStore as createStore } from 'redux'; //스토어 라이브러리
 import { Provider } from 'react-redux';
-// import reducer from './modules/reducer';
 import store from './Store';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
@@ -18,7 +16,6 @@ import Mypage from './pages/Mypage';
 import Manager from './pages/Manager';
 import Modify from './pages/Modify';
 import Landing from './pages/Landing';
-// const store = createStore(reducer);
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
@@ -43,7 +40,6 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
         <QueryClientProvider client={queryClient}>
-            {' '}
             {/* QueryClientProvider 추가 */}
             <Provider store={store}>
                 <RouterProvider router={router} />

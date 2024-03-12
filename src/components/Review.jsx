@@ -31,6 +31,7 @@ export default function Review(props) {
                 {
                     onSuccess: (data) => {
                         props.type !== 'bookDetail' && returnBook(props.book_id, props.url);
+                        window.location.reload();
                     },
                     onError: (error) => {
                         // 요청이 실패했을 때 실행될 로직

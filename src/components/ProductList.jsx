@@ -6,9 +6,8 @@ import { useParams } from 'react-router-dom';
 export default function ProductList({ data }) {
     // data 배열의 길이에 따라 className 결정
     const { genre } = useParams();
-    console.log(genre);
     const renderBooks = () => {
-        if (genre === '0') {
+        if (genre === 'preview') {
             return (
                 <div className="mainSLide">
                     <MySwiper>

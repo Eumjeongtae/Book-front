@@ -198,9 +198,6 @@ main {
         &:last-child {
             margin-right: 50px;
             margin-left: 10px;
-            button {
-                background-color: #ababab;
-            }
         }
         &.reserveCalendar {
             position: absolute;
@@ -209,6 +206,8 @@ main {
         }
     }
 }
-.canNotRent {
+.detailItemBtn li .canNotRent {
+    background-color: #ababab;
     pointer-events: none;
+
 }

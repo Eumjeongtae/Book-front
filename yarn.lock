@@ -1748,7 +1748,7 @@
   dependencies:
     "@swc/helpers" "^0.5.0"
 
-"@reduxjs/toolkit@^1.8.2":
+"@reduxjs/toolkit@^1.9.7":
   version "1.9.7"
   resolved "https://registry.npmjs.org/@reduxjs/toolkit/-/toolkit-1.9.7.tgz"
   integrity sha512-t7v8ZPxhhKgOKtU+uyJT13lu4vL7az5aFi4IdoDs/eS548edn2M8Ik9h8fxgvMjGoAUVFSt6ZC1P5cWmQ014QQ==

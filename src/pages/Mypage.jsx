@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import Decision from '../components/Decision';
-import History from '../components/History';
-import RentBook from '../components/RentBook';
+
 import '../style/mypage/mypage.css';
 import { useFetchData } from '../api/apiUtils';
 import { getUser } from '../util/localStorage';
+import Product from '../components/Product';
 
 export default function Mypage() {
     const [tab, setTab] = useState('history');
@@ -15,8 +14,6 @@ export default function Mypage() {
 
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
-    // if (!data || data.length === 0) return <div>No data found</div>;
-
     return (
         <main className="inner">
             <ul className="mypageTabBtn">
@@ -31,9 +28,15 @@ export default function Mypage() {
                 </li>
             </ul>
             <section>
-                {tab === 'history' && <History data={data} />}
-                {tab === 'rent' && <RentBook data={data} url={url} />}
-                {tab === 'decision' && <Decision data={data} />}
+                {data.length ? (
+                    <div className="category">
+                        {data.map((book, i) => (
+                            <Product data={book} class="myPageBook" url={url} key={i} type={tab} />
+                        ))}
+                    </div>
+                ) : (
+                    <p className="noList">관련 이력이 없습니다.</p>
+                )}
             </section>
         </main>
     );

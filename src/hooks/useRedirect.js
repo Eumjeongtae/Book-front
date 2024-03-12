@@ -11,7 +11,7 @@ function useRedirect() {
         if (!userInfo && pathname !== '/sign') {
             navigate('/');
         } else if (userInfo && pathname === '/') {
-            navigate('/list/0');
+            navigate('/list/preview');
         }
     }, [userInfo, navigate]);
 }

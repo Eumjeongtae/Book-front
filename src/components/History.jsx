@@ -1,18 +1,17 @@
-import { Link } from 'react-router-dom';
-import Product from './Product';
+import { formatDate } from "../util/formatDate";
 
-export default function History({ data }) {
+export default function History({rent_date, return_date}) {
+    
     return (
         <>
-            {data.length ? (
-                <div className="category">
-                    {data.map((book, i) => (
-                            <Product data={book} class="myPageBook" key={i} type="myPageHistory" />
-                    ))}
-                </div>
-            ) : (
-                <p className="noList">책 반납 이력이 없습니다.</p>
-            )}
+            <p className="rentDate">
+                대여일자
+                <span>{formatDate(rent_date)}</span>{' '}
+            </p>
+            <p className="returnDate">
+                반납일자
+                <span>{return_date ? formatDate(return_date) : '대여중'}</span>
+            </p>
         </>
     );
 }

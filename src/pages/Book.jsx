@@ -29,6 +29,7 @@ export default function Book() {
     const [viewCalendar, setViewCalendar] = useState(false);
     const { returnBook, reservationBook, reservationCancelBook } = useBookActions();
     const [averageScore, setAverageScore] = useState(0); // 평균 점수 상태
+
     useEffect(() => {
         if (data?.bookReviews && data.bookReviews.length > 0) {
             const totalScore = data.bookReviews.reduce((acc, curr) => acc + curr.score, 0);
@@ -71,7 +72,7 @@ export default function Book() {
 
     const rentBtn = () => {
         //책이 예약중인데 대여자와 로그인 아이디가 같음
-        if (data.rentalHistory?.user_id === userInfo.id_idx) {
+        if (data.rentalHistory?.user_id === userInfo.id_idx && data.rentalHistory?.return_status === 0) {
             return (
                 <button type="button" onClick={() => returnBook(data.bookDetails.id, url)}>
                     반납하기
@@ -95,7 +96,7 @@ export default function Book() {
     };
 
     const handleReserve = () => {
-        if (data.rentalHistory?.user_id === userInfo.id_idx) {
+        if (data.rentalHistory?.user_id === userInfo.id_idx && data.rentalHistory?.return_status === 0) {
             alert('현재 대여하고 계신 책 입니다.');
             return;
         } else if (data.bookReservation && data.bookReservation.reservation_status === 0) {
