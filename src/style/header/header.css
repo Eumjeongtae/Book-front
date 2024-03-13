@@ -1,27 +1,33 @@
 @charset "UTF-8";
-header {
+header > div {
+  position: relative;
   height: 180px;
   line-height: 80px;
   margin-bottom: 2%;
-  position: relative;
 }
-header h1 {
+header > div h1 {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
   height: inherit;
 }
-header h1 .logo {
+header > div h1 .logo {
   height: 100%;
   cursor: pointer;
 }
-header nav {
+@media (max-width: 1500px) {
+  header > div h1 {
+    transform: none;
+    left: 0;
+  }
+}
+header > div nav {
   display: flex;
   height: 100%;
   align-items: center;
   justify-content: flex-end;
 }
-header nav p {
+header > div nav p {
   cursor: pointer;
   font-size: 13px;
   text-align: center;
@@ -29,33 +35,32 @@ header nav p {
   padding: 0 20px;
   color: #7e7e7e;
 }
-header nav p.on {
+header > div nav p.on {
   color: #000;
   font-weight: bold;
 }
-header nav p:hover {
+header > div nav p:hover {
   color: #000;
   font-weight: bold;
 }
-header div {
+header > div div {
   display: flex;
   position: absolute;
-  top: 5px;
   right: 13px;
 }
-header div p {
+header > div div p {
   width: 57px;
   text-align: center;
   font-size: 11px;
   color: #7e7e7e;
   margin-left: 5px;
 }
-header div p.userId {
+header > div div p.userId {
   /* 너비를 제한합니다. 실제로는 이 너비가 글자 수에 따라 달라질 수 있으므로 조정이 필요합니다. */
   white-space: nowrap; /* 텍스트가 한 줄로 표시되도록 합니다. */
   overflow: hidden; /* 넘치는 텍스트를 숨깁니다. */
   text-overflow: ellipsis; /* 넘치는 텍스트가 있을 때 "..."을 표시합니다. */
 }
-header div p.logout {
+header > div div p.logout {
   cursor: pointer;
 }/*# sourceMappingURL=header.css.map */

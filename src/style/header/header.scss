@@ -1,61 +1,75 @@
 header {
-    height: 180px;
-    line-height: 80px;
-    margin-bottom: 2%;
-    position: relative;
-    h1 {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-        height: inherit;
+    // box-shadow: 1px 1px 15px rgb(190, 190, 190);
+    // background-color: #01c1be;
+    // &::after{
+    //     content: '';
+    //     display: block;
+    //     width: 100%;
+    //     height: 1px;
+    //     background-color: #7e7e7e;
+    // }
+    & > div {
+        position: relative;
+        height: 180px;
+        line-height: 80px;
+        margin-bottom: 2%;
+        h1 {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            height: inherit;
 
-        .logo {
-            height: 100%;
-            cursor: pointer;
-        }
-    }
-    nav {
-        display: flex;
-        height: 100%;
-        align-items: center;
-        justify-content: flex-end;
-
-        p {
-            cursor: pointer;
-            font-size: 13px;
-            text-align: center;
-            line-height: 40px;
-            padding: 0 20px;
-            color: #7e7e7e;
-            &.on {
-                color: #000;
-                font-weight: bold;
-            }
-            &:hover {
-                color: #000;
-                font-weight: bold;
-            }
-        }
-    }
-    div {
-        display: flex;
-        position: absolute;
-        top: 5px;
-        right: 13px;
-        p {
-            width: 57px;
-            text-align: center;
-            font-size: 11px;
-            color: #7e7e7e;
-            margin-left: 5px;
-            &.userId {
-                /* 너비를 제한합니다. 실제로는 이 너비가 글자 수에 따라 달라질 수 있으므로 조정이 필요합니다. */
-                white-space: nowrap; /* 텍스트가 한 줄로 표시되도록 합니다. */
-                overflow: hidden; /* 넘치는 텍스트를 숨깁니다. */
-                text-overflow: ellipsis; /* 넘치는 텍스트가 있을 때 "..."을 표시합니다. */
-            }
-            &.logout {
+            .logo {
+                height: 100%;
                 cursor: pointer;
+            }
+            @media (max-width: 1500px) {
+                transform: none;
+                left: 0;
+            }
+        }
+        nav {
+            display: flex;
+            height: 100%;
+            align-items: center;
+            justify-content: flex-end;
+
+            p {
+                cursor: pointer;
+                font-size: 13px;
+                text-align: center;
+                line-height: 40px;
+                padding: 0 20px;
+                color: #7e7e7e;
+                &.on {
+                    color: #000;
+                    font-weight: bold;
+                }
+                &:hover {
+                    color: #000;
+                    font-weight: bold;
+                }
+            }
+        }
+        div {
+            display: flex;
+            position: absolute;
+            right: 13px;
+            p {
+                width: 57px;
+                text-align: center;
+                font-size: 11px;
+                color: #7e7e7e;
+                margin-left: 5px;
+                &.userId {
+                    /* 너비를 제한합니다. 실제로는 이 너비가 글자 수에 따라 달라질 수 있으므로 조정이 필요합니다. */
+                    white-space: nowrap; /* 텍스트가 한 줄로 표시되도록 합니다. */
+                    overflow: hidden; /* 넘치는 텍스트를 숨깁니다. */
+                    text-overflow: ellipsis; /* 넘치는 텍스트가 있을 때 "..."을 표시합니다. */
+                }
+                &.logout {
+                    cursor: pointer;
+                }
             }
         }
     }

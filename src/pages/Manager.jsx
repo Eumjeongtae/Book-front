@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { getUser } from '../util/localStorage';
 import { genre } from '../util/genre';
 import { formatDate } from '../util/formatDate';
+import useSendMail from '../hooks/useSendMail';
 
 export default function Manager() {
     const userInfo = getUser() ? getUser().userInfo : '';
@@ -14,11 +15,21 @@ export default function Manager() {
     const { data, isLoading, error } = useFetchData(urlInfo);
     const [bookList, setBookList] = useState([]);
     const [tab, setTab] = useState('check');
+    const { sendMail } = useSendMail();
+
     useEffect(() => {
         if (data && data.allBooks) {
-            const updatedBookList = data.allBooks.map((allBook) => {
-                const rentalInfo = data.bookRows.find((row) => allBook.id === row.book_id);
-                return rentalInfo ? { ...allBook, expected_return_date: rentalInfo.expected_return_date } : allBook;
+            const updatedBookList = data.allBooks.map((book) => {
+                const rentalInfo = data.bookHistory.find((history) => history.book_id === book.id);
+                // 조건이 맞을시 history 반환
+                return rentalInfo
+                    ? {
+                          ...book,
+                          expected_return_date: rentalInfo.expected_return_date,
+                          email: rentalInfo.email,
+                          name: rentalInfo.name,
+                      }
+                    : book;
             });
             setBookList(updatedBookList);
         }
@@ -26,22 +37,22 @@ export default function Manager() {
 
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
-    if (!data || data.length === 0) return <div>No data found</div>;
+
     const handleClick = (tab) => setTab(tab);
+
+    const handleMailSubnit = (mail, book_name) => {
+        sendMail(mail, book_name)
+            .then((data) => alert('메일을 전송했습니다!'))
+            .catch(console.error);
+    };
 
     const checkDay = (date) => {
         const currentDate = new Date();
         const expectedDate = new Date(date);
-
-        return currentDate.toDateString() > expectedDate.toDateString() ? (
-            <>
-                연체<button>메일 보내기</button>
-            </>
-        ) : (
-            '대여중'
-        );
+        return currentDate.getTime() > expectedDate.getTime() ? <>연체</> : <>대여중</>;
     };
 
+    console.log(bookList);
     return (
         <section className="inner">
             <ul className="adminPageTabBtn">
@@ -60,6 +71,7 @@ export default function Manager() {
                             <th>장르</th>
                             <th>구입일자</th>
                             <th>상태</th>
+                            <th>대여자</th>
                             <th>수정</th>
                         </tr>
                     </thead>
@@ -69,20 +81,27 @@ export default function Manager() {
                                 <td>{item.book_name}</td>
                                 <td>{genre(item.genre)}</td>
                                 <td>{formatDate(item.income_date)}</td>
+                                {item.status === 0 ? (
+                                    <>
+                                        <td>재고있음</td>
+                                        <td>.</td>
+                                    </>
+                                ) : (
+                                    <>
+                                        <td>
+                                            {checkDay(item.expected_return_date)}
+                                            <button
+                                                type="button"
+                                                onClick={() => handleMailSubnit(item.email, item.book_name)}
+                                            >
+                                                메일 보내기
+                                            </button>
+                                        </td>
+                                        <td>{item.name}</td>
+                                    </>
+                                )}
                                 <td>
-                                    {item.status === 0 ? (
-                                        <>
-                                            재고있음
-                                            {/* <button onClick={() => navigate(`/detail/${item.book_id}`)}>
-                                                상태보기
-                                            </button> */}
-                                        </>
-                                    ) : (
-                                        checkDay(item.expected_return_date)
-                                    )}
-                                </td>
-                                <td>
-                                    <button onClick={() => navigate(`/modify/${item.book_id}`)}>수정하기</button>
+                                    <button onClick={() => navigate(`/modify/${item.id}`)}>수정하기</button>
                                 </td>
                             </tr>
                         ))}

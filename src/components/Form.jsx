@@ -10,6 +10,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { formatDateToMySQL } from '../util/formatDateToMySQL';
 import { useNavigate } from 'react-router-dom';
 import { formatDate } from '../util/formatDate';
+import axios from 'axios';
 
 export default function Form(props) {
     const navigate = useNavigate();
@@ -55,8 +56,19 @@ export default function Form(props) {
         }
     };
 
+    const handleDelete = async (e) => {
+        e.preventDefault();
+
+        try {
+            let deleteResult = await axios.delete(`http://localhost:8000/manager/${props.info.id}`);
+            deleteResult ? navigate('/list/preview') : alert('삭제에 실패하였습니다')
+        } catch (error) {
+            console.log(error);
+        }
+    };
     const handleSubmit = (e) => {
         e.preventDefault();
+
         let formKey = formValidation(form);
         if (formKey) {
             setVali({ ...vali, [formKey]: false });
@@ -67,13 +79,13 @@ export default function Form(props) {
                     {
                         url: `${
                             props.type === 'bookModify'
-                                ? 'http://localhost:8000/manager/edit'
+                                ? `http://localhost:8000/manager/modify`
                                 : 'http://localhost:8000/manager'
                         }`,
                         data: form,
                     },
                     {
-                        onSuccess: (data) => navigate('/list/0'),
+                        onSuccess: (data) => navigate('/list/preview'),
                         onError: (error) => {
                             // 요청이 실패했을 때 실행될 로직
                             console.error('에러 발생:', error);
@@ -85,9 +97,10 @@ export default function Form(props) {
             }
         }
     };
+
     return (
         <>
-            <form className="formDesign" onSubmit={handleSubmit}>
+            <form className="formDesign">
                 <div className="inputContainer">
                     <p className="inputTitle imgTitle">책 이미지</p>
                     <div className="imageInputBox">
@@ -110,7 +123,6 @@ export default function Form(props) {
                         )}
                     </div>
                 </div>
-
                 <div className="inputContainer">
                     <p className="inputTitle">제목</p>
                     <div>
@@ -125,7 +137,6 @@ export default function Form(props) {
                         {!vali.book_name && <p className="noticeTxt">&#8251;타이틀을 등록 해주세요.</p>}
                     </div>
                 </div>
-
                 <div className="inputContainer">
                     <p className="inputTitle">저자</p>
                     <div>
@@ -140,7 +151,6 @@ export default function Form(props) {
                         {!vali.author && <p className="noticeTxt">&#8251;저자를 등록 해주세요.</p>}
                     </div>
                 </div>
-
                 <div className="inputContainer">
                     <p className="inputTitle">출판사</p>
                     <div>
@@ -154,8 +164,8 @@ export default function Form(props) {
                         />
                         {!vali.publisher && <p className="noticeTxt">&#8251;출판사를 등록 해주세요.</p>}
                     </div>
-                </div>0
-
+                </div>
+                0
                 <div className="inputContainer">
                     <p className="inputTitle">출판일</p>
                     <div>
@@ -166,7 +176,6 @@ export default function Form(props) {
                         />
                     </div>
                 </div>
-
                 <div className="inputContainer">
                     <p className="inputTitle">구입일</p>
                     <div>
@@ -177,7 +186,6 @@ export default function Form(props) {
                         />
                     </div>
                 </div>
-
                 <div className="inputContainer">
                     <p className="inputTitle">메모</p>
                     <div>
@@ -189,7 +197,6 @@ export default function Form(props) {
                         />
                     </div>
                 </div>
-
                 {props.type === 'bookRegister' && (
                     <div className="inputContainer">
                         <p className="inputTitle">구매경로</p>
@@ -303,16 +310,21 @@ export default function Form(props) {
                         </table>
                     </>
                 )}
-
                 {props.type === 'bookModify' ? (
                     <>
                         <div className="btnContainer">
-                            <button className="submitBtn">수정하기</button>
-                            <button className="submitBtn deleteBtn">삭제하기</button>
+                            <button className="submitBtn" onClick={handleSubmit}>
+                                수정하기
+                            </button>
+                            <button className="submitBtn deleteBtn" onClick={(e) => handleDelete(e)}>
+                                삭제하기
+                            </button>
                         </div>
                     </>
                 ) : (
-                    <button className="submitBtn">등록하기</button>
+                    <button className="submitBtn" onClick={handleSubmit}>
+                        등록하기
+                    </button>
                 )}
             </form>
         </>

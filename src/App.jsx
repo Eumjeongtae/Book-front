@@ -16,7 +16,7 @@ function App() {
     useRedirect();
 
     useEffect(() => {
-        if (prevPath.startsWith('/list/') && !pathname.startsWith('/list/')) {
+        if (prevPath.startsWith('/list/') && pathname !== prevPath) {
             // `/list/:genre`에서 떠날 때만 mainChange 액션을 디스패치
             dispatch(mainChange(1));
         }

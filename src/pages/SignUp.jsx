@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../style/sign/sign.css';
 import { usePostData } from '../api/apiPost';
 import { signValidation } from '../util/signValidation';
+import useSendMail from '../hooks/useSendMail';
 
 export default function SignUp() {
     const navigate = useNavigate();
@@ -19,6 +20,7 @@ export default function SignUp() {
     const [mailCheck, setMailCheck] = useState(false);
     const [authNum, setAuthNum] = useState();
     const { mutate: sendPostData } = usePostData();
+    const { sendMail } = useSendMail();
 
     const validatePassword = (password) => {
         const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
@@ -49,21 +51,13 @@ export default function SignUp() {
         }
     };
 
-    const handleMailCheck = () => {
+    const handleMailCheck = async () => {
         if (signInfo.email) {
             setMailCheck(true);
             let mail = signInfo.email + signInfo.mailAddr;
             try {
-                sendPostData(
-                    { url: `http://localhost:8000/signup/mailCheck`, data: mail },
-                    {
-                        onSuccess: (data) => setAuthNum(data.authNum),
-                        onError: (error) => {
-                            // 요청이 실패했을 때 실행될 로직
-                            console.error('에러 발생:', error);
-                        },
-                    }
-                );
+                let mailAuthNum = await sendMail(mail,'user')
+                setAuthNum(mailAuthNum.authNum);
             } catch (error) {
                 console.log('메일확인중 에러' + error);
             }

@@ -18,44 +18,46 @@ export default function Header(params) {
     const handleNavigate = (add) => navigate(add);
 
     return (
-        <header className="inner">
-            <h1>
-                <Link to="/list/preview">
-                    <Image img="imgupload/mainLogo.png" class="logo" />
-                </Link>
-            </h1>
-            <div>
-                {userInfo?.authority === 1 && (
-                    <p>
-                        <Link to="manager">Manager</Link>
-                    </p>
-                )}
+        <header >
+            <div className='inner'>
+                <h1>
+                    <Link to="/list/preview">
+                        <Image img="imgupload/mainLogo.png" class="logo" />
+                    </Link>
+                </h1>
+                <div>
+                    {userInfo?.authority === 1 && (
+                        <p>
+                            <Link to="manager">Manager</Link>
+                        </p>
+                    )}
 
-                <p className="userId">{userInfo?.id}</p>
-                <p>
-                    <Link to="mypage">Mypage</Link>
-                </p>
-                <p onClick={handleLogout} className="logout">
-                    Logout
-                </p>
+                    <p className="userId">{userInfo?.id}</p>
+                    <p>
+                        <Link to="mypage">Mypage</Link>
+                    </p>
+                    <p onClick={handleLogout} className="logout">
+                        Logout
+                    </p>
+                </div>
+                <nav>
+                    <p className={genre === '0' ? 'on' : ''} onClick={() => handleNavigate('/list/0')}>
+                        All
+                    </p>
+                    <p className={genre === '1' ? 'on' : ''} onClick={() => handleNavigate('/list/1')}>
+                        Development
+                    </p>
+                    <p className={genre === '2' ? 'on' : ''} onClick={() => handleNavigate('/list/2')}>
+                        Marketing
+                    </p>
+                    <p className={genre === '3' ? 'on' : ''} onClick={() => handleNavigate('/list/3')}>
+                        General
+                    </p>
+                    <p className={pathname === '/landing' ? 'on' : ''} onClick={() => handleNavigate('/landing')}>
+                        Landing
+                    </p>
+                </nav>
             </div>
-            <nav>
-                <p className={genre === '0' ? 'on' : ''} onClick={() => handleNavigate('/list/0')}>
-                    All
-                </p>
-                <p className={genre === '1' ? 'on' : ''} onClick={() => handleNavigate('/list/1')}>
-                    Development
-                </p>
-                <p className={genre === '2' ? 'on' : ''} onClick={() => handleNavigate('/list/2')}>
-                    Marketing
-                </p>
-                <p className={genre === '3' ? 'on' : ''} onClick={() => handleNavigate('/list/3')}>
-                    General
-                </p>
-                <p className={pathname === '/landing' ? 'on' : ''} onClick={() => handleNavigate('/landing')}>
-                    Landing
-                </p>
-            </nav>
         </header>
     );
 }
