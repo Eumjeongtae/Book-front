@@ -7,6 +7,7 @@ import useRedirect from './hooks/useRedirect';
 import { useDispatch } from 'react-redux';
 import { mainChange } from './modules/pageReducer';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
     const [location, setLocation] = useState(true);
@@ -15,7 +16,6 @@ function App() {
     const dispatch = useDispatch();
     const [prevPath, setPrevPath] = useState('');
     useRedirect();
-
     useEffect(() => {
         if (prevPath.startsWith('/list/') && pathname !== prevPath) {
             // `/list/:genre`에서 떠날 때만 mainChange 액션을 디스패치
@@ -28,11 +28,10 @@ function App() {
 
     return (
         <>
+           <ScrollToTop />
             {location && <Header />}
             <Outlet />
-            {location && <Footer/>}
-
-            
+            {location && <Footer pathColor={pathname.startsWith('/detail/')} />}
         </>
     );
 }

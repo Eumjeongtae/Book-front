@@ -61,7 +61,12 @@ export default function Form(props) {
 
         try {
             let deleteResult = await axios.delete(`http://localhost:8000/manager/${props.info.id}`);
-            deleteResult ? navigate('/main') : alert('삭제에 실패하였습니다');
+            if (deleteResult) {
+                alert('해당 책이 삭제되었습니다.');
+                navigate('/main');
+            } else {
+                alert('삭제에 실패하였습니다');
+            }
         } catch (error) {
             console.log(error);
         }
@@ -85,7 +90,12 @@ export default function Form(props) {
                         data: form,
                     },
                     {
-                        onSuccess: (data) => navigate('/main'),
+                        onSuccess: (data) => {
+                            props.type === 'bookModify'
+                                ? alert('책 수정이 완료되었습니다.')
+                                : alert('책 등록이 완료되었습니다.');
+                            navigate('/main');
+                        },
                         onError: (error) => {
                             // 요청이 실패했을 때 실행될 로직
                             console.error('에러 발생:', error);
@@ -289,7 +299,7 @@ export default function Form(props) {
                             </div>
                         </div>
 
-                        <table striped bordered className="customTable">
+                        <table  className="customTable">
                             <thead>
                                 <tr>
                                     <th>대여자 이름</th>

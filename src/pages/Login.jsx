@@ -11,6 +11,7 @@ export default function Login() {
     const navigate = useNavigate();
     const [loginForm, setLoginForm] = useState({ id: '', password: '' });
     const { mutate: sendPostData } = usePostData();
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
     // oauth 요청 URL
     const kakaoURL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_REST_API_KEY}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}&response_type=code`;
@@ -42,6 +43,7 @@ export default function Login() {
             return inputPassword.current.focus();
         }
         try {
+            setIsButtonDisabled(true); 
             sendPostData(
                 { url: `http://localhost:8000/login`, data: loginForm },
                 {
@@ -49,6 +51,9 @@ export default function Login() {
                         if (result.data.login) {
                             setAuthToken(result);
                             navigate('/main');
+                        } else {
+                            alert('아이디나 비밀번호를 다시 확인해주세요.');
+                            setIsButtonDisabled(false);
                         }
                     },
                     onError: (error) => {
@@ -99,7 +104,7 @@ export default function Login() {
                     </div>
 
                     <div className="loginSignBtns">
-                        <button>로그인</button>
+                        <button disabled={isButtonDisabled}>로그인</button>
                         <button type="button" onClick={() => navigate('/sign')}>
                             회원가입
                         </button>

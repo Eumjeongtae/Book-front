@@ -41,6 +41,12 @@ const BarChart = ({ list, type }) => {
             y: {
                 beginAtZero: true,
             },
+            x: {
+                ticks: {
+                    maxRotation: 50, // 이 부분을 조정하여 레이블의 기울기를 제어
+                    autoSkip: true
+                }
+            }
         },
     };
 

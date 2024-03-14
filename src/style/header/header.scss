@@ -15,18 +15,21 @@ header {
         margin-bottom: 2%;
         h1 {
             position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
             height: inherit;
-
-            .logo {
+            left: 0;
+            width: 130px;
+            a{
+                display: block;
                 height: 100%;
-                cursor: pointer;
+                
+                .logo {
+                    height: 100%;
+                    object-fit: contain;
+                    width: 100%;
+                    cursor: pointer;
+                }
             }
-            @media (max-width: 1500px) {
-                transform: none;
-                left: 0;
-            }
+            
         }
         nav {
             display: flex;
@@ -36,11 +39,11 @@ header {
 
             p {
                 cursor: pointer;
-                font-size: 15px;
+                font-size: 14px;
                 text-align: center;
                 line-height: 40px;
                 padding: 0 20px;
-                color: #7e7e7e;
+                color: #313131;
                 &.on {
                     color: #000;
                     font-weight: bold;

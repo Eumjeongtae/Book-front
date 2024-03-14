@@ -103,6 +103,7 @@
   color: #888;
   display: flex;
   align-items: center;
+  margin-top: 90px;
 }
 .subTitle::before {
   content: "";
@@ -114,7 +115,7 @@
 }
 
 .landingSection {
-  padding-bottom: 80px;
+  padding-bottom: 150px;
 }
 .landingSection.landingChart {
   display: flex;

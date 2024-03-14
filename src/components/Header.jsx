@@ -1,4 +1,4 @@
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Image from './Image';
 import '../style/header/header.css';
 import { getUser, removeUser } from '../util/localStorage';
@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 export default function Header(params) {
     const navigate = useNavigate();
     const { genre } = useParams();
-    const { pathname } = useLocation();
     const userInfo = getUser() ? getUser().userInfo : '';
 
     const handleLogout = () => {
@@ -53,9 +52,7 @@ export default function Header(params) {
                     <p className={genre === '3' ? 'on' : ''} onClick={() => handleNavigate('/list/3')}>
                         General
                     </p>
-                    {/* <p className={pathname === '/landing' ? 'on' : ''} onClick={() => handleNavigate('/landing')}>
-                        Landing
-                    </p> */}
+          
                 </nav>
             </div>
         </header>

@@ -7,19 +7,20 @@ header > div {
 }
 header > div h1 {
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
   height: inherit;
+  left: 0;
+  width: 130px;
 }
-header > div h1 .logo {
+header > div h1 a {
+  display: block;
   height: 100%;
-  cursor: pointer;
 }
-@media (max-width: 1500px) {
-  header > div h1 {
-    transform: none;
-    left: 0;
-  }
+header > div h1 a .logo {
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  width: 100%;
+  cursor: pointer;
 }
 header > div nav {
   display: flex;
@@ -29,11 +30,11 @@ header > div nav {
 }
 header > div nav p {
   cursor: pointer;
-  font-size: 15px;
+  font-size: 14px;
   text-align: center;
   line-height: 40px;
   padding: 0 20px;
-  color: #7e7e7e;
+  color: #313131;
 }
 header > div nav p.on {
   color: #000;

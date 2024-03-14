@@ -1,86 +1,103 @@
 @font-face {
-  font-family: "SOGANGUNIVERSITYTTF";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/SOGANGUNIVERSITYTTF.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
+    font-family: 'SOGANGUNIVERSITYTTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/SOGANGUNIVERSITYTTF.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
 }
 * {
-  margin: 0;
-  padding: 0;
-  font-family: inherit;
-  color:inherit;
-  font-size: inherit;
-  font-style: inherit;
-  text-decoration: inherit;
-  font-weight: inherit;
-  word-break:keep-all ;
-  /* font-family: 'Noto Sans KR', sans-serif; */
-  font-family: "SOGANGUNIVERSITYTTF";
+    margin: 0;
+    padding: 0;
+    font-family: inherit;
+    color: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    text-decoration: inherit;
+    font-weight: inherit;
+    word-break: keep-all;
+    /* font-family: 'Noto Sans KR', sans-serif; */
+    font-family: 'SOGANGUNIVERSITYTTF';
 }
-textarea{
-  resize: none;
+textarea {
+    resize: none;
 }
 
 li {
-  list-style: none;
+    list-style: none;
 }
 
 table {
-  border-collapse: collapse;
+    border-collapse: collapse;
 }
 
 input,
 select,
 textarea {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
-button{
-  border:none;
-  background: none;
-  outline: none;
-  cursor: pointer;
+button {
+    border: none;
+    background: none;
+    outline: none;
+    cursor: pointer;
 }
 
-img, iframe, video, svg, canvas{
-  display: block;
+img,
+iframe,
+video,
+svg,
+canvas {
+    display: block;
 }
 
-iframe{
-  border: none;
+iframe {
+    border: none;
 }
 
-.hidden{
-  position: fixed;
-  left:-10000px;
+.hidden {
+    position: fixed;
+    left: -10000px;
 }
-fieldset{
-  border: none;
-}
-
-.inner{
-  width: 70%;
-  margin: 0 auto ;
-}
-.body{
-  background-color: rgb(0, 255, 242);
+fieldset {
+    border: none;
 }
 
-.scoreBox{display: flex; }
-.star{
-  display: block;
-  width: 15px;
-  height: 15px;
-  background: url(http://localhost:8000/imgupload/star.png) 50% 50% no-repeat;
-  background-size: contain;
-  cursor:default;
+.inner {
+    width: 60%;
+    margin: 0 auto;
 }
-.emptyStar{
-  display: block;
-  width: 15px;
-  height: 15px;
-  background: url(http://localhost:8000/imgupload/emptyStar.png) 50% 50% no-repeat;
-  background-size: contain;
-  cursor:default;
+@media (max-width: 1500px) {
+    .inner {
+        width: 70%;
+    }
+}
 
+@media (max-width: 1000px) {
+  .inner {
+      width: 80%;
+  }
+}
+
+.body {
+    background-color: rgb(0, 255, 242);
+}
+
+.scoreBox {
+    display: flex;
+}
+.star {
+    display: block;
+    width: 15px;
+    height: 15px;
+    background: url(http://localhost:8000/imgupload/star.png) 50% 50% no-repeat;
+    background-size: contain;
+    cursor: default;
+}
+.emptyStar {
+    display: block;
+    width: 15px;
+    height: 15px;
+    background: url(http://localhost:8000/imgupload/emptyStar.png) 50% 50% no-repeat;
+    background-size: contain;
+    cursor: default;
 }

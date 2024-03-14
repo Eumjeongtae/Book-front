@@ -1,8 +1,8 @@
 @use "../mixin" as m;
 main {
     position: relative;
-    padding-bottom: 200px;
-    width: 60%;
+    padding-bottom: 100px;
+    width: 100%;
     min-width: 800px;
     margin: 50px auto 0;
 
@@ -12,13 +12,22 @@ main {
         padding-bottom: 50px;
         border-bottom: 1px solid #232323;
         .detailItemImage {
-            width: 30%;
+            width: 35%;
             img {
                 width: 100%;
+                max-height: 20vw;
+                object-fit: contain;
+                @media (max-width: 1300px) {
+                    max-height: 25vw;
+                }
+                @media (max-width: 1000px) {
+                    max-height: 30vw;
+                }
+    
             }
         }
         .detailItemInfo {
-            width: 63%;
+            width: 60%;
             li {
                 display: flex;
                 align-items: center;
@@ -180,34 +189,35 @@ main {
 }
 .detailItemBtn {
     width: 100%;
-    position: fixed;
+    position: sticky;
     bottom: 0;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    height: 80px;
-    background-color: #ebebeb;
+    background-color: #f8f8f8;
     box-sizing: border-box;
-    li {
-        & > button {
-            @include m.button;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            padding: 14px 20px;
-        }
-        &:last-child {
-            margin-right: 50px;
-            margin-left: 10px;
-        }
-        &.reserveCalendar {
-            position: absolute;
-            right: 25px;
-            bottom: 75px;
+    .inner {
+        height: 80px;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+
+        p {
+            & > button {
+                @include m.button;
+                border-radius: 5px;
+                font-size: 0.9rem;
+                padding: 14px 20px;
+            }
+            &:last-child {
+                margin-left: 10px;
+            }
+            &.reserveCalendar {
+                position: absolute;
+                right: 25px;
+                bottom: 75px;
+            }
         }
     }
 }
 .detailItemBtn li .canNotRent {
     background-color: #ababab;
     pointer-events: none;
-
 }

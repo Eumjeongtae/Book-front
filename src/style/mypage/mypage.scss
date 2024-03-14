@@ -11,8 +11,9 @@
     margin-top: 50px;
 
     & > div {
-        width: 49.5%;
-        padding: 20px 0 20px;
+        width: 49%;
+        box-sizing: border-box;
+        padding: 20px 15px 20px;
         border: 1px solid rgb(238, 238, 238);
         margin-bottom: 1%;
         display: flex;
@@ -21,7 +22,6 @@
             display: block;
             width: 23%;
             height: 150px;
-            padding: 5px;
             box-sizing: border-box;
             img {
                 display: block;

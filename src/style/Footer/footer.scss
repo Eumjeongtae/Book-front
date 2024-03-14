@@ -1,6 +1,8 @@
 footer {
-    margin-top: 30px;
-    background-color: #e9e9e9;
+    background-color: #ebebeb;
+    &.whiteBg {
+        background-color: #fff;
+    }
     .ft_menu {
         display: flex;
         justify-content: space-evenly;
@@ -17,17 +19,15 @@ footer {
     }
     .ft_info_menu {
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         li {
             font-size: 14px;
             text-align: center;
             font-family: "Nanum Square";
-            em {
-                margin: 0 14px;
-            }
+       
             b {
                 display: inline-block;
-                font-family: 'Nanum Square';
+                font-family: "Nanum Square";
                 font-weight: 600;
             }
         }
@@ -40,11 +40,11 @@ footer {
         padding: 50px 0;
         text-align: center;
     }
-    .footerLogo{
+    .footerLogo {
         width: 150px;
         margin: 0 auto;
         padding: 50px 0 0px;
-        img{
+        img {
             width: 100%;
         }
     }

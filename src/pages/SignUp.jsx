@@ -21,6 +21,7 @@ export default function SignUp() {
     const [authNum, setAuthNum] = useState();
     const { mutate: sendPostData } = usePostData();
     const { sendMail } = useSendMail();
+    const [isButtonDisabled, setIsButtonDisabled] = useState({ idCheck: false, submitMail: false, signId: false });
 
     const validatePassword = (password) => {
         const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
@@ -52,21 +53,28 @@ export default function SignUp() {
     };
 
     const handleMailCheck = async () => {
+        setIsButtonDisabled({ ...isButtonDisabled, submitMail: true });
+
         if (signInfo.email) {
             setMailCheck(true);
             let mail = signInfo.email + signInfo.mailAddr;
             try {
-                let mailAuthNum = await sendMail(mail,'user')
+                let mailAuthNum = await sendMail(mail, 'user');
                 setAuthNum(mailAuthNum.authNum);
+                alert('이메일 인증번호가 발송되었습니다.');
+                setIsButtonDisabled({ ...isButtonDisabled, submitMail: false });
             } catch (error) {
-                console.log('메일확인중 에러' + error);
+                alert('메일확인중 에러' + error);
+                setIsButtonDisabled({ ...isButtonDisabled, submitMail: false });
             }
         } else {
             alert('이메일을 입력해주세요.');
+            setIsButtonDisabled({ ...isButtonDisabled, submitMail: false });
         }
     };
 
     const handleIdCheck = () => {
+        setIsButtonDisabled({ ...isButtonDisabled, idCheck: true });
         if (signInfo.id) {
             try {
                 sendPostData(
@@ -75,6 +83,7 @@ export default function SignUp() {
                         onSuccess: (data) => {
                             setVali({ ...vali, id: data });
                             !data ? alert('이미 있는 아이디 입니다.') : alert('아이디 인증이 완료되었습니다!');
+                            setIsButtonDisabled({ ...isButtonDisabled, idCheck: false });
                         },
                         onError: (error) => {
                             // 요청이 실패했을 때 실행될 로직
@@ -83,10 +92,12 @@ export default function SignUp() {
                     }
                 );
             } catch (error) {
-                console.log('아이디확인중 에러' + error);
+                alert('아이디확인중 에러' + error);
+                setIsButtonDisabled({ ...isButtonDisabled, idCheck: false });
             }
         } else {
             alert('아이디를 입력해주세요.');
+            setIsButtonDisabled({ ...isButtonDisabled, idCheck: false });
         }
     };
 
@@ -104,17 +115,26 @@ export default function SignUp() {
                 email: signInfo.email + signInfo.mailAddr,
             };
             try {
+                setIsButtonDisabled({ ...isButtonDisabled, signId: true });
+
                 sendPostData(
                     { url: `http://localhost:8000/signup`, data: infoData },
                     {
                         onSuccess: (data) => {
+                            console.log(data);
                             navigate('/');
                         },
-                        onError: (error) => console.error('에러 발생:', error),
+                        onError: (error) => {
+                            console.error('에러 발생:', error);
+                            alert('오류가 발생했습니다 다시 시도해 주세요!');
+                            window.location.reload();
+                        },
                     }
                 );
             } catch (error) {
                 console.log('회원가입중 에러' + error);
+                alert('오류가 발생했습니다 다시 시도해 주세요!');
+                window.location.reload();
             }
         }
     };
@@ -134,8 +154,7 @@ export default function SignUp() {
                         onChange={handleChange}
                         maxLength="20"
                     />
-                    <button type="button" onClick={handleIdCheck}>
-                        {' '}
+                    <button type="button" disabled={isButtonDisabled.idCheck} onClick={handleIdCheck}>
                         중복 확인
                     </button>
                     {!vali.id && <span className="noticeTxt">&#8251;아이디 중복확인을 해주세요.</span>}
@@ -197,8 +216,7 @@ export default function SignUp() {
                         <option value="">직접입력</option>
                     </select>
 
-                    <button type="button" onClick={() => handleMailCheck()}>
-                        {' '}
+                    <button type="button" disabled={isButtonDisabled.submitMail} onClick={() => handleMailCheck()}>
                         인증
                     </button>
                     {mailCheck && (
@@ -219,7 +237,9 @@ export default function SignUp() {
                         <button type="button" onClick={() => navigate('/')} className="signcancel">
                             취소
                         </button>
-                        <button className="signcheck">확인</button>
+                        <button className="signcheck" disabled={isButtonDisabled.signId}>
+                            확인
+                        </button>
                     </div>
                 </div>
             </form>

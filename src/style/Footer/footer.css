@@ -1,6 +1,8 @@
 footer {
-  margin-top: 30px;
-  background-color: #e9e9e9;
+  background-color: #ebebeb;
+}
+footer.whiteBg {
+  background-color: #fff;
 }
 footer .ft_menu {
   display: flex;
@@ -18,15 +20,12 @@ footer .ft_menu li a {
 }
 footer .ft_info_menu {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
 }
 footer .ft_info_menu li {
   font-size: 14px;
   text-align: center;
   font-family: "Nanum Square";
-}
-footer .ft_info_menu li em {
-  margin: 0 14px;
 }
 footer .ft_info_menu li b {
   display: inline-block;

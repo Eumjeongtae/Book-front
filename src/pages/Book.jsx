@@ -29,6 +29,7 @@ export default function Book() {
     const [viewCalendar, setViewCalendar] = useState(false);
     const { returnBook, reservationBook, reservationCancelBook } = useBookActions();
     const [averageScore, setAverageScore] = useState(0); // 평균 점수 상태
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
     useEffect(() => {
         if (data?.bookReviews && data.bookReviews.length > 0) {
@@ -42,13 +43,13 @@ export default function Book() {
 
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
-    if (!data || data.length === 0) return <div>No data found</div>;
+    if (!data.bookDetails || data.bookDetails.length === 0) return <div>No data found</div>;
 
-    console.log(data);
-    
+
     const closeReviewPopup = (e) => setReviewBtn(e);
 
     const handleLike = () => {
+        setIsButtonDisabled(true);
         try {
             sendPostData(
                 {
@@ -60,10 +61,19 @@ export default function Book() {
                     },
                 },
                 {
-                    onSuccess: (result) => queryClient.invalidateQueries([url]),
+                    onSuccess: (result) => {
+                        queryClient.invalidateQueries([url]);
+                        setTimeout(() => {
+                            setIsButtonDisabled(false);
+                        }, 800);
+                    },
                     onError: (error) => {
                         // 요청이 실패했을 때 실행될 로직
                         console.error('에러 발생:', error);
+                        alert('좋아요 오류')
+                        setTimeout(() => {
+                            setIsButtonDisabled(false);
+                        }, 800);
                     },
                 }
             );
@@ -118,7 +128,7 @@ export default function Book() {
     };
 
     return (
-        <>
+        <section className="bookDetailsection">
             <div className="inner">
                 <main>
                     <section className="detailItem">
@@ -145,7 +155,7 @@ export default function Book() {
                                     <span>{data.bookDetails.memo ? data.bookDetails.memo : '메모 없음'}</span>
                                 </li>
                                 <li className="infoBtn">
-                                    <button type="button" onClick={handleLike}>
+                                    <button type="button" disabled={isButtonDisabled} onClick={handleLike}>
                                         {data.likesDetails.user_likes ? <IoIosHeart /> : <IoIosHeartEmpty />}
                                         <span>{data.likesDetails.total_likes}</span>
                                     </button>
@@ -166,21 +176,21 @@ export default function Book() {
                     </section>
 
                     <section className="wishList reviewList">
-                        {data.bookReviews ? (
-                            <>
-                                <div className="container1">
-                                    <div>
-                                        <div className="starBox">
-                                            <p className="starNum">{averageScore}</p>
-                                            <Score score={averageScore} />
-                                        </div>
-                                        <div className="middle"></div>
-                                        <div className="percentBox">
-                                            <p>{((averageScore / 5) * 100).toFixed()}%</p>
-                                            <span>만족후기</span>
-                                        </div>
-                                    </div>
+                        <div className="container1">
+                            <div>
+                                <div className="starBox">
+                                    <p className="starNum">{averageScore}</p>
+                                    <Score score={averageScore} />
                                 </div>
+                                <div className="middle"></div>
+                                <div className="percentBox">
+                                    <p>{((averageScore / 5) * 100).toFixed()}%</p>
+                                    <span>만족후기</span>
+                                </div>
+                            </div>
+                        </div>
+                        {data.bookReviews.length ? (
+                            <>
                                 <ul className="review">
                                     {data?.bookReviews.map((v, i) => (
                                         <li key={i}>
@@ -196,28 +206,30 @@ export default function Book() {
                                 </ul>
                             </>
                         ) : (
-                            <p className="noList">상점후기가 없습니다.</p>
+                            <p className="noList">리뷰가 없습니다.</p>
                         )}
                     </section>
                 </main>
             </div>
-            <ul className="detailItemBtn">
-                {viewCalendar && (
-                    <li className="reserveCalendar">
-                        <Calendar book_id={data.bookDetails.id} />
-                    </li>
-                )}
+            <div className="detailItemBtn">
+                <div className="inner">
+                    {viewCalendar && (
+                        <p className="reserveCalendar">
+                            <Calendar book_id={data.bookDetails.id} />
+                        </p>
+                    )}
 
-                <li>
-                    <button type="button" onClick={() => setReviewBtn(true)}>
-                        리뷰쓰기
-                    </button>
-                </li>
-                <li>{rentBtn()}</li>
-            </ul>
+                    <p>
+                        <button type="button" onClick={() => setReviewBtn(true)}>
+                            리뷰쓰기
+                        </button>
+                    </p>
+                    <p>{rentBtn()}</p>
+                </div>
+            </div>
             {reviewBtn && (
                 <Review type="bookDetail" closeReviewPopup={closeReviewPopup} book_id={data.bookDetails.id} />
             )}
-        </>
+        </section>
     );
 }

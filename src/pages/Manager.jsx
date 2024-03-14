@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Form from '../components/Form';
 import { useNavigate } from 'react-router-dom';
 import { getUser } from '../util/localStorage';
-import {  getgenre } from '../util/getgenre';
+import { getgenre } from '../util/getgenre';
 import { formatDate } from '../util/formatDate';
 import useSendMail from '../hooks/useSendMail';
 
@@ -16,6 +16,7 @@ export default function Manager() {
     const [bookList, setBookList] = useState([]);
     const [tab, setTab] = useState('check');
     const { sendMail } = useSendMail();
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
     useEffect(() => {
         if (data && data.allBooks) {
@@ -41,9 +42,17 @@ export default function Manager() {
     const handleClick = (tab) => setTab(tab);
 
     const handleMailSubnit = (mail, book_name) => {
+        setIsButtonDisabled(true); // 메일 보내기 함수가 호출되면 버튼을 비활성화
         sendMail(mail, book_name)
-            .then((data) => alert('메일을 전송했습니다!'))
-            .catch(console.error);
+            .then((data) => {
+                alert('메일을 전송했습니다!');
+                setIsButtonDisabled(false);
+            })
+            .catch(()=>{
+                alert('메일 전송에 실패했습니다.')
+                setIsButtonDisabled(false);
+
+            });
     };
 
     const checkDay = (date, email, book_name) => {
@@ -52,7 +61,7 @@ export default function Manager() {
         return currentDate.getTime() > expectedDate.getTime() ? (
             <>
                 연체{' '}
-                <button type="button" onClick={() => handleMailSubnit(email, book_name)}>
+                <button type="button" disabled={isButtonDisabled} onClick={() => handleMailSubnit(email, book_name)}>
                     메일 보내기
                 </button>
             </>
@@ -61,7 +70,6 @@ export default function Manager() {
         );
     };
 
-    console.log(bookList);
     return (
         <section className="inner">
             <ul className="adminPageTabBtn">
@@ -73,7 +81,7 @@ export default function Manager() {
                 </li>
             </ul>
             {tab === 'check' ? (
-                <table striped bordered className="customTable">
+                <table className="customTable">
                     <thead>
                         <tr>
                             <th>제목</th>

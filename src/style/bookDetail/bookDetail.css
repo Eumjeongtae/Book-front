@@ -1,7 +1,7 @@
 main {
   position: relative;
-  padding-bottom: 200px;
-  width: 60%;
+  padding-bottom: 100px;
+  width: 100%;
   min-width: 800px;
   margin: 50px auto 0;
 }
@@ -12,13 +12,26 @@ main .detailItem {
   border-bottom: 1px solid #232323;
 }
 main .detailItem .detailItemImage {
-  width: 30%;
+  width: 35%;
 }
 main .detailItem .detailItemImage img {
   width: 100%;
+  max-height: 20vw;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+@media (max-width: 1300px) {
+  main .detailItem .detailItemImage img {
+    max-height: 25vw;
+  }
+}
+@media (max-width: 1000px) {
+  main .detailItem .detailItemImage img {
+    max-height: 30vw;
+  }
 }
 main .detailItem .detailItemInfo {
-  width: 63%;
+  width: 60%;
 }
 main .detailItem .detailItemInfo li {
   display: flex;
@@ -158,16 +171,18 @@ main .noList {
 
 .detailItemBtn {
   width: 100%;
-  position: fixed;
+  position: sticky;
   bottom: 0;
+  background-color: #f8f8f8;
+  box-sizing: border-box;
+}
+.detailItemBtn .inner {
+  height: 80px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  height: 80px;
-  background-color: #ebebeb;
-  box-sizing: border-box;
 }
-.detailItemBtn li > button {
+.detailItemBtn .inner p > button {
   display: block;
   background-color: rgb(58, 58, 58);
   color: white;
@@ -177,11 +192,10 @@ main .noList {
   font-size: 0.9rem;
   padding: 14px 20px;
 }
-.detailItemBtn li:last-child {
-  margin-right: 50px;
+.detailItemBtn .inner p:last-child {
   margin-left: 10px;
 }
-.detailItemBtn li.reserveCalendar {
+.detailItemBtn .inner p.reserveCalendar {
   position: absolute;
   right: 25px;
   bottom: 75px;
