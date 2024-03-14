@@ -9,10 +9,10 @@ export default function Product(props) {
         if (props.type === 'history') {
             return <History rent_date={props.data.rent_date} return_date={props.data.return_date} />;
         } else if (props.type === 'rent') {
-            return <Rent return_date={props.data.return_date} book_id={props.data.id} url={props.url} />;
+            return <Rent return_date={props.data.expected_return_date} book_id={props.data.id} url={props.url} />;
         } else if (props.type === 'decision') {
             return (
-                <Decision bookStatus={props.data.status} book_id={props.data.id} return_date={props.data.return_date} />
+                <Decision bookStatus={props.data.status} book_id={props.data.id} return_date={props.data.expected_return_date} />
             );
         }
     };

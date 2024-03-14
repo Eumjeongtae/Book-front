@@ -21,8 +21,8 @@ export default function Header(params) {
         <header >
             <div className='inner'>
                 <h1>
-                    <Link to="/list/preview">
-                        <Image img="imgupload/mainLogo.png" class="logo" />
+                    <Link to="/main">
+                        <Image img="imgupload/logo2.png" class="logo" />
                     </Link>
                 </h1>
                 <div>
@@ -53,9 +53,9 @@ export default function Header(params) {
                     <p className={genre === '3' ? 'on' : ''} onClick={() => handleNavigate('/list/3')}>
                         General
                     </p>
-                    <p className={pathname === '/landing' ? 'on' : ''} onClick={() => handleNavigate('/landing')}>
+                    {/* <p className={pathname === '/landing' ? 'on' : ''} onClick={() => handleNavigate('/landing')}>
                         Landing
-                    </p>
+                    </p> */}
                 </nav>
             </div>
         </header>

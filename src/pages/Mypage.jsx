@@ -14,6 +14,8 @@ export default function Mypage() {
 
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
+
+    console.log(data);
     return (
         <main className="inner">
             <ul className="mypageTabBtn">

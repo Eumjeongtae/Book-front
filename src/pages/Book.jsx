@@ -15,7 +15,7 @@ import { useQueryClient } from 'react-query';
 import useBookActions from '../hooks/useBookActions';
 import 'react-datepicker/dist/react-datepicker.css'; // 기본 스타일링
 import Calendar from '../components/Calendar';
-import { genre } from '../util/genre';
+import { getgenre } from '../util/getgenre';
 import { formatDate } from '../util/formatDate';
 
 export default function Book() {
@@ -43,7 +43,9 @@ export default function Book() {
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error: {error.message}</div>;
     if (!data || data.length === 0) return <div>No data found</div>;
+
     console.log(data);
+    
     const closeReviewPopup = (e) => setReviewBtn(e);
 
     const handleLike = () => {
@@ -127,7 +129,7 @@ export default function Book() {
                             <ul>
                                 <li className="bookTitle">{data.bookDetails.book_name}</li>
                                 <li>
-                                    <b>장르</b> <span>{genre(data.bookDetails.genre)}</span>{' '}
+                                    <b>장르</b> <span>{getgenre(data.bookDetails.genre)}</span>{' '}
                                 </li>
                                 <li>
                                     <b>배급사</b> <span>{data.bookDetails.publisher}</span>{' '}

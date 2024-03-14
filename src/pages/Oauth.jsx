@@ -15,7 +15,7 @@ export default function Oauth() {
                 const result = await axios.post(`http://localhost:8000/auth/${site}`, { code });
                 if (result.data.login) {
                     setAuthToken(result);
-                    navigate('/list/preview');
+                    navigate('/main');
                 }
             } catch (error) {
                 console.error('Error fetching auth token:', error);

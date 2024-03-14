@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Form from '../components/Form';
 import { useNavigate } from 'react-router-dom';
 import { getUser } from '../util/localStorage';
-import { genre } from '../util/genre';
+import {  getgenre } from '../util/getgenre';
 import { formatDate } from '../util/formatDate';
 import useSendMail from '../hooks/useSendMail';
 
@@ -46,10 +46,19 @@ export default function Manager() {
             .catch(console.error);
     };
 
-    const checkDay = (date) => {
+    const checkDay = (date, email, book_name) => {
         const currentDate = new Date();
         const expectedDate = new Date(date);
-        return currentDate.getTime() > expectedDate.getTime() ? <>연체</> : <>대여중</>;
+        return currentDate.getTime() > expectedDate.getTime() ? (
+            <>
+                연체{' '}
+                <button type="button" onClick={() => handleMailSubnit(email, book_name)}>
+                    메일 보내기
+                </button>
+            </>
+        ) : (
+            <>대여중</>
+        );
     };
 
     console.log(bookList);
@@ -79,7 +88,7 @@ export default function Manager() {
                         {bookList.map((item, i) => (
                             <tr key={i}>
                                 <td>{item.book_name}</td>
-                                <td>{genre(item.genre)}</td>
+                                <td>{getgenre(item.genre)}</td>
                                 <td>{formatDate(item.income_date)}</td>
                                 {item.status === 0 ? (
                                     <>
@@ -88,15 +97,7 @@ export default function Manager() {
                                     </>
                                 ) : (
                                     <>
-                                        <td>
-                                            {checkDay(item.expected_return_date)}
-                                            <button
-                                                type="button"
-                                                onClick={() => handleMailSubnit(item.email, item.book_name)}
-                                            >
-                                                메일 보내기
-                                            </button>
-                                        </td>
+                                        <td>{checkDay(item.expected_return_date, item.email, item.book_name)}</td>
                                         <td>{item.name}</td>
                                     </>
                                 )}

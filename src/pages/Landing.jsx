@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'; // useEffect를 import합니다.
 import '../style/main/main.css';
-import ProductList from '../components/ProductList';
+import ProductList from './ProductList';
 import { getUser } from "../util/localStorage";
-import { useNavigate } from 'react-router-dom';
 import BarChart from '../components/BarChart';
 import { useFetchData } from '../api/apiUtils';
 

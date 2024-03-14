@@ -61,7 +61,7 @@ export default function Form(props) {
 
         try {
             let deleteResult = await axios.delete(`http://localhost:8000/manager/${props.info.id}`);
-            deleteResult ? navigate('/list/preview') : alert('삭제에 실패하였습니다')
+            deleteResult ? navigate('/main') : alert('삭제에 실패하였습니다');
         } catch (error) {
             console.log(error);
         }
@@ -85,7 +85,7 @@ export default function Form(props) {
                         data: form,
                     },
                     {
-                        onSuccess: (data) => navigate('/list/preview'),
+                        onSuccess: (data) => navigate('/main'),
                         onError: (error) => {
                             // 요청이 실패했을 때 실행될 로직
                             console.error('에러 발생:', error);

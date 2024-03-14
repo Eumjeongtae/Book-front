@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import useRedirect from './hooks/useRedirect';
 import { useDispatch } from 'react-redux';
 import { mainChange } from './modules/pageReducer';
+import Footer from './components/Footer';
 
 function App() {
     const [location, setLocation] = useState(true);
@@ -29,6 +30,9 @@ function App() {
         <>
             {location && <Header />}
             <Outlet />
+            {location && <Footer/>}
+
+            
         </>
     );
 }

@@ -16,6 +16,7 @@ import Mypage from './pages/Mypage';
 import Manager from './pages/Manager';
 import Modify from './pages/Modify';
 import Landing from './pages/Landing';
+import ProductList from './pages/ProductList';
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
@@ -24,7 +25,8 @@ const router = createBrowserRouter([
         element: <App />,
         children: [
             { index: '/', element: <Login /> },
-            { path: '/list/:genre', element: <Home /> },
+            { path: '/main', element: <Home /> },
+            { path: '/list/:genre', element: <ProductList /> },
             { path: '/detail/:id', element: <Book /> },
             { path: '/login', element: <Login /> },
             { path: '/landing', element: <Landing /> },

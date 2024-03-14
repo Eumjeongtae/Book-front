@@ -2,15 +2,19 @@ import React, { useState } from 'react';
 import { Bar } from 'react-chartjs-2';
 import 'chart.js/auto';
 
-const BarChart = ({list,type}) => {
-    let [nameList,setNameList] = useState(list ? list.map(v=>v.book_name) : null);
-    
+const BarChart = ({ list, type }) => {
+    let [nameList, setNameList] = useState(
+        list.map((v) => (v.book_name.length > 8 ? v.book_name.slice(0, 8) +'...' : v.book_name))
+    );
+    let [likeCount, setLikeCount] = useState(list.map((v) => v.like_count));
+    let [rentCount, setRentCount] = useState(list.map((v) => v.rent_count));
+
     const data = {
         labels: nameList,
         datasets: [
             {
                 label: `# of ${type}`,
-                data: [12, 19, 3, 5, 2, 3,15,11,10],
+                data: type === 'like' ? likeCount : rentCount,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',

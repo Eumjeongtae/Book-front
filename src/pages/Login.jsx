@@ -48,7 +48,7 @@ export default function Login() {
                     onSuccess: (result) => {
                         if (result.data.login) {
                             setAuthToken(result);
-                            navigate('/list/preview');
+                            navigate('/main');
                         }
                     },
                     onError: (error) => {
