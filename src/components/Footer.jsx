@@ -8,7 +8,7 @@ export default function Footer({pathColor}) {
             <div className="inner">
                 <p className="footerLogo">
                     <Link to="/main">
-                        <Image img="imgupload/logo2.png" class="logo" />
+                        <Image img="imgupload/logo1.png" class="logo" />
                     </Link>
                 </p>
 

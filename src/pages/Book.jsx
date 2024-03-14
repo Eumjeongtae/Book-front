@@ -29,7 +29,7 @@ export default function Book() {
     const [viewCalendar, setViewCalendar] = useState(false);
     const { returnBook, reservationBook, reservationCancelBook } = useBookActions();
     const [averageScore, setAverageScore] = useState(0); // 평균 점수 상태
-    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+    const [isButtonDisabled, setIsButtonDisabled] = useState({ likeBtn: false, reserveBtn: false });
 
     useEffect(() => {
         if (data?.bookReviews && data.bookReviews.length > 0) {
@@ -45,11 +45,10 @@ export default function Book() {
     if (error) return <div>Error: {error.message}</div>;
     if (!data.bookDetails || data.bookDetails.length === 0) return <div>No data found</div>;
 
-
     const closeReviewPopup = (e) => setReviewBtn(e);
 
     const handleLike = () => {
-        setIsButtonDisabled(true);
+        setIsButtonDisabled({ ...isButtonDisabled, likeBtn: true });
         try {
             sendPostData(
                 {
@@ -64,15 +63,15 @@ export default function Book() {
                     onSuccess: (result) => {
                         queryClient.invalidateQueries([url]);
                         setTimeout(() => {
-                            setIsButtonDisabled(false);
+                            setIsButtonDisabled({ ...isButtonDisabled, likeBtn: false });
                         }, 800);
                     },
                     onError: (error) => {
                         // 요청이 실패했을 때 실행될 로직
                         console.error('에러 발생:', error);
-                        alert('좋아요 오류')
+                        alert('좋아요 오류');
                         setTimeout(() => {
-                            setIsButtonDisabled(false);
+                            setIsButtonDisabled({ ...isButtonDisabled, likeBtn: false });
                         }, 800);
                     },
                 }
@@ -108,21 +107,30 @@ export default function Book() {
     };
 
     const handleReserve = () => {
+        setIsButtonDisabled({ ...isButtonDisabled, reserveBtn: true });
+
         if (data.rentalHistory?.user_id === userInfo.id_idx && data.rentalHistory?.return_status === 0) {
             alert('현재 대여하고 계신 책 입니다.');
+            setIsButtonDisabled({ ...isButtonDisabled, reserveBtn: false });
+
             return;
         } else if (data.bookReservation && data.bookReservation.reservation_status === 0) {
             let userResponse = window.confirm(`예약중이신 책 입니다 예약 취소 하시겠습니까?`);
             if (userResponse) {
                 reservationCancelBook(data.bookDetails.id, url);
+                setIsButtonDisabled({ ...isButtonDisabled, reserveBtn: false });
             }
         } else if (data.bookDetails.status === 1) {
             let userResponse = window.confirm(`책을 예약 하시겠습니까?`);
             if (userResponse) {
                 reservationBook(data.bookDetails.id, url);
+                setIsButtonDisabled({ ...isButtonDisabled, reserveBtn: false });
             }
         } else if (data.bookDetails.status === 0) {
+            console.log(1);
             alert('현재 책 대여가 가능합니다.');
+            setIsButtonDisabled({ ...isButtonDisabled, reserveBtn: false });
+
             return;
         }
     };
@@ -155,21 +163,27 @@ export default function Book() {
                                     <span>{data.bookDetails.memo ? data.bookDetails.memo : '메모 없음'}</span>
                                 </li>
                                 <li className="infoBtn">
-                                    <button type="button" disabled={isButtonDisabled} onClick={handleLike}>
+                                    <button type="button" disabled={isButtonDisabled.likeBtn} onClick={handleLike}>
                                         {data.likesDetails.user_likes ? <IoIosHeart /> : <IoIosHeartEmpty />}
                                         <span>{data.likesDetails.total_likes}</span>
                                     </button>
-                                    {data.bookReservation && data.bookReservation.reservation_status === 0 ? (
-                                        <button type="button" onClick={() => handleReserve()}>
-                                            <PiShoppingBagFill />
-                                            <span>예약 취소하기</span>
-                                        </button>
-                                    ) : (
-                                        <button type="button" onClick={() => handleReserve()}>
-                                            <PiShoppingBag />
-                                            <span>예약 하기</span>
-                                        </button>
-                                    )}
+                                    <button
+                                        type="button"
+                                        disabled={isButtonDisabled.reserveBtn}
+                                        onClick={() => handleReserve()}
+                                    >
+                                        {data.bookReservation && data.bookReservation.reservation_status === 0 ? (
+                                            <>
+                                                <PiShoppingBagFill />
+                                                <span>예약 취소하기</span>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <PiShoppingBag />
+                                                <span>예약 하기</span>
+                                            </>
+                                        )}
+                                    </button>
                                 </li>
                             </ul>
                         </div>
