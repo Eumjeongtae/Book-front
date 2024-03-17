@@ -104,7 +104,7 @@
   display: flex;
   flex-wrap: wrap;
   overflow-x: hidden;
-  padding-top: 5px;
+  padding: 3px;
 }
 .imageInputBox > span {
   width: 202px;
@@ -122,6 +122,7 @@
   font-weight: 400;
   margin-right: 1rem;
   margin-bottom: 1rem;
+  box-sizing: border-box;
 }
 .imageInputBox > span input {
   width: 100%;

@@ -20,8 +20,8 @@ export default function SignUp() {
     const [mailCheck, setMailCheck] = useState(false);
     const [authNum, setAuthNum] = useState();
     const { mutate: sendPostData } = usePostData();
-    const { sendMail } = useSendMail();
-    const [isButtonDisabled, setIsButtonDisabled] = useState({ idCheck: false, submitMail: false, signId: false });
+    const { sendMail, mailButtonDisabled } = useSendMail();
+    const [isButtonDisabled, setIsButtonDisabled] = useState({ idCheck: false, signId: false });
 
     const validatePassword = (password) => {
         const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
@@ -53,8 +53,6 @@ export default function SignUp() {
     };
 
     const handleMailCheck = async () => {
-        setIsButtonDisabled({ ...isButtonDisabled, submitMail: true });
-
         if (signInfo.email) {
             setMailCheck(true);
             let mail = signInfo.email + signInfo.mailAddr;
@@ -62,14 +60,11 @@ export default function SignUp() {
                 let mailAuthNum = await sendMail(mail, 'user');
                 setAuthNum(mailAuthNum.authNum);
                 alert('이메일 인증번호가 발송되었습니다.');
-                setIsButtonDisabled({ ...isButtonDisabled, submitMail: false });
             } catch (error) {
                 alert('메일확인중 에러' + error);
-                setIsButtonDisabled({ ...isButtonDisabled, submitMail: false });
             }
         } else {
             alert('이메일을 입력해주세요.');
-            setIsButtonDisabled({ ...isButtonDisabled, submitMail: false });
         }
     };
 
@@ -216,7 +211,7 @@ export default function SignUp() {
                         <option value="">직접입력</option>
                     </select>
 
-                    <button type="button" disabled={isButtonDisabled.submitMail} onClick={() => handleMailCheck()}>
+                    <button type="button" disabled={mailButtonDisabled} onClick={() => handleMailCheck()}>
                         인증
                     </button>
                     {mailCheck && (

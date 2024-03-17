@@ -1,5 +1,17 @@
 @use "../mixin" as m;
-
+.chatContainer{
+    position: fixed;
+    right: 5%;
+    bottom: 10%;
+    .react-chatbot-kit-chat-inner-container{
+        div{
+            img{
+                width: 100%;
+                object-fit: contain;
+            }
+        }
+    }
+}
 .formLogo {
     font-size: 40px;
     font-weight: 900;

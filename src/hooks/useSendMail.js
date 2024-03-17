@@ -1,24 +1,32 @@
+import { useState } from 'react';
 import { usePostData } from '../api/apiPost';
 
 export default function useSendMail() {
     const { mutate: sendPostData } = usePostData();
-    // Promise를 반환하는 sendMail 함수
-    const sendMail = (mail,sendMailValue) => {
+    const [mailButtonDisabled, setMailButtonDisabled] = useState(false); // 버튼 활성/비활성 상태
+
+    const sendMail = (mail, book_name) => {
+        setMailButtonDisabled(true); // 버튼 비활성화
+
+        // Promise 로직 시작
         return new Promise((resolve, reject) => {
             sendPostData(
-                { url: `http://localhost:8000/signup/mailCheck/${sendMailValue}`, data: mail },
+                { url: `http://localhost:8000/signup/mailCheck/${book_name}`, data: mail },
                 {
                     onSuccess: (data) => {
-                        resolve(data); // Promise를 resolve 하여 결과를 반환
+                        setMailButtonDisabled(false); // 버튼 활성화
+                        resolve(data);
                     },
                     onError: (error) => {
-                        console.error('에러 발생:', error);
-                        reject(error); // Promise를 reject 하여 에러를 반환
+                        setMailButtonDisabled(false); // 버튼 활성화
+                        reject(error);
                     },
                 }
             );
         });
+        // Promise 로직 종료
     };
 
-    return { sendMail };
+    // 상태와 함수 반환
+    return { sendMail, mailButtonDisabled };
 }

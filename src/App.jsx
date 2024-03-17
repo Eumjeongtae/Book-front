@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { mainChange } from './modules/pageReducer';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
+import Chatting from './components/Chatting';
 
 function App() {
     const [location, setLocation] = useState(true);
@@ -31,6 +32,7 @@ function App() {
            <ScrollToTop />
             {location && <Header />}
             <Outlet />
+            <Chatting />
             {location && <Footer pathColor={pathname.startsWith('/detail/')} />}
         </>
     );

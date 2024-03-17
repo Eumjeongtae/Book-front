@@ -3,6 +3,7 @@ import { useQueryClient } from 'react-query';
 import { usePostData } from '../api/apiPost';
 import { formatDateToMySQL } from '../util/formatDateToMySQL';
 import { getUser } from '../util/localStorage';
+import { useState } from 'react';
 
 //책 대여 반납 커스텀훅
 function useBookActions() {
@@ -11,6 +12,7 @@ function useBookActions() {
     const userInfo = getUser() ? getUser().userInfo : '';
     let now = new Date();
     const now_date = formatDateToMySQL(now); //db형식
+    const [bookButtonDisabled, setBookButtonDisabled] = useState({ reserBtn: false, returnBtn: false }); // 버튼 활성/비활성 상태
 
     const rentBook = (date, book_id) => {
         let returnDate = new Date(date);
@@ -50,6 +52,8 @@ function useBookActions() {
     };
 
     const returnBook = (book_id, url) => {
+        setBookButtonDisabled({ ...bookButtonDisabled, returnBtn: true });
+
         let userResponse = window.confirm(`반납 하시겠습니까?`);
         if (userResponse) {
             try {
@@ -65,10 +69,12 @@ function useBookActions() {
                         onSuccess: (result) => {
                             queryClient.invalidateQueries([url]);
                             alert('반납이 완료되었습니다.');
+                            setBookButtonDisabled({ ...bookButtonDisabled, returnBtn: false });
                         },
                         onError: (error) => {
                             // 요청이 실패했을 때 실행될 로직
                             console.error('에러 발생:', error);
+                            setBookButtonDisabled({ ...bookButtonDisabled, returnBtn: false });
                         },
                     }
                 );
@@ -76,11 +82,15 @@ function useBookActions() {
                 // API 호출 실패 시 예외 처리
                 console.error('반납 과정 중 에러 발생:', error);
                 alert('책 반납 과정에서 문제가 발생했습니다. 다시 시도해주세요.');
+                setBookButtonDisabled({ ...bookButtonDisabled, returnBtn: false });
             }
+        } else {
+            setBookButtonDisabled({ ...bookButtonDisabled, returnBtn: false });
         }
     };
 
     const reservationBook = (book_id, url) => {
+        setBookButtonDisabled({ ...bookButtonDisabled, reserBtn: true });
         try {
             sendPostData(
                 {
@@ -95,10 +105,12 @@ function useBookActions() {
                     onSuccess: (result) => {
                         queryClient.invalidateQueries([url]);
                         alert('책 예약이 완료되었습니다');
+                        setBookButtonDisabled({ ...bookButtonDisabled, reserBtn: false });
                     },
                     onError: (error) => {
                         // 요청이 실패했을 때 실행될 로직
                         console.error('에러 발생:', error);
+                        setBookButtonDisabled({ ...bookButtonDisabled, reserBtn: false });
                     },
                 }
             );
@@ -106,9 +118,12 @@ function useBookActions() {
             // API 호출 실패 시 예외 처리
             console.error('예약 과정 중 에러 발생:', error);
             alert('책 예약 과정에서 문제가 발생했습니다. 다시 시도해주세요.');
+            setBookButtonDisabled({ ...bookButtonDisabled, reserBtn: false });
         }
     };
     const reservationCancelBook = (book_id, url) => {
+        setBookButtonDisabled({ ...bookButtonDisabled, reserBtn: true });
+
         try {
             sendPostData(
                 {
@@ -123,10 +138,12 @@ function useBookActions() {
                     onSuccess: (result) => {
                         queryClient.invalidateQueries([url]);
                         alert('책 예약이 취소되었습니다');
+                        setBookButtonDisabled({ ...bookButtonDisabled, reserBtn: false });
                     },
                     onError: (error) => {
                         // 요청이 실패했을 때 실행될 로직
                         console.error('에러 발생:', error);
+                        setBookButtonDisabled({ ...bookButtonDisabled, reserBtn: false });
                     },
                 }
             );
@@ -134,10 +151,11 @@ function useBookActions() {
             // API 호출 실패 시 예외 처리
             console.error('예약취소 과정 중 에러 발생:', error);
             alert('책 예약취소 과정에서 문제가 발생했습니다. 다시 시도해주세요.');
+            setBookButtonDisabled({ ...bookButtonDisabled, reserBtn: false });
         }
     };
 
-    return { rentBook, returnBook, reservationBook, reservationCancelBook };
+    return { rentBook, returnBook, reservationBook, reservationCancelBook, bookButtonDisabled };
 }
 
 export default useBookActions;

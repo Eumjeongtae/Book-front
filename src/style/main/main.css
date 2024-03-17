@@ -1,4 +1,15 @@
 @charset "UTF-8";
+.chatContainer {
+  position: fixed;
+  right: 5%;
+  bottom: 10%;
+}
+.chatContainer .react-chatbot-kit-chat-inner-container div img {
+  width: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
 .formLogo {
   font-size: 40px;
   font-weight: 900;

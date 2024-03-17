@@ -31,7 +31,6 @@ export default function Home() {
                         ))}
                     </MySwiper>
                 </div>
-
                 <section className='landingSection landingChart'>
 
                 <div >

@@ -15,8 +15,7 @@ export default function Manager() {
     const { data, isLoading, error } = useFetchData(urlInfo);
     const [bookList, setBookList] = useState([]);
     const [tab, setTab] = useState('check');
-    const { sendMail } = useSendMail();
-    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+    const { sendMail ,mailButtonDisabled} = useSendMail();
 
     useEffect(() => {
         if (data && data.allBooks) {
@@ -42,15 +41,12 @@ export default function Manager() {
     const handleClick = (tab) => setTab(tab);
 
     const handleMailSubnit = (mail, book_name) => {
-        setIsButtonDisabled(true); // 메일 보내기 함수가 호출되면 버튼을 비활성화
         sendMail(mail, book_name)
             .then((data) => {
                 alert('메일을 전송했습니다!');
-                setIsButtonDisabled(false);
             })
             .catch(()=>{
                 alert('메일 전송에 실패했습니다.')
-                setIsButtonDisabled(false);
 
             });
     };
@@ -60,8 +56,8 @@ export default function Manager() {
         const expectedDate = new Date(date);
         return currentDate.getTime() > expectedDate.getTime() ? (
             <>
-                연체{' '}
-                <button type="button" disabled={isButtonDisabled} onClick={() => handleMailSubnit(email, book_name)}>
+                연체
+                <button type="button" disabled={mailButtonDisabled} onClick={() => handleMailSubnit(email, book_name)}>
                     메일 보내기
                 </button>
             </>
